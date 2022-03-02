@@ -1,0 +1,16 @@
+.dot {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+ 
+.navbar-text {
+  
+  font-weight: bold;
+}
+
+.pointer{
+    cursor: pointer;
+}
