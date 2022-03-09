@@ -4,7 +4,8 @@ const connectDB = async () => {
   try {
     const conn = await mongoose.connect(
       // 'mongodb://genova:123@localhost:27017/genova',
-      'mongodb+srv://genova:123@genova.mz1ru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      // 'mongodb+srv://genova:123@genova.mz1ru.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      process.env.MONGO_URI,
       {
         useUnifiedTopology: true,
         useNewUrlParser: true,
