@@ -12,6 +12,8 @@ const ProductCarousel = () => {
   const productTopRated = useSelector((state) => state.productTopRated)
   const { loading, error, products } = productTopRated
 
+ 
+
   useEffect(() => {
     dispatch(listTopProducts())
   }, [dispatch])
@@ -25,7 +27,7 @@ const ProductCarousel = () => {
       {products.map((product) => (
         <Carousel.Item key={product._id}>
           <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
+            <Image src={product.images[0].url} alt={product.name} fluid />
             <Carousel.Caption className="carousel-caption">
               <h2>
                 {product.name} (aed {product.price})
