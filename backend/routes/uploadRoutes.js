@@ -5,7 +5,10 @@ const router = express.Router()
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, '/home/ubuntu/genovacollection//uploads/')
+    cb(null, 'uploads/')
+    
+     // cb(null, '/home/ubuntu/genovacollection/uploads/');
+
   },
   filename(req, file, cb) {
     cb(
