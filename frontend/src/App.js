@@ -22,6 +22,10 @@ import ProductCreateScreen from './screens/Product/ProductCreate';
 
 import OrderListScreen from './screens/OrderListScreen'
 
+import PromotionListScreen from './screens/Promotion/PromotionListScreen';
+import PromotionCreate from './screens/Promotion/PromotionCreate';
+import PromotionEdit from './screens/Promotion/PromotionEdit';
+
 const App = () => {
   return (
     <Router>
@@ -52,6 +56,10 @@ const App = () => {
           <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
           <Route path="/admin/product/create" component={ProductCreateScreen} />
           <Route path="/admin/orderlist" component={OrderListScreen} />
+          <Route path="/admin/promotions" component={PromotionListScreen} />
+          <Route path="/admin/promotion/create" component={PromotionCreate} />
+          <Route path="/admin/promotion/:id/edit" component={PromotionEdit} />
+
           <Route path="/search/:keyword" component={HomeScreen} exact />
           <Route path="/page/:pageNumber" component={HomeScreen} exact />
           <Route
