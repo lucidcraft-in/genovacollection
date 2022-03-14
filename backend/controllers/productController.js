@@ -59,7 +59,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
 
-   console.log(req.body.imagesArray);
+    
 
   const product = new Product({
     name: req.body.name,

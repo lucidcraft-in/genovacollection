@@ -94,7 +94,7 @@ const ProductEditScreen = ({ match, history }) => {
       setImagesArray([...imagesArray, obj]);
   };
   
-  console.log(imagesArray);
+   
   return (
     <>
       <Link to="/admin/productlist" className="btn btn-light my-3">
