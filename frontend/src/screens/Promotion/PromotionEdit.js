@@ -18,6 +18,7 @@ const PromotionEdit = ({ match, history }) => {
   const [phone, setPhone] = useState('');
   const [promoCode, setPromoCode] = useState('');
   const [promoCodeAvailable, setPromoCodeAvailable] = useState('');
+   const [status, setStatus] = useState();
 
   const dispatch = useDispatch();
 
@@ -45,6 +46,7 @@ const PromotionEdit = ({ match, history }) => {
         setName(promotion.name);
         setPhone(promotion.phone);
         setPromoCode(promotion.code);
+        setStatus(promotion.isActive);
        
       }
     }
@@ -58,7 +60,7 @@ const PromotionEdit = ({ match, history }) => {
          name,
          phone,
          promoCode,
-        
+         status,
        })
      );
   };
@@ -81,6 +83,10 @@ const PromotionEdit = ({ match, history }) => {
     setPromoCodeAvailable(data.availability);
   };
 
+
+    const setStatusOnClick = () => {
+      setStatus((status) => !status);
+    };
   return (
     <>
       <Link to="/admin/promotions" className="btn btn-light my-3">
@@ -90,6 +96,15 @@ const PromotionEdit = ({ match, history }) => {
       <FormContainer>
         <h1>Update Promotion</h1>
         <Form onSubmit={submitHandler}>
+          <Form.Group controlId="name">
+            <Form.Label>Promotion active status</Form.Label>
+            <Form.Control
+              type="checkbox"
+              defaultChecked={status}
+              
+              onClick={setStatusOnClick}
+            ></Form.Control>
+          </Form.Group>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control

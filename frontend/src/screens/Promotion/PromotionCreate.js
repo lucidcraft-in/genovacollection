@@ -12,6 +12,7 @@ const PromotionCreate = ({ history }) => {
   const [phone, setPhone] = useState('');
   const [promoCode, setPromoCode] = useState('');
   const [promoCodeAvailable, setPromoCodeAvailable] = useState('');
+  const [status, setStatus] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -22,6 +23,7 @@ const PromotionCreate = ({ history }) => {
         name,
         phone,
         promoCode,
+        status,
       })
     );
 
@@ -29,7 +31,7 @@ const PromotionCreate = ({ history }) => {
   };
 
 
-
+console.log(status);
   
 
   const checkPromoCode = async (val) => {
@@ -57,7 +59,9 @@ const userInfo = localStorage.getItem('userInfo')
      
   };
 
-
+  const setStatusOnClick = () => {
+  setStatus((status) => !status);
+}
   
   return (
     <>
@@ -68,6 +72,15 @@ const userInfo = localStorage.getItem('userInfo')
       <FormContainer>
         <h1>Create Promotion</h1>
         <Form onSubmit={submitHandler}>
+          <Form.Group controlId="name">
+            <Form.Label>Promotion active status</Form.Label>
+            <Form.Control
+              type="checkbox"
+              defaultChecked={status}
+              // onChange={(e) => setStatus(e.target.value)}
+              onClick={setStatusOnClick}
+            ></Form.Control>
+          </Form.Group>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
