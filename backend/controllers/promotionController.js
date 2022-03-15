@@ -15,8 +15,9 @@ const getPromotion = asyncHandler(async (req, res) => {
           $regex: req.query.keyword,
           $options: 'i',
         },
+        
       }
-    : {}
+    : {};
 
   const count = await Promotion.countDocuments({ ...keyword });
   const promotions = await Promotion.find({ ...keyword })
@@ -87,6 +88,7 @@ const createPromotion = asyncHandler(async (req, res) => {
     name: req.body.name,
     phone: req.body.phone,
     code: req.body.promoCode,
+    isActive: req.body.status,
   });
 
   const createdPromotion = await promotion.save();
@@ -100,7 +102,7 @@ const createPromotion = asyncHandler(async (req, res) => {
 // @route   PUT /api/promotions/:id
 // @access  Private/Admin
 const updatePromotion = asyncHandler(async (req, res) => {
-  const { name, phone, promoCode } = req.body;
+  const { name, phone, promoCode, status } = req.body;
 
   const promotion = await Promotion.findById(req.params.id)
  
@@ -109,7 +111,7 @@ const updatePromotion = asyncHandler(async (req, res) => {
     promotion.name = name
     promotion.phone = phone;
    promotion.code = promoCode;
-    
+     promotion.isActive = status;
 
     const updatedPromotion = await promotion.save();
     res.json(updatedPromotion)
