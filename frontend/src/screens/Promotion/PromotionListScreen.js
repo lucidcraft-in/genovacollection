@@ -41,7 +41,7 @@ const PromotionListScreen = ({ history, match }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  console.log(promotions);
+ 
 
   useEffect(() => {
     dispatch({ type: PROMOTION_CREATE_RESET });

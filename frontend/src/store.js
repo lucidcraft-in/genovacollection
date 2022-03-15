@@ -35,6 +35,13 @@ import {
   promotionCreateReducer,
   promotionUpdateReducer,
 } from './reducers/promotionReducer';
+import {
+  subCategoriesListReducer,
+  subCategoryDetailsReducer,
+  subCategoryDeleteReducer,
+  subCategoryCreateReducer,
+  subCategoryUpdateReducer,
+} from './reducers/subCategoryReducer';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -58,11 +65,18 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
+
   promotionList: promotionListReducer,
   promotionDetails: promotionDetailsReducer,
   promotionDelete: promotionDeleteReducer,
   promotionCreate: promotionCreateReducer,
   promotionUpdate: promotionUpdateReducer,
+
+  subCategoryList: subCategoriesListReducer,
+  subCategoryDetails: subCategoryDetailsReducer,
+  subCategoryDelete: subCategoryDeleteReducer,
+  subCategoryCreate: subCategoryCreateReducer,
+  subCategoryUpdate: subCategoryUpdateReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

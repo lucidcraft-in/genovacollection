@@ -6,7 +6,6 @@ import FormContainer from '../../components/FormContainer';
 import { useDispatch } from 'react-redux';
 import { createPromotion } from '../../actions/promotionAction';
  
-
 const PromotionCreate = ({ history }) => {
 
   const [name, setName] = useState('');
