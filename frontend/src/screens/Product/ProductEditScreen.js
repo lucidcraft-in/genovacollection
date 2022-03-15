@@ -1,65 +1,71 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import Message from '../../components/Message'
-import Loader from '../../components/Loader'
-import FormContainer from '../../components/FormContainer'
-import { listProductDetails, updateProduct } from '../../actions/productActions'
-import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../../components/Message';
+import Loader from '../../components/Loader';
+import FormContainer from '../../components/FormContainer';
+import {
+  listProductDetails,
+  updateProduct,
+} from '../../actions/productActions';
+import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants';
 import SetImage from '../../components/Product/setImage';
-
+import { listCategories } from '../../actions/categoryActions';
 const ProductEditScreen = ({ match, history }) => {
-  const productId = match.params.id
+  const productId = match.params.id;
 
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState(0)
-  const [image, setImage] = useState('')
-  const [brand, setBrand] = useState('')
-  const [category, setCategory] = useState('')
-  const [countInStock, setCountInStock] = useState(0)
-  const [description, setDescription] = useState('')
-  
-   const [imagesArray, setImagesArray] = useState([]);
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState('');
+  const [brand, setBrand] = useState('');
+  const [category, setCategory] = useState('');
+  const [countInStock, setCountInStock] = useState(0);
+  const [description, setDescription] = useState('');
+  const [promotionCodePercentage, setPromotionCodePercentage] = useState(0);
+  const [imagesArray, setImagesArray] = useState([]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
-  const productUpdate = useSelector((state) => state.productUpdate)
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+
+  const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
-  } = productUpdate
+  } = productUpdate;
 
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: PRODUCT_UPDATE_RESET })
-      history.push('/admin/productlist')
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      history.push('/admin/productlist');
     } else {
       if (!product.name || product._id !== productId) {
-        dispatch(listProductDetails(productId))
+        dispatch(listProductDetails(productId));
+        dispatch(listCategories(''));
       } else {
-        console.log(product)
-        setName(product.name)
-        setPrice(product.price)
+        console.log(product);
+        setName(product.name);
+        setPrice(product.price);
         // setImage(product.image)
-        setBrand(product.brand)
-        setCategory(product.category)
-        setCountInStock(product.countInStock)
-        setDescription(product.description)
+        setBrand(product.brand);
+        setCategory(product.category);
+        setCountInStock(product.countInStock);
+        setDescription(product.description);
         setImagesArray(product.images);
+        setPromotionCodePercentage(product.promotionCodePercentage);
       }
     }
-  }, [dispatch, history, productId, product, successUpdate])
-
-   
+  }, [dispatch, history, productId, product, successUpdate]);
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(
       updateProduct({
         _id: productId,
@@ -70,31 +76,30 @@ const ProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
+        promotionCodePercentage,
       })
     );
-  }
-
-    let images = imagesArray.map((image, index) => (
-      <div key={index} className="card p-2 mt-1">
-        <SetImage
-          imageIndex={index}
-          setImagesArray={setImagesArray}
-          imagesArray={imagesArray}
-        />
-      </div>
-    ));
-
-  
-    const addImage = () => {
-      let obj = {
-        color: '#000000',
-        url: '',
-      };
-
-      setImagesArray([...imagesArray, obj]);
   };
-  
-   
+
+  let images = imagesArray.map((image, index) => (
+    <div key={index} className="card p-2 mt-1">
+      <SetImage
+        imageIndex={index}
+        setImagesArray={setImagesArray}
+        imagesArray={imagesArray}
+      />
+    </div>
+  ));
+
+  const addImage = () => {
+    let obj = {
+      color: '#000000',
+      url: '',
+    };
+
+    setImagesArray([...imagesArray, obj]);
+  };
+
   return (
     <>
       <Link to="/admin/productlist" className="btn btn-light my-3">
@@ -152,14 +157,28 @@ const ProductEditScreen = ({ match, history }) => {
 
             <Form.Group controlId="category">
               <Form.Label>Category</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter category"
-                value={category}
+
+                  <Form.Control
+                    value={category}
+                as="select"
                 onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
+              >
+                {categories.map((obj) => (
+                  <option value={obj._id}>{obj.categoryName}</option>
+                ))}
+              </Form.Control>
             </Form.Group>
 
+            <Form.Group controlId="promotionCodePercentage">
+              <Form.Label>Promotion Code Percentage</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter Promotion Code Percentage"
+                value={promotionCodePercentage}
+                onChange={(e) => setPromotionCodePercentage(e.target.value)}
+             
+              ></Form.Control>
+            </Form.Group>
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control
@@ -197,6 +216,6 @@ const ProductEditScreen = ({ match, history }) => {
       </FormContainer>
     </>
   );
-}
+};
 
-export default ProductEditScreen
+export default ProductEditScreen;

@@ -47,9 +47,11 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: 'category',
     },
+    
     description: {
       type: String,
       required: true,
@@ -73,6 +75,10 @@ const productSchema = mongoose.Schema(
     countInStock: {
       type: Number,
       required: true,
+      default: 0,
+    },
+    promotionCodePercentage: {
+      type: Number,
       default: 0,
     },
     images: [imagesSchema],

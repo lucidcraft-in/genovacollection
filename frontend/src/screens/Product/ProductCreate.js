@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import FormContainer from '../../components/FormContainer';
 import SetImage from '../../components/Product/setImage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
+
 import {
 
   createProduct,
 } from '../../actions/productActions';
+import { listCategories, createCategory,deleteCategory } from "../../actions/categoryActions";
 import './Product.css';
 
 const ProductCreateScreen = ({history}) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
+  const [promotionCodePercentage, setPromotionCodePercentage] = useState(0)
   const [imagesArray, setImagesArray] = useState([
     {
       color: '#000000',
@@ -25,12 +28,14 @@ const ProductCreateScreen = ({history}) => {
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
 
+  const categoryList = useSelector((state) => state.categoryList)
+  const { loading, error, categories } = categoryList;
 
   const dispatch = useDispatch();
 
- 
 
- 
+
+
 
   let images = imagesArray.map((image, index) => (
     <div key={index} className="card p-2 mt-1">
@@ -44,7 +49,20 @@ const ProductCreateScreen = ({history}) => {
    
 
  
-
+  useEffect(() => {
+   
+   
+      dispatch(listCategories(''))
+   
+  }, [
+    dispatch,
+    history,
+   
+   
+   
+  ])
+  console.log("check categoriessss");
+  console.log(categories);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -57,6 +75,7 @@ const ProductCreateScreen = ({history}) => {
         category,
         description,
         countInStock,
+        promotionCodePercentage,
       })
     );
      
@@ -133,11 +152,27 @@ const ProductCreateScreen = ({history}) => {
 
           <Form.Group controlId="category">
             <Form.Label>Category</Form.Label>
+            
+          
             <Form.Control
-              type="text"
-              placeholder="Enter category"
-              value={category}
+              as="select"
               onChange={(e) => setCategory(e.target.value)}
+            >
+              {categories.map((obj) => (
+                <option value={obj._id}>{obj.categoryName}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+        
+
+
+          <Form.Group controlId="promotionCodePercentage">
+            <Form.Label>Promotion Code Percentage</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter Promotion Code Percentage"
+              value={promotionCodePercentage}
+              onChange={(e) => setPromotionCodePercentage(e.target.value)}
               required={true}
             ></Form.Control>
           </Form.Group>
