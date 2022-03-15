@@ -21,6 +21,9 @@ import ProductEditScreen from './screens/Product/ProductEditScreen'
 import ProductCreateScreen from './screens/Product/ProductCreate';
 
 import OrderListScreen from './screens/OrderListScreen'
+import CategoryCreateScreen from './screens/Category/CategoryCreate.js'
+import CategoryEditScreen from './screens/Category/CategoryEditScreen';
+import CategoryListScreen from './screens/Category/CategoryListScreen';
 
 import PromotionListScreen from './screens/Promotion/PromotionListScreen';
 import PromotionCreate from './screens/Promotion/PromotionCreate';
@@ -76,6 +79,11 @@ const App = () => {
 
           <Route path="/search/:keyword" component={HomeScreen} exact />
           <Route path="/page/:pageNumber" component={HomeScreen} exact />
+
+          <Route path="/admin/category/create" component={CategoryCreateScreen}/>
+          <Route path="/admin/categorylist" component={CategoryListScreen} exact />
+          <Route path="/admin/category/:id/edit" component={CategoryEditScreen} />
+         
           <Route
             path="/search/:keyword/page/:pageNumber"
             component={HomeScreen}
