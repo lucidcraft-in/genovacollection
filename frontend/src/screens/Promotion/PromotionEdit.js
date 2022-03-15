@@ -31,7 +31,7 @@ const PromotionEdit = ({ match, history }) => {
     success: successUpdate,
   } = promotionUpdate;
 
-  console.log(promotion);
+ 
 
   useEffect(() => {
     if (successUpdate) {

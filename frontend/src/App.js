@@ -26,6 +26,11 @@ import PromotionListScreen from './screens/Promotion/PromotionListScreen';
 import PromotionCreate from './screens/Promotion/PromotionCreate';
 import PromotionEdit from './screens/Promotion/PromotionEdit';
 
+import SubCategoryList from './screens/SubCategory/SubCategoryList';
+import SubCategoryCreate from './screens/SubCategory/SubCategoryCreate';
+import SubCategoryEdit from './screens/SubCategory/SubCategoryEdit';
+
+
 const App = () => {
   return (
     <Router>
@@ -59,6 +64,15 @@ const App = () => {
           <Route path="/admin/promotions" component={PromotionListScreen} />
           <Route path="/admin/promotion/create" component={PromotionCreate} />
           <Route path="/admin/promotion/:id/edit" component={PromotionEdit} />
+          <Route path="/admin/subcategories" component={SubCategoryList} />
+          <Route
+            path="/admin/subcategory/create"
+            component={SubCategoryCreate}
+          />
+          <Route
+            path="/admin/subcategory/:id/edit"
+            component={SubCategoryEdit}
+          />
 
           <Route path="/search/:keyword" component={HomeScreen} exact />
           <Route path="/page/:pageNumber" component={HomeScreen} exact />
