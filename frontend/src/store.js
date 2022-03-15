@@ -42,6 +42,7 @@ import {
   subCategoryCreateReducer,
   subCategoryUpdateReducer,
 } from './reducers/subCategoryReducer';
+import { categoryListReducer, categoryCreateReducer, categoryUpdateReducer,categoryDetailsReducer,categoryDeleteReducer} from './reducers/categoryReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -77,7 +78,14 @@ const reducer = combineReducers({
   subCategoryDelete: subCategoryDeleteReducer,
   subCategoryCreate: subCategoryCreateReducer,
   subCategoryUpdate: subCategoryUpdateReducer,
+  categoryList: categoryListReducer,
+  categoryCreate: categoryCreateReducer,
+  categoryUpdate: categoryUpdateReducer,
+  categoryDetails: categoryDetailsReducer,
+  categoryDelete:categoryDeleteReducer,
 });
+ 
+
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))

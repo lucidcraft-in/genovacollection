@@ -12,9 +12,10 @@ import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import promotionRoutes from './routes/promotionRoutes.js';
 import subCategoryRoutes from './routes/subCategoryRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js'
+
 
 dotenv.config()
-
 connectDB()
 
 const app = express()
@@ -31,6 +32,8 @@ app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/promotion', promotionRoutes);
 app.use('/api/subcategory', subCategoryRoutes);
+app.use('/api/categories', categoryRoutes)
+
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
