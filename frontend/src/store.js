@@ -28,6 +28,7 @@ import {
   orderListMyReducer,
   orderListReducer,
 } from './reducers/orderReducers'
+import { categoryListReducer, categoryCreateReducer, categoryUpdateReducer,categoryDetailsReducer,categoryDeleteReducer} from './reducers/categoryReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -51,6 +52,11 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
+  categoryList: categoryListReducer,
+  categoryCreate: categoryCreateReducer,
+  categoryUpdate: categoryUpdateReducer,
+  categoryDetails: categoryDetailsReducer,
+  categoryDelete:categoryDeleteReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
