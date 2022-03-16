@@ -54,7 +54,12 @@ const getProductByCategoryPriority = asyncHandler(async (req, res) => {
     const result = await Product.find({category:category[i]['_id']} );
   
     if (result) {
-      products.push({"product":result,"category":category[i]['categoryName']})
+      products.push({
+        product: result,
+        category: category[i]['categoryName'],
+        title: category[i]['title'],
+      });
+      
     }
     
   }

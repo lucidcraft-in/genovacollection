@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import Product from '../components/Home/Product';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -37,29 +37,42 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )}
-      <h1>Latest Products</h1>
+
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Row>
-            {products?.map((product) => (
-              <Row key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Row>
-                  <center>
-                  <h1> {product.category}</h1>{' '}
-                  </center>
-                  </Row>
-
-                {product.product.map((prod) => (
-                  <Product product={prod} />
+          {products?.map((product) => (
+            <Container key={product._id} className="mt-5">
+              <Row className="justify-content-md-center">
+                <Col md="auto">
+                  {' '}
+                  <h5>{product.category}</h5>
+                </Col>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Col md="auto">
+                  <h3>{product.title}</h3>
+                </Col>
+              </Row>
+              <Row>
+                {product.product.slice(0, 8).map((item) => (
+                  <Col sm={3} key={item._id}>
+                    <Product product={item} />
+                  </Col>
                 ))}
               </Row>
-            
-            ))}
-          </Row>
+              {product.product.length >= 8 ?
+                <Row className="justify-content-md-center">
+                  <Col md="auto">
+                    {' '}
+                    <h4>show more..</h4>
+                  </Col>
+                </Row> : ''}
+            </Container>
+          ))}
         </>
       )}
     </>
