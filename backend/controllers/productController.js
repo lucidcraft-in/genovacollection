@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
+import Category from '../models/categoryModel.js'
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -37,6 +38,30 @@ const getProductById = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Product not found')
   }
+})
+
+const getProductByCategoryPriority = asyncHandler(async (req, res) => {
+  
+  const category = await Category.find().limit(3);
+  const categoryId = [];
+  const products = [];
+
+
+  for (let i = 0; i < category.length; i++) {
+   
+    categoryId.push(category[i]['_id'])
+   
+    const result = await Product.find({category:category[i]['_id']} );
+  
+    if (result) {
+      products.push({"product":result,"category":category[i]['categoryName']})
+    }
+    
+  }
+
+  
+
+  res.json({products});
 })
 
 // @desc    Delete a product
@@ -174,4 +199,5 @@ export {
   updateProduct,
   createProductReview,
   getTopProducts,
+  getProductByCategoryPriority,
 }
