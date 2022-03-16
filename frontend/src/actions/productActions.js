@@ -21,6 +21,9 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  PRODUCT_HOME_PAGE_LIST_REQUEST,
+  PRODUCT_HOME_PAGE_LIST_SUCCESS,
+  PRODUCT_HOME_PAGE_LIST_FAIL,
 } from '../constants/productConstants'
 import { logout } from './userActions'
 
@@ -48,7 +51,31 @@ export const listProducts = (keyword = '', pageNumber = '') => async (
     })
   }
 }
+export const listProductsByCAtegoryPriority = () => async (
+  dispatch
+) => {
+  try {
+    dispatch({ type: PRODUCT_HOME_PAGE_LIST_REQUEST })
 
+    const { data } = await axios.get(
+      `/api/products/priority`
+    )
+    
+
+    dispatch({
+      type: PRODUCT_HOME_PAGE_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_HOME_PAGE_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST })
