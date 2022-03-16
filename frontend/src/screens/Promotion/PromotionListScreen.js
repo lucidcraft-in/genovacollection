@@ -105,39 +105,39 @@ const PromotionListScreen = ({ history, match }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                
                 <th>NAME</th>
                 <th>PHONE</th>
                 <th>PROMO CODE</th>
-                 
+
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {promotions.map((promotion) => (
-                <tr key={promotion._id}>
-                 
-                  <td>{promotion.name}</td>
-                  <td> {promotion.phone}</td>
-                  <td>{promotion.code}</td>
-                 
-                  <td>
-                    <LinkContainer
-                      to={`/admin/promotion/${promotion._id}/edit`}
-                    >
-                      <Button variant="light" className="btn-sm">
-                        <i className="fas fa-edit"></i>
+                <LinkContainer to={`/admin/promotion/${promotion._id}`}>
+                  <tr key={promotion._id}>
+                    <td>{promotion.name}</td>
+                    <td> {promotion.phone}</td>
+                    <td>{promotion.code}</td>
+
+                    <td>
+                      <LinkContainer
+                        to={`/admin/promotion/${promotion._id}/edit`}
+                      >
+                        <Button variant="light" className="btn-sm">
+                          <i className="fas fa-edit"></i>
+                        </Button>
+                      </LinkContainer>
+                      <Button
+                        variant="danger"
+                        className="btn-sm"
+                        onClick={() => deleteHandler(promotion._id)}
+                      >
+                        <i className="fas fa-trash"></i>
                       </Button>
-                    </LinkContainer>
-                    <Button
-                      variant="danger"
-                      className="btn-sm"
-                      onClick={() => deleteHandler(promotion._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </Button>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
+                </LinkContainer>
               ))}
             </tbody>
           </Table>

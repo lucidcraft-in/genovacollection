@@ -28,6 +28,7 @@ import CategoryListScreen from './screens/Category/CategoryListScreen';
 import PromotionListScreen from './screens/Promotion/PromotionListScreen';
 import PromotionCreate from './screens/Promotion/PromotionCreate';
 import PromotionEdit from './screens/Promotion/PromotionEdit';
+import PromotionDetails from './screens/Promotion/PromotionDetails';
 
 import SubCategoryList from './screens/SubCategory/SubCategoryList';
 import SubCategoryCreate from './screens/SubCategory/SubCategoryCreate';
@@ -67,6 +68,8 @@ const App = () => {
           <Route path="/admin/promotions" component={PromotionListScreen} />
           <Route path="/admin/promotion/create" component={PromotionCreate} />
           <Route path="/admin/promotion/:id/edit" component={PromotionEdit} />
+          <Route path="/admin/promotion/:id" component={PromotionDetails} />
+
           <Route path="/admin/subcategories" component={SubCategoryList} />
           <Route
             path="/admin/subcategory/create"
@@ -76,14 +79,21 @@ const App = () => {
             path="/admin/subcategory/:id/edit"
             component={SubCategoryEdit}
           />
-
           <Route path="/search/:keyword" component={HomeScreen} exact />
           <Route path="/page/:pageNumber" component={HomeScreen} exact />
-
-          <Route path="/admin/category/create" component={CategoryCreateScreen}/>
-          <Route path="/admin/categorylist" component={CategoryListScreen} exact />
-          <Route path="/admin/category/:id/edit" component={CategoryEditScreen} />
-         
+          <Route
+            path="/admin/category/create"
+            component={CategoryCreateScreen}
+          />
+          <Route
+            path="/admin/categorylist"
+            component={CategoryListScreen}
+            exact
+          />
+          <Route
+            path="/admin/category/:id/edit"
+            component={CategoryEditScreen}
+          />
           <Route
             path="/search/:keyword/page/:pageNumber"
             component={HomeScreen}

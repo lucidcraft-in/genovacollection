@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Promotion from '../models/promotionModel.js';
 import User from '../models/userModel.js';
+import Order from '../models/orderModel.js';
 
 
 // @desc    Fetch all promotion
@@ -35,9 +36,11 @@ const getPromotion = asyncHandler(async (req, res) => {
 // @access  Public
 const getPromotionById = asyncHandler(async (req, res) => {
   const promotion = await Promotion.findById(req.params.id);
+  let orders = await Order.find({ "promotion._id": req.params.id
+});
 
   if (promotion) {
-    res.json(promotion)
+    res.json({ promotion, orders });
   } else {
     res.status(404)
     throw new Error('Promotion not found')
@@ -167,7 +170,8 @@ const validatePromoCodeOnApply = asyncHandler(async (req, res) => {
        userData.promotions &&
        userData.promotions.filter((e) => e.code === req.params.code).length > 0
      ) {
-       return res.status(404).send({
+       return res.status(200).send({
+           availability: false,
          message: 'promo code is not valid',
        });
      }
