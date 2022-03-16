@@ -13,6 +13,9 @@ const orderSchema = mongoose.Schema(
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
+        promotionPercentage: { type: Number },
+        offerPrice: { type: Number },
+        amount: { type: Number },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
@@ -20,6 +23,9 @@ const orderSchema = mongoose.Schema(
         },
       },
     ],
+    promotion: {
+      
+    },
     shippingAddress: {
       address: { type: String, required: true },
       city: { type: String, required: true },
@@ -51,6 +57,24 @@ const orderSchema = mongoose.Schema(
       required: true,
       default: 0.0,
     },
+    isPromoCode: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    promoCode: {
+      type: String,
+    },
+    promotionOfferPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    totalAmount: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
     isPaid: {
       type: Boolean,
       required: true,
@@ -71,7 +95,7 @@ const orderSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
 const Order = mongoose.model('Order', orderSchema)
 

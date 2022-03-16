@@ -1,6 +1,17 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 
+const promotionSchema = mongoose.Schema(
+  {
+    code: { type: String, required: true },
+    _id: { type: mongoose.Schema.Types.ObjectId, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -21,11 +32,12 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    promotions: [promotionSchema],
   },
   {
     timestamps: true,
   }
-)
+);
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)

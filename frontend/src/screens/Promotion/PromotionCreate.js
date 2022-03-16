@@ -31,7 +31,7 @@ const PromotionCreate = ({ history }) => {
   };
 
 
-console.log(status);
+ 
   
 
   const checkPromoCode = async (val) => {

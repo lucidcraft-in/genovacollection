@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Promotion from '../models/promotionModel.js';
+import User from '../models/userModel.js';
 
 
 // @desc    Fetch all promotion
@@ -144,6 +145,40 @@ const validatePromoCode = asyncHandler(async (req, res) => {
   }
 });
 
+
+// @desc    Check promo code
+// @route   PUT /api/promotion/:code
+// @access  Private/Admin
+const validatePromoCodeOnApply = asyncHandler(async (req, res) => {
+  
+ 
+  const promotion = await Promotion.findOne({ code: req.params.code , isActive : true});
+
+  if (!promotion) {
+    return res.status(200).send({
+      availability: false, message : "Please enter valid promo code"
+    });
+  } else {
+
+    let userData = await User.findById(req.user._id);
+    
+   
+     if (
+       userData.promotions &&
+       userData.promotions.filter((e) => e.code === req.params.code).length > 0
+     ) {
+       return res.status(404).send({
+         message: 'promo code is not valid',
+       });
+     }
+       return res.status(200).send({
+         availability: true,
+         message: 'Promo code is valid',
+         data: promotion,
+       });
+  }
+});
+
 export {
   getPromotion,
   getPromotionById,
@@ -151,4 +186,5 @@ export {
   createPromotion,
   updatePromotion,
   validatePromoCode,
+  validatePromoCodeOnApply,
 };

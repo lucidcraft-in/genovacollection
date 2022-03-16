@@ -7,11 +7,19 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import { USER_DETAILS_RESET } from '../constants/userConstants'
+import axios from 'axios';
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
 
-   const [isLoadingButton, setLoadingButton] = useState(false);
+  const [isLoadingButton, setLoadingButton] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [isValidPromoCode, setIsValidPromoCode] = useState(false);
+  const [message, setMessage] = useState('');
+  const [savedAmount, setSavedAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [promotion, setPromotion] = useState({});
+
 
   const cart = useSelector((state) => state.cart)
 
@@ -41,14 +49,19 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
-      history.push(`/order/${order._id}`)
-      dispatch({ type: USER_DETAILS_RESET })
-      dispatch({ type: ORDER_CREATE_RESET })
+      history.push(`/order/${order._id}`);
+      dispatch({ type: USER_DETAILS_RESET });
+      dispatch({ type: ORDER_CREATE_RESET });
     }
+
+    setTotalAmount(cart.totalPrice);
     // eslint-disable-next-line
-  }, [history, success])
+  }, [history, success, cart]);
 
   const placeOrderHandler = () => {
+
+
+ 
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
@@ -58,11 +71,77 @@ const PlaceOrderScreen = ({ history }) => {
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
+        isPromoCode: isValidPromoCode,
+        promoCode:promoCode,
+        promotionOfferPrice: cart.promotionOfferPrice,
+        promotion :promotion,
+        totalAmount: isValidPromoCode === true ? totalAmount : cart.totalPrice,
       })
-    )
+    );
   }
 
- const handleClick = () => setLoadingButton(true);
+  const handleClick = async () => {
+    
+    if (promoCode==='') { return }
+    
+    setLoadingButton(true);
+
+
+    const userInfo = localStorage.getItem('userInfo')
+      ? JSON.parse(localStorage.getItem('userInfo'))
+      : [];
+    
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `/api/promotion/apply/${promoCode}`,
+        '',
+        config
+    );
+
+    console.log(data);
+    
+  
+    if (data.availability === true) {
+      setIsValidPromoCode(true);
+      setMessage('');
+      reflectPromoOffer();
+      setPromotion(data.data);
+    } else {
+      setLoadingButton(false)
+      setMessage(data.message);
+    }
+
+  }
+
+  const reflectPromoOffer = () => {
+   
+    let savedAmount = 0
+    
+    cart.cartItems.map((item) => {
+      
+      let offerPrice = item.price * item.promotionPercentage / 100;
+      let amount = item.price - offerPrice;
+
+      savedAmount = savedAmount + offerPrice;
+
+      
+      item.offerPrice = offerPrice;
+      item.amount = amount;
+    })
+    setSavedAmount(savedAmount);
+
+    cart.promotionOfferPrice = savedAmount;
+    cart.totalAmount = cart.totalPrice - savedAmount;
+
+    setTotalAmount(cart.totalPrice - savedAmount);
+  }
+
+   
 
   return (
     <>
@@ -144,29 +223,56 @@ const PlaceOrderScreen = ({ history }) => {
                   <Col>AED{cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
+              {isValidPromoCode ? (
+                <ListGroup.Item>
+                  <Row>
+                    <Col>You saved</Col>
+                    <Col>AED {savedAmount}</Col>
+                  </Row>
+                </ListGroup.Item>
+              ) : (
+                ''
+              )}
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>AED{cart.totalPrice}</Col>
+                  <Col>AED{totalAmount}</Col>
                 </Row>
               </ListGroup.Item>
+
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <input type="text" placeholder="Coupon code " className='p-1' />
+                    <input
+                      type="text"
+                      placeholder="Coupon code "
+                      className="p-1"
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      value={promoCode}
+                    />
                   </Col>
                   <Col>
                     <Button
                       variant="primary"
-                      disabled={isLoadingButton}
+                      disabled={isValidPromoCode}
                       onClick={!isLoadingButton ? handleClick : null}
-                      style={{ fontSize: '6px', paddingTop :5, paddingBottom : 5}}
+                      style={{
+                        fontSize: '6px',
+                        paddingTop: 5,
+                        paddingBottom: 5,
+                      }}
                     >
-                      {isLoadingButton ? 'Loading…' : 'Apply Coupon'}
+                      {isValidPromoCode
+                        ? 'applied'
+                        : isLoadingButton
+                        ? 'Loading…'
+                        : 'Apply Coupon'}
                     </Button>
                   </Col>
                 </Row>
               </ListGroup.Item>
+              {message && <Message variant="danger">{message}</Message>}
+
               <ListGroup.Item>
                 {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
