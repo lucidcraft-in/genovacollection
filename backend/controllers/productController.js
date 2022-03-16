@@ -72,7 +72,7 @@ const createProduct = asyncHandler(async (req, res) => {
     numReviews: 0,
     description: req.body.description,
     category: req.body.category,
-    promotionCodePercentage: req.body.promotionCodePercentage,
+    promotionPercentage: req.body.promotionPercentage,
   });
 
   const createdProduct = await product.save();
@@ -92,8 +92,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     brand,
     category,
     countInStock,
-    promotionCodePercentage,
-    
+    promotionPercentage,
   } = req.body;
 
   const product = await Product.findById(req.params.id)
@@ -106,7 +105,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.brand = brand
     product.category = category
     product.countInStock = countInStock
-    product.promotionCodePercentage = promotionCodePercentage
+    product.promotionPercentage = promotionPercentage;
 
     const updatedProduct = await product.save()
     res.json(updatedProduct)

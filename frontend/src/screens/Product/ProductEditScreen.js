@@ -23,7 +23,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
-  const [promotionCodePercentage, setPromotionCodePercentage] = useState(0);
+  const [promotionPercentage, setPromotionCodePercentage] = useState(0);
   const [imagesArray, setImagesArray] = useState([]);
 
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const ProductEditScreen = ({ match, history }) => {
         setCountInStock(product.countInStock);
         setDescription(product.description);
         setImagesArray(product.images);
-        setPromotionCodePercentage(product.promotionCodePercentage);
+        setPromotionCodePercentage(product.promotionPercentage);
       }
     }
   }, [dispatch, history, productId, product, successUpdate]);
@@ -76,7 +76,7 @@ const ProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
-        promotionCodePercentage,
+        promotionPercentage,
       })
     );
   };
@@ -158,8 +158,8 @@ const ProductEditScreen = ({ match, history }) => {
             <Form.Group controlId="category">
               <Form.Label>Category</Form.Label>
 
-                  <Form.Control
-                    value={category}
+              <Form.Control
+                value={category}
                 as="select"
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -170,13 +170,12 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="promotionCodePercentage">
-              <Form.Label>Promotion Code Percentage</Form.Label>
+              <Form.Label>Promotion Offer Percentage</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter Promotion Code Percentage"
-                value={promotionCodePercentage}
+                placeholder="Enter Promotion Offer Percentage"
+                value={promotionPercentage}
                 onChange={(e) => setPromotionCodePercentage(e.target.value)}
-             
               ></Form.Control>
             </Form.Group>
             <Form.Group controlId="description">

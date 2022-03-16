@@ -7,6 +7,7 @@ import {
   createPromotion,
   updatePromotion,
   validatePromoCode,
+  validatePromoCodeOnApply,
 } from '../controllers/promotionController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -20,6 +21,6 @@ router
  
 router.route('/:code').post(protect, admin, validatePromoCode);
 
- 
+ router.route('/apply/:code').post(protect, validatePromoCodeOnApply);
 
 export default router;

@@ -51,7 +51,7 @@ const productSchema = mongoose.Schema(
       required: true,
       ref: 'category',
     },
-    
+
     description: {
       type: String,
       required: true,
@@ -77,7 +77,7 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    promotionCodePercentage: {
+    promotionPercentage: {
       type: Number,
       default: 0,
     },

@@ -13,7 +13,14 @@ const addOrderItems = asyncHandler(async (req, res) => {
     taxPrice,
     shippingPrice,
     totalPrice,
-  } = req.body
+    isPromoCode,
+    promoCode,
+    promotionOfferPrice,
+    promotion,
+    totalAmount,
+  } = req.body;
+
+  console.log(orderItems);
 
   if (orderItems && orderItems.length === 0) {
     res.status(400)
@@ -29,7 +36,12 @@ const addOrderItems = asyncHandler(async (req, res) => {
       taxPrice,
       shippingPrice,
       totalPrice,
-    })
+      isPromoCode,
+      promoCode,
+      promotionOfferPrice,
+      promotion,
+      totalAmount,
+    });
 
     const createdOrder = await order.save()
 

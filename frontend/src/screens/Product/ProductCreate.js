@@ -16,7 +16,7 @@ import './Product.css';
 const ProductCreateScreen = ({history}) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [promotionCodePercentage, setPromotionCodePercentage] = useState(0)
+  const [promotionPercentage, setPromotionCodePercentage] = useState(0);
   const [imagesArray, setImagesArray] = useState([
     {
       color: '#000000',
@@ -75,7 +75,7 @@ const ProductCreateScreen = ({history}) => {
         category,
         description,
         countInStock,
-        promotionCodePercentage,
+        promotionPercentage,
       })
     );
      
@@ -152,8 +152,7 @@ const ProductCreateScreen = ({history}) => {
 
           <Form.Group controlId="category">
             <Form.Label>Category</Form.Label>
-            
-          
+
             <Form.Control
               as="select"
               onChange={(e) => setCategory(e.target.value)}
@@ -163,15 +162,13 @@ const ProductCreateScreen = ({history}) => {
               ))}
             </Form.Control>
           </Form.Group>
-        
-
 
           <Form.Group controlId="promotionCodePercentage">
-            <Form.Label>Promotion Code Percentage</Form.Label>
+            <Form.Label>Promotion Offer Percentage</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter Promotion Code Percentage"
-              value={promotionCodePercentage}
+              placeholder="Enter Promotion Offer Percentage"
+              value={promotionPercentage}
               onChange={(e) => setPromotionCodePercentage(e.target.value)}
               required={true}
             ></Form.Control>
