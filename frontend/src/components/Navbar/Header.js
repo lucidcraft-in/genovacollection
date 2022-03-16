@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import SearchBox from './SearchBox'
 import { logout } from '../../actions/userActions'
+import {
+  listCategories,
+} from '../../actions/categoryActions';
 
  
 
@@ -13,6 +16,16 @@ const Header = () => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+     const categoryList = useSelector((state) => state.categoryList);
+    const { loading, error, categories } = categoryList;
+  
+  console.log(categories);
+
+  useEffect(() => {
+   dispatch(listCategories(''));
+  }, [])
+  
 
   const logoutHandler = () => {
     dispatch(logout())
@@ -36,21 +49,26 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
-              <LinkContainer to="/cart">
+              <LinkContainer to="#">
                 <Nav.Link className="text-dark navbar-text ">
                   <span style={{ fontSize: '250' }}>About us</span>
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/cart">
-                <Nav.Link className="text-dark navbar-text">Gents</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/cart">
+              {categories.slice(0, 4).map((category) => (
+                <LinkContainer to="#" key={category._id}>
+                  <Nav.Link className="text-dark navbar-text">
+                    {category.categoryName}
+                  </Nav.Link>
+                </LinkContainer>
+              ))}
+
+              {/* <LinkContainer to="/cart">
                 <Nav.Link className="text-dark navbar-text">Kids</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/cart">
                 <Nav.Link className="text-dark ">Contact</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/cart">
+              </LinkContainer> */}
+              <LinkContainer to="#">
                 <Nav.Link className="text-dark">English</Nav.Link>
               </LinkContainer>
 
@@ -124,7 +142,7 @@ const Header = () => {
                   </LinkContainer>
                   <LinkContainer to="/admin/subcategories">
                     <NavDropdown.Item>Sub Category</NavDropdown.Item>
-                    </LinkContainer>
+                  </LinkContainer>
                   <LinkContainer to="/admin/categorylist">
                     <NavDropdown.Item>Category</NavDropdown.Item>
                   </LinkContainer>
