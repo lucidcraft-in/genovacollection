@@ -51,7 +51,7 @@ const userInfo = localStorage.getItem('userInfo')
     setPromoCode(val);
        
 
-    const { data } = await axios.post(`/api/promotion/${val}`,'', config);
+    const { data } = await axios.get(`/api/promotion/${val}`,'', config);
 
 
      

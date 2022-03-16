@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
+import User from '../models/userModel.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -20,7 +21,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     totalAmount,
   } = req.body;
 
-  console.log(orderItems);
+   
 
   if (orderItems && orderItems.length === 0) {
     res.status(400)
@@ -45,7 +46,16 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
     const createdOrder = await order.save()
 
-    res.status(201).json(createdOrder)
+    if (createdOrder) {
+
+      let updatePromotionInUser = await User.findById(req.user._id);
+      
+      updatePromotionInUser.promotions = promotion;
+
+         await updatePromotionInUser.save();
+
+      res.status(201).json(createdOrder);
+    } 
   }
 })
 
