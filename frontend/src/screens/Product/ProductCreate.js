@@ -15,7 +15,8 @@ import './Product.css';
 
 const ProductCreateScreen = ({history}) => {
   const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(0); ;
+   const [sellingPrice, setSellingPrice] = useState(0);
   const [promotionPercentage, setPromotionCodePercentage] = useState(0);
   const [imagesArray, setImagesArray] = useState([
     {
@@ -70,6 +71,7 @@ const ProductCreateScreen = ({history}) => {
       createProduct({
         name,
         price,
+        sellingPrice,
         imagesArray,
         brand,
         category,
@@ -118,12 +120,23 @@ const ProductCreateScreen = ({history}) => {
           </Form.Group>
 
           <Form.Group controlId="price">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>M R P</Form.Label>
             <Form.Control
               type="number"
               placeholder="Enter price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
+              required={true}
+            ></Form.Control>
+          </Form.Group>
+
+          <Form.Group controlId="price">
+            <Form.Label>Selling Price</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter Selling price"
+              value={sellingPrice}
+              onChange={(e) => setSellingPrice(e.target.value)}
               required={true}
             ></Form.Control>
           </Form.Group>

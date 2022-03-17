@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
+import { Card, Row, Col } from 'react-bootstrap';
 import Rating from '../Rating'
+ 
 import '../../screens/Home/Home.css'
 
 const Product = ({ product }) => {
@@ -54,8 +55,14 @@ const Product = ({ product }) => {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-
-        <Card.Text as="h3">aed {product.price}</Card.Text>
+        <Row>
+          {product.price > product.sellingPrice ? (
+            <Col className="text-center strike"> {product.price} AED</Col>
+          ) : (
+            ''
+          )}
+          <Col className="text-center"> {product.sellingPrice} AED</Col>
+        </Row>
       </Card.Body>
     </Card>
   );
