@@ -9,8 +9,10 @@ import Meta from '../components/Meta'
 import {
   listProductDetails,
   createProductReview,
-} from '../actions/productActions'
+  listRelatedProducts,
+} from '../actions/productActions';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import Product from '../components/Home/Product';
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
@@ -20,8 +22,11 @@ const ProductScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
-  const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const relatedProducts_ = useSelector((state) => state.relatedProducts);
+  const { relatedProducts } = relatedProducts_;
+
+    const productDetails = useSelector((state) => state.productDetails);
+    const { loading, error, product } = productDetails;
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -33,6 +38,8 @@ const ProductScreen = ({ history, match }) => {
     error: errorProductReview,
   } = productReviewCreate
 
+console.log(relatedProducts);
+
   useEffect(() => {
     if (successProductReview) {
       setRating(0);
@@ -40,6 +47,7 @@ const ProductScreen = ({ history, match }) => {
     }
     if (!product._id || product._id !== match.params.id) {
       dispatch(listProductDetails(match.params.id));
+      dispatch(listRelatedProducts(match.params.id));
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
 
@@ -64,7 +72,7 @@ const ProductScreen = ({ history, match }) => {
     )
   }
 
-  console.log(product.images);
+  
   
    const changeColor = (image) => {
      setImageUrl(image.url);
@@ -178,7 +186,7 @@ const ProductScreen = ({ history, match }) => {
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
+            <Col md={4}>
               <h2>Reviews</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant="flush">
@@ -242,6 +250,22 @@ const ProductScreen = ({ history, match }) => {
                   )}
                 </ListGroup.Item>
               </ListGroup>
+            </Col>
+            <Col md={8}>
+              {' '}
+              <Row className="justify-content-md-center">
+                <Col md="auto">
+                  {' '}
+                  <h2>RELATED PRODUCTS</h2>
+                </Col>
+              </Row>
+              <Row>
+                {relatedProducts.slice(0, 4).map((item) => (
+                  <Col sm={4} key={item._id}>
+                    <Product product={item} />
+                  </Col>
+                ))}
+              </Row>
             </Col>
           </Row>
         </>

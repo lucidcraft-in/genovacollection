@@ -8,7 +8,8 @@ import {
   updateProduct,
   createProductReview,
   getTopProducts,
-  getProductByCategoryPriority
+  getProductByCategoryPriority,
+  getProductByCategory
 } from '../controllers/productController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
@@ -21,5 +22,7 @@ router
   .get(getProductById)
   .delete(protect, admin, deleteProduct)
   .put(protect, admin, updateProduct)
+
+  router.get('/category/:id', getProductByCategory);
 
 export default router
