@@ -40,6 +40,28 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 })
 
+
+
+
+// @desc    Fetch products by category
+// @route   GET /api/products/category/:id
+// @access  Public
+const getProductByCategory = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  
+   const products = await Product.find({
+     category: product.category,
+     _id: { $ne: req.params.id },
+   });
+
+  if (products) {
+    res.json(products);
+  } else {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+})
+
 const getProductByCategoryPriority = asyncHandler(async (req, res) => {
   
   const category = await Category.find().limit(3);
@@ -204,4 +226,5 @@ export {
   createProductReview,
   getTopProducts,
   getProductByCategoryPriority,
-}
+  getProductByCategory,
+};

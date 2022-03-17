@@ -50,7 +50,7 @@ const ProductEditScreen = ({ match, history }) => {
         dispatch(listProductDetails(productId));
         dispatch(listCategories(''));
       } else {
-        console.log(product);
+        
         setName(product.name);
         setPrice(product.price);
         // setImage(product.image)

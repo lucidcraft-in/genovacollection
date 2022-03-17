@@ -24,7 +24,10 @@ import {
   PRODUCT_HOME_PAGE_LIST_REQUEST,
   PRODUCT_HOME_PAGE_LIST_SUCCESS,
   PRODUCT_HOME_PAGE_LIST_FAIL,
-} from '../constants/productConstants'
+  RELATED_PRODUCTS_REQUEST,
+  RELATED_PRODUCTS_SUCCESS,
+  RELATED_PRODUCTS_FAIL,
+} from '../constants/productConstants';
 import { logout } from './userActions'
 
 export const listProducts = (keyword = '', pageNumber = '') => async (
@@ -96,6 +99,28 @@ export const listProductDetails = (id) => async (dispatch) => {
     })
   }
 }
+
+
+export const listRelatedProducts = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: RELATED_PRODUCTS_REQUEST });
+
+    const { data } = await axios.get(`/api/products/category/${id}`);
+
+    dispatch({
+      type: RELATED_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: RELATED_PRODUCTS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
@@ -273,3 +298,6 @@ export const listTopProducts = () => async (dispatch) => {
     })
   }
 }
+
+
+

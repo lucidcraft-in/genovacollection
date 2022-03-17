@@ -26,7 +26,10 @@ import {
   PRODUCT_HOME_PAGE_LIST_REQUEST,
   PRODUCT_HOME_PAGE_LIST_SUCCESS,
   PRODUCT_HOME_PAGE_LIST_FAIL,
-} from '../constants/productConstants'
+  RELATED_PRODUCTS_REQUEST,
+  RELATED_PRODUCTS_SUCCESS,
+  RELATED_PRODUCTS_FAIL,
+} from '../constants/productConstants';
 
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
@@ -80,6 +83,22 @@ export const productDetailsReducer = (
       return state
   }
 }
+
+export const relatedProductsReducer = (
+  state = { relatedProducts: [] },
+  action
+) => {
+  switch (action.type) {
+    case RELATED_PRODUCTS_REQUEST:
+      return { loading: true, relatedProducts: [] };
+    case RELATED_PRODUCTS_SUCCESS:
+      return { loading: false, relatedProducts: action.payload };
+    case RELATED_PRODUCTS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
