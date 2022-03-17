@@ -116,6 +116,7 @@ const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
+    sellingPrice: req.body.sellingPrice,
     user: req.user._id,
     images: req.body.imagesArray,
     brand: req.body.brand,
@@ -139,6 +140,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   const {
     name,
     price,
+    sellingPrice,
     description,
     imagesArray,
     brand,
@@ -152,6 +154,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   if (product) {
     product.name = name
     product.price = price
+    product.sellingPrice = sellingPrice;
     product.description = description
     product.images = imagesArray;
     product.brand = brand

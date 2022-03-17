@@ -14,3 +14,9 @@
 .pointer{
     cursor: pointer;
 }
+
+
+.strike {
+  text-decoration: line-through;
+  color : rgb(187, 39, 39)
+}
