@@ -122,6 +122,7 @@ const createProduct = asyncHandler(async (req, res) => {
     brand: req.body.brand,
     category: req.body.category,
     countInStock: req.body.countInStock,
+    stock: req.body.stockArray,
     numReviews: 0,
     description: req.body.description,
     category: req.body.category,
@@ -146,6 +147,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     brand,
     category,
     countInStock,
+    stockArray,
     promotionPercentage,
   } = req.body;
 
@@ -160,6 +162,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.brand = brand
     product.category = category
     product.countInStock = countInStock
+     product.stock = stockArray;
     product.promotionPercentage = promotionPercentage;
 
     const updatedProduct = await product.save()

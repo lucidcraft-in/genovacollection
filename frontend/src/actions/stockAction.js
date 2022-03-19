@@ -1,42 +1,43 @@
 import axios from 'axios';
 import {
-  PROMOTION_LIST_REQUEST,
-  PROMOTION_LIST_SUCCESS,
-  PROMOTION_LIST_FAIL,
-  PROMOTION_DETAILS_REQUEST,
-  PROMOTION_DETAILS_SUCCESS,
-  PROMOTION_DETAILS_FAIL,
-  PROMOTION_DELETE_SUCCESS,
-  PROMOTION_DELETE_REQUEST,
-  PROMOTION_DELETE_FAIL,
-  PROMOTION_CREATE_REQUEST,
-  PROMOTION_CREATE_SUCCESS,
-  PROMOTION_CREATE_FAIL,
-  PROMOTION_UPDATE_REQUEST,
-  PROMOTION_UPDATE_SUCCESS,
-  PROMOTION_UPDATE_FAIL,
-  
-} from '../constants/promotionConstant';
-import { logout } from './userActions';
+  STOCK_LIST_REQUEST,
+  STOCK_LIST_SUCCESS,
+  STOCK_LIST_FAIL,
+  STOCK_DETAILS_REQUEST,
+  STOCK_DETAILS_SUCCESS,
+  STOCK_DETAILS_FAIL,
+  STOCK_DELETE_SUCCESS,
+  STOCK_DELETE_REQUEST,
+  STOCK_DELETE_FAIL,
+  STOCK_CREATE_REQUEST,
+  STOCK_CREATE_SUCCESS,
+  STOCK_CREATE_FAIL,
+  STOCK_UPDATE_REQUEST,
+  STOCK_UPDATE_SUCCESS,
+  STOCK_UPDATE_FAIL,
+  STOCK_DETAILS_BY_PRODUCT_REQUEST,
+  STOCK_DETAILS_BY_PRODUCT_SUCCESS,
+  STOCK_DETAILS_BY_PRODUCT_FAIL,
+} from '../constants/stockConstant';
+ import { logout } from './userActions';
 
-
-export const listPromotions =
+export const listStock =
   (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
-      dispatch({ type: PROMOTION_LIST_REQUEST });
+      dispatch({ type: STOCK_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `/api/promotion?keyword=${keyword}&pageNumber=${pageNumber}`
+        `/api/stock?keyword=${keyword}&pageNumber=${pageNumber}`
       );
 
       dispatch({
-        type: PROMOTION_LIST_SUCCESS,
+        type: STOCK_LIST_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: PROMOTION_LIST_FAIL,
+        type: STOCK_LIST_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -47,19 +48,41 @@ export const listPromotions =
   
 
         
-export const listPromotionDetails = (id) => async (dispatch) => {
+        
+export const listStockDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: PROMOTION_DETAILS_REQUEST });
+    dispatch({ type: STOCK_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/promotion/${id}`);
+    const { data } = await axios.get(`/api/stock/${id}`);
 
     dispatch({
-      type: PROMOTION_DETAILS_SUCCESS,
+      type: STOCK_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: PROMOTION_DETAILS_FAIL,
+      type: STOCK_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listStockDetailsByProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: STOCK_DETAILS_BY_PRODUCT_REQUEST });
+
+    const { data } = await axios.get(`/api/stock/product/${id}`);
+
+    dispatch({
+      type: STOCK_DETAILS_BY_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: STOCK_DETAILS_BY_PRODUCT_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -70,10 +93,11 @@ export const listPromotionDetails = (id) => async (dispatch) => {
 
 
 
-export const deletePromotion = (id) => async (dispatch, getState) => {
+
+export const deleteStock = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PROMOTION_DELETE_REQUEST,
+      type: STOCK_DELETE_REQUEST,
     });
 
     const {
@@ -86,10 +110,10 @@ export const deletePromotion = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/promotion/${id}`, config);
+    await axios.delete(`/api/stock/${id}`, config);
 
     dispatch({
-      type: PROMOTION_DELETE_SUCCESS,
+      type: STOCK_DELETE_SUCCESS,
     });
   } catch (error) {
     const message =
@@ -100,7 +124,7 @@ export const deletePromotion = (id) => async (dispatch, getState) => {
       dispatch(logout());
     }
     dispatch({
-      type: PROMOTION_DELETE_FAIL,
+      type: STOCK_DELETE_FAIL,
       payload: message,
     });
   }
@@ -108,10 +132,11 @@ export const deletePromotion = (id) => async (dispatch, getState) => {
 
 
 
-export const createPromotion = (promotion) => async (dispatch, getState) => {
+
+export const createStock = (stock) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PROMOTION_CREATE_REQUEST,
+      type: STOCK_CREATE_REQUEST,
     });
 
     const {
@@ -124,17 +149,12 @@ export const createPromotion = (promotion) => async (dispatch, getState) => {
       },
     };
 
-    
-
-    const { data } = await axios.post(`/api/promotion`, promotion, config);
-
-   
+    const { data } = await axios.post(`/api/stock`, stock, config);
 
     dispatch({
-      type: PROMOTION_CREATE_SUCCESS,
+      type: STOCK_CREATE_SUCCESS,
       payload: data,
     });
-    
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -144,7 +164,7 @@ export const createPromotion = (promotion) => async (dispatch, getState) => {
       dispatch(logout());
     }
     dispatch({
-      type: PROMOTION_CREATE_FAIL,
+      type: STOCK_CREATE_FAIL,
       payload: message,
     });
   }
@@ -152,10 +172,11 @@ export const createPromotion = (promotion) => async (dispatch, getState) => {
 
 
 
-export const updatePromotion = (promotion) => async (dispatch, getState) => {
+
+export const updateStock = (stock) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PROMOTION_UPDATE_REQUEST,
+      type: STOCK_UPDATE_REQUEST,
     });
 
     const {
@@ -170,16 +191,16 @@ export const updatePromotion = (promotion) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/promotion/${promotion._id}`,
-      promotion,
+      `/api/stock/${stock._id}`,
+      stock,
       config
     );
 
     dispatch({
-      type: PROMOTION_UPDATE_SUCCESS,
+      type: STOCK_UPDATE_SUCCESS,
       payload: data,
     });
-    dispatch({ type: PROMOTION_DETAILS_SUCCESS, payload: data });
+    dispatch({ type: STOCK_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -189,7 +210,7 @@ export const updatePromotion = (promotion) => async (dispatch, getState) => {
       dispatch(logout());
     }
     dispatch({
-      type: PROMOTION_UPDATE_FAIL,
+      type: STOCK_UPDATE_FAIL,
       payload: message,
     });
   }

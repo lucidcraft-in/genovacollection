@@ -11,14 +11,20 @@ import {
   createProductReview,
   listRelatedProducts,
 } from '../actions/productActions';
+import { listStockDetailsByProduct } from '../actions/stockAction';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 import Product from '../components/Home/Product';
+import { addToCart } from '../actions/cartActions';
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-   const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [stockColors, setStockColors] = useState([]);
+  const [selectedSize, setSelectedSize] = useState();
+  const [selectedColor, setSelectedColor] = useState('');
+  
 
   const dispatch = useDispatch()
 
@@ -26,7 +32,10 @@ const ProductScreen = ({ history, match }) => {
   const { relatedProducts } = relatedProducts_;
 
     const productDetails = useSelector((state) => state.productDetails);
-    const { loading, error, product } = productDetails;
+  const { loading, error, product } = productDetails;
+  
+     const productStock = useSelector((state) => state.productStock);
+     const { stock } = productStock;
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -38,7 +47,7 @@ const ProductScreen = ({ history, match }) => {
     error: errorProductReview,
   } = productReviewCreate
 
-console.log(relatedProducts);
+ 
 
   useEffect(() => {
     if (successProductReview) {
@@ -48,6 +57,7 @@ console.log(relatedProducts);
     if (!product._id || product._id !== match.params.id) {
       dispatch(listProductDetails(match.params.id));
       dispatch(listRelatedProducts(match.params.id));
+      dispatch(listStockDetailsByProduct(match.params.id));
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
 
@@ -56,9 +66,19 @@ console.log(relatedProducts);
         ? product.images[0].url
         : '/images/sample.jpg'
     );
-  }, [dispatch, match, successProductReview, product]);
+ 
+    if (stock.stocks != undefined) {
+      setSelectedSize(stock.stocks[0].size);
+      selectSize(stock.stocks[0].size);
+      setSelectedColor(stock.stocks[0].color);
+    }
+   
+
+  }, [dispatch, match, successProductReview, product, stock]);
 
   const addToCartHandler = () => {
+  dispatch(addToCart(match.params.id, qty, selectedSize, selectedColor));
+
     history.push(`/cart/${match.params.id}?qty=${qty}`)
   }
 
@@ -72,13 +92,16 @@ console.log(relatedProducts);
     )
   }
 
-  
-  
-   const changeColor = (image) => {
-     setImageUrl(image.url);
-  };
-  
+ 
+  const selectSize = (size) => {
+    let findStocks = stock.stocks.filter((e) => e.size === size);
+    setStockColors(findStocks);
+    setSelectedSize(size);
+  }
 
+  const selectColor = (color) => {
+    setSelectedColor(color);
+  }
 
   return (
     <>
@@ -94,95 +117,152 @@ console.log(relatedProducts);
           <Meta title={product.name} />
           <Row>
             <Col md={6}>
+              {' '}
               <Image src={imageUrl} alt={product.name} fluid />
-              <div className="d-flex justify-content-center m-1">
-                {product?.images &&
-                  product.images.length > 0 &&
-                  product.images.map((image, index) => {
-                    return (
-                      <div
-                        className="dot mr-1 pointer"
-                        key={index}
-                        style={{ backgroundColor: image.color }}
-                        onClick={() => changeColor(image)}
-                      ></div>
-                    );
-                  })}{' '}
-              </div>
             </Col>
-            <Col md={3}>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h3>{product.name}</h3>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListGroup.Item>
-                <ListGroup.Item>Price: AED {product.price}</ListGroup.Item>
-                <ListGroup.Item>
-                  Description: {product.description}
-                </ListGroup.Item>
-              </ListGroup>
-            </Col>
-            <Col md={3}>
-              <Card>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>
-                        <strong>AED {product.price}</strong>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  {product.countInStock > 0 && (
+            <Col md={6}>
+              {' '}
+              <Row>
+                <Col md={6}>
+                  {' '}
+                  <ListGroup variant="flush">
                     <ListGroup.Item>
-                      <Row>
-                        <Col>Qty</Col>
-                        <Col>
-                          <Form.Control
-                            as="select"
-                            value={qty}
-                            onChange={(e) => setQty(e.target.value)}
-                          >
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
+                      <h3>{product.name}</h3>
                     </ListGroup.Item>
-                  )}
+                    <ListGroup.Item>
+                      <Rating
+                        value={product.rating}
+                        text={`${product.numReviews} reviews`}
+                      />
+                    </ListGroup.Item>
+                    <ListGroup.Item>Price: AED {product.price}</ListGroup.Item>
+                    <ListGroup.Item>
+                      Description: {product.description}
+                    </ListGroup.Item>
+                  </ListGroup>
+                </Col>
+                <Col md={6}>
+                  {' '}
+                  <Card>
+                    <ListGroup variant="flush">
+                      <ListGroup.Item>
+                        <Row>
+                          <Col>Price:</Col>
+                          <Col>
+                            <strong>AED {product.price}</strong>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    <Button
-                      onClick={addToCartHandler}
-                      className="btn-block"
-                      type="button"
-                      disabled={product.countInStock === 0}
-                    >
-                      Add To Cart
-                    </Button>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
+                      <ListGroup.Item>
+                        <Row>
+                          <Col>Status:</Col>
+                          <Col>
+                            {product.countInStock > 0
+                              ? 'In Stock'
+                              : 'Out Of Stock'}
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+
+                      {product.countInStock > 0 && (
+                        <ListGroup.Item>
+                          <Row>
+                            <Col>Qty</Col>
+                            <Col>
+                              <Form.Control
+                                as="select"
+                                value={qty}
+                                onChange={(e) => setQty(e.target.value)}
+                              >
+                                {[...Array(product.countInStock).keys()].map(
+                                  (x) => (
+                                    <option key={x + 1} value={x + 1}>
+                                      {x + 1}
+                                    </option>
+                                  )
+                                )}
+                              </Form.Control>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                      )}
+
+                      <ListGroup.Item>
+                        <Button
+                          onClick={addToCartHandler}
+                          className="btn-block"
+                          type="button"
+                          disabled={product.countInStock === 0}
+                        >
+                          Add To Cart
+                        </Button>
+                      </ListGroup.Item>
+                    </ListGroup>
+                  </Card>
+                </Col>
+              </Row>
+              <Row className="m-3">
+                <Col md={12}>
+                  {' '}
+                  <Row>
+                    <Col md={2}>Size</Col>
+                    <Col md={10}>
+                      {' '}
+                      {product?.stock &&
+                        product.stock.length > 0 &&
+                        product.stock.map((stock, index) => {
+                          return (
+                            <div
+                              className={
+                                selectedSize === stock.size
+                                  ? 'dot stock-size mr-3 pointer underline'
+                                  : 'dot stock-size mr-3 pointer'
+                              }
+                              key={index}
+                              onClick={() => selectSize(stock.size)}
+                            >
+                              {stock.size}
+                            </div>
+                          );
+                        })}{' '}
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+              <Row className="m-3">
+                <Col md={12}>
+                  {' '}
+                  <Row>
+                    <Col md={2}>Color</Col>
+                    <Col md={10}>
+                      {' '}
+                      {stockColors &&
+                        stockColors.length > 0 &&
+                            stockColors.map((stock, index) => {
+                              if (stock.count < 1) return;
+                            
+                            return (
+                              <span
+                                className={
+                                  selectedColor === stock.color
+                                    ? 'parent-dot'
+                                    : ''
+                                }
+                              >
+                                <div
+                                  className="dot mr-2 pointer"
+                                  key={index}
+                                  style={{ backgroundColor: stock.color }}
+                                  onClick={() => selectColor(stock.color)}
+                                ></div>
+                              </span>
+                            );
+                        })}{' '}
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
             </Col>
           </Row>
           <Row>
@@ -260,7 +340,7 @@ console.log(relatedProducts);
                 </Col>
               </Row>
               <Row>
-                {relatedProducts.slice(0, 4).map((item) => (
+                {relatedProducts.slice(0, 3).map((item) => (
                   <Col sm={4} key={item._id}>
                     <Product product={item} />
                   </Col>

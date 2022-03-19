@@ -20,6 +20,11 @@ import ProductListScreen from './screens/Product/ProductListScreen'
 import ProductEditScreen from './screens/Product/ProductEditScreen'
 import ProductCreateScreen from './screens/Product/ProductCreate';
 
+import StockListScreen from './screens/Stock/StockListScreen';
+import StockCreate from './screens/Stock/StockCreate';
+import StockEdit from './screens/Stock/StockEdit';
+ 
+
 import OrderListScreen from './screens/OrderListScreen'
 import CategoryCreateScreen from './screens/Category/CategoryCreate.js'
 import CategoryEditScreen from './screens/Category/CategoryEditScreen';
@@ -62,14 +67,17 @@ const App = () => {
             component={ProductListScreen}
             exact
           />
-          <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
+          <Route path="/admin/product/edit/:id" component={ProductEditScreen} />
           <Route path="/admin/product/create" component={ProductCreateScreen} />
+          <Route path="/admin/stocks" component={StockListScreen} />
+          <Route path="/admin/stock/create" component={StockCreate} />
+          <Route path="/admin/stock/edit/:id" component={StockEdit} />
+
           <Route path="/admin/orderlist" component={OrderListScreen} />
           <Route path="/admin/promotions" component={PromotionListScreen} />
           <Route path="/admin/promotion/create" component={PromotionCreate} />
           <Route path="/admin/promotion/:id/edit" component={PromotionEdit} />
           <Route path="/admin/promotion/:id" component={PromotionDetails} />
-
           <Route path="/admin/subcategories" component={SubCategoryList} />
           <Route
             path="/admin/subcategory/create"

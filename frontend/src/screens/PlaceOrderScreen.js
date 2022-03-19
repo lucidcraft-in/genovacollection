@@ -103,7 +103,7 @@ const PlaceOrderScreen = ({ history }) => {
         config
     );
 
-    console.log(data);
+  
     
   
     if (data.availability === true) {
@@ -141,7 +141,7 @@ const PlaceOrderScreen = ({ history }) => {
     setTotalAmount(cart.totalPrice - savedAmount);
   }
 
-   
+   console.log(cart);
 
   return (
     <>

@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
 import User from '../models/userModel.js';
+import Stock from '../models/stockModel.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -46,16 +47,37 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
     const createdOrder = await order.save()
 
+
     if (createdOrder) {
 
-      let updatePromotionInUser = await User.findById(req.user._id);
+      let itemsLength = orderItems.length;
+      for (var i = 0; i < itemsLength; i++) {
+        let updateStock = await Stock.findOneAndUpdate(
+          {
+            product: orderItems[i].product,
+            size: orderItems[i].size,
+            color: orderItems[i].color,
+          },
+          { $inc: { count: -orderItems[i].qty } },
+          { new: true }
+        );
+
+        console.log(updateStock);
+      }
       
+ 
+    }
+
+     
+    if (createdOrder && promotion._id != undefined) {
+      let updatePromotionInUser = await User.findById(req.user._id);
       updatePromotionInUser.promotions = promotion;
 
-         await updatePromotionInUser.save();
+      await updatePromotionInUser.save();
 
-      res.status(201).json(createdOrder);
     } 
+
+     res.status(201).json(createdOrder);
   }
 })
 

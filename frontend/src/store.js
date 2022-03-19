@@ -46,6 +46,16 @@ import {
 } from './reducers/subCategoryReducer';
 import { categoryListReducer, categoryCreateReducer, categoryUpdateReducer,categoryDetailsReducer,categoryDeleteReducer} from './reducers/categoryReducers'
 
+
+import {
+  stockListReducer,
+  stockCreateReducer,
+  stockUpdateReducer,
+  stockDetailsReducer,
+  stockDeleteReducer,
+  stockDetailsReducerByProduct,
+} from './reducers/stockReducer';
+
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -55,7 +65,7 @@ const reducer = combineReducers({
   productReviewCreate: productReviewCreateReducer,
   productTopRated: productTopRatedReducer,
   productHomeList: productHomeListReducer,
-  relatedProducts :relatedProductsReducer,
+  relatedProducts: relatedProductsReducer,
 
   cart: cartReducer,
   userLogin: userLoginReducer,
@@ -89,7 +99,14 @@ const reducer = combineReducers({
   categoryCreate: categoryCreateReducer,
   categoryUpdate: categoryUpdateReducer,
   categoryDetails: categoryDetailsReducer,
-  categoryDelete:categoryDeleteReducer,
+  categoryDelete: categoryDeleteReducer,
+
+  stockList: stockListReducer,
+  stockCreate: stockCreateReducer,
+  stockUpdate: stockUpdateReducer,
+  stockDetails: stockDetailsReducer,
+  stockDelete: stockDeleteReducer,
+  productStock: stockDetailsReducerByProduct,
 });
  
 
