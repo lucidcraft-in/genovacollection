@@ -27,6 +27,15 @@ const imagesSchema = mongoose.Schema(
   }
 );
 
+const productStock = mongoose.Schema(
+  {
+    size: { type: Number, required: true, unique: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const productSchema = mongoose.Schema(
   {
     user: {
@@ -82,6 +91,7 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    stock : [productStock],
     promotionPercentage: {
       type: Number,
       default: 0,

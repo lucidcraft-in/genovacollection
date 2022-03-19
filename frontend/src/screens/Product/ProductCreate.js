@@ -1,9 +1,10 @@
 import React, { useState, useEffect  } from 'react';
 
 import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
 import FormContainer from '../../components/FormContainer';
 import SetImage from '../../components/Product/setImage';
+import SetStock from '../../components/Product/setStock';
 import { useDispatch, useSelector} from 'react-redux';
 
 import {
@@ -24,10 +25,16 @@ const ProductCreateScreen = ({history}) => {
       url: '',
     },
   ]);
+    const [stockArray, setStockArray] = useState([
+      {
+        size: '',
+      },
+    ]);
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
+   const [duplicateSize, setDuplicateSize] = useState(false);
 
   const categoryList = useSelector((state) => state.categoryList)
   const { loading, error, categories } = categoryList;
@@ -49,24 +56,52 @@ const ProductCreateScreen = ({history}) => {
   ));
    
 
+  
+  let stockCount = stockArray.map((stock, index) => (
+    <div key={index} className="card p-2 mt-1">
+      <SetStock
+        stockIndex={index}
+        setStockArray={setStockArray}
+        stockArray={stockArray}
+      />
+    </div>
+  ));
+
  
   useEffect(() => {
-   
-   
+
       dispatch(listCategories(''))
    
   }, [
     dispatch,
     history,
-   
-   
-   
+
   ])
-  console.log("check categoriessss");
-  console.log(categories);
+ 
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    let error = false;
+    stockArray.map((size) => {
+      let duplicate = stockArray.filter((e) => e.size === size.size);
+
+    
+      if (duplicate.length > 1) {
+        
+        setDuplicateSize(true)
+        error = true;
+        
+      }
+      })
+  
+    
+    if (error === true) {
+      return;
+    }
+
+
+   
     dispatch(
       createProduct({
         name,
@@ -77,6 +112,7 @@ const ProductCreateScreen = ({history}) => {
         category,
         description,
         countInStock,
+        stockArray,
         promotionPercentage,
       })
     );
@@ -91,11 +127,16 @@ const ProductCreateScreen = ({history}) => {
       color: '#000000',
       url: '',
     };
-
-    setImagesArray([...imagesArray, obj])
-    
-
+ setImagesArray([...imagesArray, obj]);
   }
+
+    const addSize = () => {
+      let obj = {
+        size: '',
+      };
+
+      setStockArray([...stockArray, obj]);
+    };
 
  
     
@@ -151,17 +192,27 @@ const ProductCreateScreen = ({history}) => {
               required={true}
             ></Form.Control>
           </Form.Group>
+          <Form.Label>
+            <b>Size</b>
+          </Form.Label>
+          <Card className="p-2">
+            {' '}
+            {stockCount}
+            <div className="d-flex bd-highlight mb-3">
+              <div className="mr-auto p-2 bd-highlight"></div>
 
-          <Form.Group controlId="countInStock">
-            <Form.Label>Count In Stock</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter countInStock"
-              value={countInStock}
-              onChange={(e) => setCountInStock(e.target.value)}
-              required={true}
-            ></Form.Control>
-          </Form.Group>
+              <div className="p-2 bd-highlight">
+                <a onClick={addSize} className="pointer">
+                  {' '}
+                  <i
+                    aria-hidden="true"
+                    className="text-success fa fa-plus "
+                  ></i>{' '}
+                  Add Size
+                </a>
+              </div>
+            </div>
+          </Card>
 
           <Form.Group controlId="category">
             <Form.Label>Category</Form.Label>
@@ -219,6 +270,7 @@ const ProductCreateScreen = ({history}) => {
               </a>
             </div>
           </div>
+          {duplicateSize ? <div>Size should be unique</div> : ''}
         </Form>
       </FormContainer>
     </>

@@ -20,7 +20,7 @@ const Header = () => {
      const categoryList = useSelector((state) => state.categoryList);
     const { loading, error, categories } = categoryList;
   
-  console.log(categories);
+ 
 
   useEffect(() => {
    dispatch(listCategories(''));
@@ -133,6 +133,9 @@ const Header = () => {
                   </LinkContainer>
                   <LinkContainer to="/admin/productlist">
                     <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/stocks">
+                    <NavDropdown.Item>Stock</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to="/admin/orderlist">
                     <NavDropdown.Item>Orders</NavDropdown.Item>

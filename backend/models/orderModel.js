@@ -21,11 +21,11 @@ const orderSchema = mongoose.Schema(
           required: true,
           ref: 'Product',
         },
+        size: { type: Number },
+        color: { type: String },
       },
     ],
-    promotion: {
-      
-    },
+    promotion: {},
     shippingAddress: {
       address: { type: String, required: true },
       city: { type: String, required: true },

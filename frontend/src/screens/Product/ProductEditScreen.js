@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
@@ -11,6 +11,7 @@ import {
   updateProduct,
 } from '../../actions/productActions';
 import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants';
+import SetStock from '../../components/Product/setStock';
 import SetImage from '../../components/Product/setImage';
 import { listCategories } from '../../actions/categoryActions';
 const ProductEditScreen = ({ match, history }) => {
@@ -26,6 +27,8 @@ const ProductEditScreen = ({ match, history }) => {
   const [description, setDescription] = useState('');
   const [promotionPercentage, setPromotionCodePercentage] = useState(0);
   const [imagesArray, setImagesArray] = useState([]);
+  const [stockArray, setStockArray] = useState([]);
+   const [duplicateSize, setDuplicateSize] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -59,6 +62,7 @@ const ProductEditScreen = ({ match, history }) => {
         setBrand(product.brand);
         setCategory(product.category);
         setCountInStock(product.countInStock);
+        setStockArray(product.stock);
         setDescription(product.description);
         setImagesArray(product.images);
         setPromotionCodePercentage(product.promotionPercentage);
@@ -68,6 +72,23 @@ const ProductEditScreen = ({ match, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+
+  let error = false;
+  stockArray.map((size) => {
+    let duplicate = stockArray.filter((e) => e.size === size.size);
+
+    if (duplicate.length > 1) {
+      setDuplicateSize(true);
+      error = true;
+    }
+  });
+
+  if (error === true) {
+    return;
+  }
+
+
     dispatch(
       updateProduct({
         _id: productId,
@@ -79,6 +100,7 @@ const ProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
+        stockArray,
         promotionPercentage,
       })
     );
@@ -94,6 +116,17 @@ const ProductEditScreen = ({ match, history }) => {
     </div>
   ));
 
+    
+  let stockCount = stockArray.map((image, index) => (
+    <div key={index} className="card p-2 mt-1">
+      <SetStock
+        stockIndex={index}
+        setStockArray={setStockArray}
+        stockArray={stockArray}
+      />
+    </div>
+  ));
+
   const addImage = () => {
     let obj = {
       color: '#000000',
@@ -102,6 +135,14 @@ const ProductEditScreen = ({ match, history }) => {
 
     setImagesArray([...imagesArray, obj]);
   };
+
+   const addSize = () => {
+     let obj = {
+       size: '',
+     };
+
+     setStockArray([...stockArray, obj]);
+   };
 
   return (
     <>
@@ -159,15 +200,27 @@ const ProductEditScreen = ({ match, history }) => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="countInStock">
-              <Form.Label>Count In Stock</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter countInStock"
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+            <Form.Label>
+              <b> Size</b>
+            </Form.Label>
+            <Card className="p-2">
+              {' '}
+              {stockCount}
+              <div className="d-flex bd-highlight mb-3">
+                <div className="mr-auto p-2 bd-highlight"></div>
+
+                <div className="p-2 bd-highlight">
+                  <a onClick={addSize} className="pointer">
+                    {' '}
+                    <i
+                      aria-hidden="true"
+                      className="text-success fa fa-plus "
+                    ></i>{' '}
+                    Add Size
+                  </a>
+                </div>
+              </div>
+            </Card>
 
             <Form.Group controlId="category">
               <Form.Label>Category</Form.Label>
@@ -224,6 +277,7 @@ const ProductEditScreen = ({ match, history }) => {
                 </a>
               </div>
             </div>
+            {duplicateSize ? <div>Size should be unique</div> : ''}
           </Form>
         )}
       </FormContainer>

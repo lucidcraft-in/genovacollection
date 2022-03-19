@@ -13,6 +13,7 @@ import uploadRoutes from './routes/uploadRoutes.js'
 import promotionRoutes from './routes/promotionRoutes.js';
 import subCategoryRoutes from './routes/subCategoryRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js'
+import stockRoutes from './routes/stockRoutes.js';
 
 
 dotenv.config()
@@ -33,6 +34,7 @@ app.use('/api/upload', uploadRoutes)
 app.use('/api/promotion', promotionRoutes);
 app.use('/api/subcategory', subCategoryRoutes);
 app.use('/api/categories', categoryRoutes)
+app.use('/api/stock', stockRoutes);
 
 
 app.get('/api/config/paypal', (req, res) =>
