@@ -36,7 +36,6 @@ const updateCategory = asyncHandler(async (req, res) => {
 })
 
 const getCategories = asyncHandler(async (req, res) => {
-  
 
     const pageSize = 10
     const page = Number(req.query.pageNumber) || 1
@@ -57,6 +56,30 @@ const getCategories = asyncHandler(async (req, res) => {
   
     res.json({ categories, page, pages: Math.ceil(count / pageSize) })
 })
+
+
+const getHomeCategories = asyncHandler(async (req, res) => {
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+
+  const count = await Category.countDocuments({ ...keyword });
+  const categories = await Category.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  res.json({ categories, page, pages: Math.ceil(count / pageSize) });
+});
+
+
 
 const getCategoryById = asyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id)
@@ -82,10 +105,11 @@ const deleteCategory = asyncHandler(async (req, res) => {
   })
 
 export {
-    addCategory,
-    updateCategory,
-    getCategories,
-    getCategoryById,
-    deleteCategory,
-}
+  addCategory,
+  updateCategory,
+  getCategories,
+  getCategoryById,
+  deleteCategory,
+  getHomeCategories,
+};
 

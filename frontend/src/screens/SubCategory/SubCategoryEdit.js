@@ -8,6 +8,7 @@ import {
   listSubCategoryDetails,
   updateSubCategory,
 } from '../../actions/subcategoryAction';
+import { listCategories } from '../../actions/categoryActions';
 
 const SubCategoryEdit = ({ history, match }) => {
   const subCategoryId = match.params.id;
@@ -26,22 +27,28 @@ const SubCategoryEdit = ({ history, match }) => {
       loading: loadingUpdate,
       error: errorUpdate,
       success: successUpdate,
-    } = subcategoryUpdate;
-
-  console.log(subCategory);
+  } = subcategoryUpdate;
+  
+    const categoryList = useSelector((state) => state.categoryList);
+    const {   categories } = categoryList;
+ 
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: SUB_CATEGORY_UPDATE_RESET });
       history.push('/admin/subcategories');
     } else {
       if (!subCategory.name || subCategory._id !== subCategoryId) {
+        
         dispatch(listSubCategoryDetails(subCategoryId));
+         dispatch(listCategories(''));
       } else {
+        
         setName(subCategory.name);
         setTittle(subCategory.tittle);
         setCategory(subCategory.category);
       }
     }
+     
   }, [dispatch, history, subCategoryId, subCategory, successUpdate]);
 
   const submitHandler = (e) => {
@@ -58,24 +65,11 @@ const SubCategoryEdit = ({ history, match }) => {
     history.push('/admin/subcategories');
   };
 
-  const array = [
-    {
-      _id: 'asasasas',
-      name: 'General',
-    },
-    {
-      _id: 'weert',
-      name: 'Featured',
-    },
-    {
-      _id: 'wwww',
-      name: 'Sandles',
-    },
-  ];
+ 
 
   return (
     <>
-      <Link to="/admin/promotions" className="btn btn-light my-3">
+      <Link to="/admin/subcategories" className="btn btn-light my-3">
         Go Back
       </Link>
 
@@ -107,10 +101,14 @@ const SubCategoryEdit = ({ history, match }) => {
             <Form.Label>Parent Category</Form.Label>
             <Form.Control
               as="select"
+              value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              {array.map((obj) => (
-                <option value={obj._id}>{obj.name}</option>
+              <option>Select Category</option>
+              {categories.map((obj) => (
+                <option value={obj._id} key={obj._id}>
+                  {obj.categoryName}
+                </option>
               ))}
             </Form.Control>
           </Form.Group>

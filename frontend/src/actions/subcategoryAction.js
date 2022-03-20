@@ -46,7 +46,7 @@ export const listSubCategories =
 export const listSubCategoryDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: SUB_CATEGORY_DETAILS_REQUEST });
-    console.log("entered action");
+     
     const { data } = await axios.get(`/api/subcategory/${id}`);
 
     dispatch({

@@ -229,7 +229,8 @@ const ProductEditScreen = ({ match, history }) => {
                 value={category}
                 as="select"
                 onChange={(e) => setCategory(e.target.value)}
-              >
+                  >
+                    <option>Select Category</option>
                 {categories.map((obj) => (
                   <option value={obj._id}>{obj.categoryName}</option>
                 ))}

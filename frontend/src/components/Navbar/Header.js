@@ -55,7 +55,10 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
               {categories.slice(0, 4).map((category) => (
-                <LinkContainer to="#" key={category._id}>
+                <LinkContainer
+                  to={`/category/${category._id}`}
+                  key={category._id}
+                >
                   <Nav.Link className="text-dark navbar-text">
                     {category.categoryName}
                   </Nav.Link>

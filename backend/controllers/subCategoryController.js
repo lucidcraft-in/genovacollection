@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import SubCategory from '../models/subcategoryModel.js';
+import Category from '../models/categoryModel.js';
 
 // @desc    Fetch all subCategory
 // @route   GET /api/subCategory
@@ -17,10 +18,19 @@ const getSubCategory = asyncHandler(async (req, res) => {
       }
     : {};
   
-  console.log(keyword);
+  
 
-  const count = await SubCategory.countDocuments({ ...keyword });
-  const subCategories = await SubCategory.find({ ...keyword })
+  const count = await SubCategory.countDocuments();
+  const subCategories = await SubCategory.aggregate([
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'category',
+        foreignField: '_id',
+        as: 'category_',
+      },
+    },
+  ])
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
@@ -32,9 +42,10 @@ const getSubCategory = asyncHandler(async (req, res) => {
 // @access  Public
 const getSubCategoryById = asyncHandler(async (req, res) => {
   const subCategory = await SubCategory.findById(req.params.id);
-
+  
+;
   if (subCategory) {
-    res.json(subCategory);
+    res.json( subCategory );
   } else {
     res.status(404);
     throw new Error('subCategory not found');
