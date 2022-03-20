@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import FormContainer from '../../components/FormContainer';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSubCategory } from '../../actions/subcategoryAction';
+import {
+  listCategories,
+} from '../../actions/categoryActions';
 
 const SubCategoryCreate = ({ history }) => {
   const [name, setName] = useState('');
@@ -12,7 +15,14 @@ const SubCategoryCreate = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  console.log(category);
+    const categoryList = useSelector((state) => state.categoryList);
+    const { loading, error, categories } = categoryList;
+
+ 
+  useEffect(() => {
+    dispatch(listCategories(''));
+  }, []);
+  
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -27,24 +37,11 @@ const SubCategoryCreate = ({ history }) => {
     history.push('/admin/subcategories');
   };
 
-  const array = [
-    {
-      _id: 'asasasas',
-      name: 'General',
-    },
-    {
-      _id: 'weert',
-      name: 'Featured',
-    },
-    {
-      _id: 'wwww',
-      name: 'Sandles',
-    },
-  ];
+ 
 
   return (
     <>
-      <Link to="/admin/promotions" className="btn btn-light my-3">
+      <Link to="/admin/subcategories" className="btn btn-light my-3">
         Go Back
       </Link>
 
@@ -78,8 +75,9 @@ const SubCategoryCreate = ({ history }) => {
               as="select"
               onChange={(e) => setCategory(e.target.value)}
             >
-              {array.map((obj) => (
-                <option value={obj._id}>{obj.name}</option>
+              <option>Select Category</option>
+              {categories.map((obj) => (
+                <option value={obj._id}>{obj.categoryName}</option>
               ))}
             </Form.Control>
           </Form.Group>

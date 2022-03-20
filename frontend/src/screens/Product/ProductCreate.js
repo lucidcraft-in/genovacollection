@@ -220,7 +220,9 @@ const ProductCreateScreen = ({history}) => {
             <Form.Control
               as="select"
               onChange={(e) => setCategory(e.target.value)}
+              required={true}
             >
+              <option>Select Category</option>
               {categories.map((obj) => (
                 <option value={obj._id}>{obj.categoryName}</option>
               ))}

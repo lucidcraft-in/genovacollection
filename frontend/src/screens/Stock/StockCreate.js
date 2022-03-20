@@ -34,8 +34,7 @@ const StockCreate = ({history}) => {
     setProduct(value);
 
     let product = products.find((e) => e._id === value);
-    
-    
+  
     setSizeList(product.stock);
   }
 

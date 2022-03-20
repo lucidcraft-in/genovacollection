@@ -91,7 +91,7 @@ const SubCategoryList = ({ history, match }) => {
                 <tr key={sub._id}>
                   <td>{sub.name}</td>
                   <td> {sub.tittle}</td>
-                  <td> {sub.categoryName}</td>
+                  <td> {sub.category_[0].categoryName}</td>
 
                   <td>
                     <LinkContainer to={`/admin/subcategory/${sub._id}/edit`}>
