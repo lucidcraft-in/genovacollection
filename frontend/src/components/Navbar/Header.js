@@ -8,6 +8,7 @@ import { logout } from '../../actions/userActions'
 import {
   listCategories,
 } from '../../actions/categoryActions';
+import './NavBar.css';
 
  
 
@@ -37,7 +38,7 @@ const Header = () => {
         style={{ backgroundColor: '#f2f4f7' }}
         expand="lg"
         collapseOnSelect
-        className="shadow-sm p-3 mb-5 bg-white rounded navbar-fixed-top"
+        className="shadow-sm p-3 mb-5 bg-white rounded nav-style"
       >
         <Container>
           <LinkContainer to="/">

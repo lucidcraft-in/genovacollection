@@ -1,6 +1,39 @@
+
+
+@media (min-width: 576px) {
+  .container-sm, .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
 main {
   min-height: 80vh;
+  margin-top: 200px;
 }
+
+}
+@media (min-width: 992px) {
+main {
+  min-height: 80vh;
+  margin-top: 200px;
+}
+
+}
+@media (min-width: 1200px) {
+main {
+  min-height: 80vh;
+  margin-top: 150px;
+}
+
+}
+@media (min-width: 1400px) {
+main {
+  min-height: 80vh;
+  margin-top: 100px;
+}
+
+}
+
 
 h3 {
   padding: 1rem 0;
