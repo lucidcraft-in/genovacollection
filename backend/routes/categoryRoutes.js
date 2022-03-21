@@ -13,7 +13,7 @@ import { protect, admin } from '../middleware/authMiddleware.js';
 
 router.route('/').get(getCategories).post(protect, admin, addCategory);
 
-router.get('/home', getHomeCategories);
+router.post('/home/', getHomeCategories);
 
 router.route('/:id').get(getCategoryById).put(protect, admin, updateCategory).delete(protect, admin, deleteCategory);
 

@@ -19,6 +19,7 @@ import {
   CATEGORY_DELETE_FAIL,
 } from '../constants/categoryConstants.js'
 import { logout } from './userActions'
+
 export const listCategories = () => async (
     dispatch
   ) => {

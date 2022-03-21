@@ -1,5 +1,8 @@
 import asyncHandler from "express-async-handler";
 import Category from '../models/categoryModel.js';
+import Product from '../models/productModel.js';
+import SubCategory from '../models/subcategoryModel.js';
+
 
 const addCategory = asyncHandler(async (req, res) => {
    
@@ -62,21 +65,46 @@ const getHomeCategories = asyncHandler(async (req, res) => {
   const pageSize = 10;
   const page = Number(req.query.pageNumber) || 1;
 
-  const keyword = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
-      }
-    : {};
 
-  const count = await Category.countDocuments({ ...keyword });
-  const categories = await Category.find({ ...keyword })
+  
+  const list = await SubCategory.find({ category: req.body.category });
+
+  let subCategory = []
+  for (let i = 0; i < list.length; i++) {
+     console.log(list[i]._id);
+    let count = await Product.countDocuments({ subcategory: list[i]._id });
+
+   
+    let obj = {
+      name: list[i].name,
+      _id: list[i]._id,
+      count: count,
+    };
+    subCategory.push(obj);
+  }
+
+ 
+
+  let query;
+  if (req.body.subcategory) {
+     query = {
+     category: req.body.category,
+     subcategory: req.body.subcategory,
+   };
+
+  } else {
+        query = {
+        category: req.body.category,
+      };
+  }
+
+ 
+  const count = await Product.countDocuments(query);
+  const products = await Product.find(query)
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
-  res.json({ categories, page, pages: Math.ceil(count / pageSize) });
+  res.json({ products, subCategory ,page, pages: Math.ceil(count / pageSize) });
 });
 
 

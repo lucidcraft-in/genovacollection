@@ -42,6 +42,8 @@ import SubCategoryList from './screens/SubCategory/SubCategoryList';
 import SubCategoryCreate from './screens/SubCategory/SubCategoryCreate';
 import SubCategoryEdit from './screens/SubCategory/SubCategoryEdit';
 
+import AboutUs from './screens/AboutUs/AboutUs';
+
 
 const App = () => {
   return (
@@ -59,6 +61,7 @@ const App = () => {
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/category/:id" component={CategoryScreen} />
+          <Route path="/about" component={AboutUs} />
           <Route path="/admin/userlist" component={UserListScreen} />
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
           <Route

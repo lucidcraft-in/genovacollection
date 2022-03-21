@@ -10,7 +10,7 @@ import './Category.css'
 const CategoryCreateScreen = ({ history }) => { 
     const [categoryName, setName] = useState('');
     const [title, setTitle] = useState('');
-    const [priority, setpriority] = useState('');
+    const [priority, setPriority] = useState('');
 
     const dispatch = useDispatch();
 
@@ -60,12 +60,12 @@ const CategoryCreateScreen = ({ history }) => {
               </Form.Group>
     
               <Form.Group controlId="priority">
-                <Form.Label>Price</Form.Label>
+                <Form.Label>Priority</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Enter priority"
                   value={priority}
-                  onChange={(e) => setpriority(e.target.value)}
+                  onChange={(e) => setPriority(e.target.value)}
                   required={true}
                 ></Form.Control>
               </Form.Group>

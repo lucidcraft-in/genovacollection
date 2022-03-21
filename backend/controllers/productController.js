@@ -110,7 +110,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-
+console.log(req.body.selectedSubCategory);
     
 
   const product = new Product({
@@ -126,6 +126,7 @@ const createProduct = asyncHandler(async (req, res) => {
     numReviews: 0,
     description: req.body.description,
     category: req.body.category,
+    subcategory: req.body.selectedSubCategory,
     promotionPercentage: req.body.promotionPercentage,
   });
 
@@ -146,6 +147,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     imagesArray,
     brand,
     category,
+    selectedSubCategory,
     countInStock,
     stockArray,
     promotionPercentage,
@@ -161,6 +163,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.images = imagesArray;
     product.brand = brand
     product.category = category
+     product.subcategory = selectedSubCategory;
     product.countInStock = countInStock
      product.stock = stockArray;
     product.promotionPercentage = promotionPercentage;

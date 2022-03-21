@@ -13,6 +13,9 @@ import {
 } from '../../actions/productActions';
 import { listCategories, createCategory,deleteCategory } from "../../actions/categoryActions";
 import './Product.css';
+import {
+  listSubCategories
+} from '../../actions/subcategoryAction';
 
 const ProductCreateScreen = ({history}) => {
   const [name, setName] = useState('');
@@ -34,10 +37,15 @@ const ProductCreateScreen = ({history}) => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
-   const [duplicateSize, setDuplicateSize] = useState(false);
+  const [duplicateSize, setDuplicateSize] = useState(false);
+  const [subCategory, setSubCategory] = useState([]);
+   const [selectedSubCategory, setSelectedSubCategory] = useState(' ');
 
   const categoryList = useSelector((state) => state.categoryList)
   const { loading, error, categories } = categoryList;
+
+   const subCategoryList = useSelector((state) => state.subCategoryList);
+   const { subCategories } = subCategoryList;
 
   const dispatch = useDispatch();
 
@@ -70,7 +78,8 @@ const ProductCreateScreen = ({history}) => {
  
   useEffect(() => {
 
-      dispatch(listCategories(''))
+    dispatch(listCategories(''))
+     dispatch(listSubCategories(''));
    
   }, [
     dispatch,
@@ -110,6 +119,7 @@ const ProductCreateScreen = ({history}) => {
         imagesArray,
         brand,
         category,
+         selectedSubCategory,
         description,
         countInStock,
         stockArray,
@@ -138,6 +148,16 @@ const ProductCreateScreen = ({history}) => {
       setStockArray([...stockArray, obj]);
     };
 
+  
+  const changeCategory = (value) => {
+    setCategory(value);
+
+   console.log(subCategories);
+
+    let list = subCategories.filter((e) => e.category === value);
+    
+    setSubCategory(list)
+  }
  
     
   return (
@@ -219,12 +239,31 @@ const ProductCreateScreen = ({history}) => {
 
             <Form.Control
               as="select"
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => changeCategory(e.target.value)}
               required={true}
             >
               <option>Select Category</option>
               {categories.map((obj) => (
-                <option value={obj._id}>{obj.categoryName}</option>
+                <option value={obj._id} key={obj._id}>
+                  {obj.categoryName}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group controlId="category">
+            <Form.Label>Sub Category</Form.Label>
+
+            <Form.Control
+              as="select"
+              onChange={(e) => setSelectedSubCategory(e.target.value)}
+              required={true}
+            >
+              <option>Select Sub Category</option>
+              {subCategory.map((obj) => (
+                <option value={obj._id} key={obj._id}>
+                  {obj.name}
+                </option>
               ))}
             </Form.Control>
           </Form.Group>

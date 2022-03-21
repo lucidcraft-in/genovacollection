@@ -29,7 +29,7 @@ const imagesSchema = mongoose.Schema(
 
 const productStock = mongoose.Schema(
   {
-    size: { type: Number, required: true, unique: true },
+    size: { type: Number, required: true },
   },
   {
     timestamps: true,
@@ -59,6 +59,11 @@ const productSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'category',
+    },
+    subcategory: {
+      type: String,
+      required: true,
+      default: '',
     },
 
     description: {
@@ -91,7 +96,7 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    stock : [productStock],
+    stock: [productStock],
     promotionPercentage: {
       type: Number,
       default: 0,

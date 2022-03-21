@@ -94,7 +94,7 @@ const CategoryListScreen = ({ history, match }) => {
               <Table striped bordered hover responsive className="table-sm">
                 <thead>
                   <tr>
-                    <th>ID</th>
+                   
                     <th>CATEGORY NAME</th>
                     <th>TITLE</th>
                     <th>PRIORITY</th>
@@ -104,7 +104,7 @@ const CategoryListScreen = ({ history, match }) => {
                 <tbody>
                   {categories.map((category) => (
                     <tr key={category._id}>
-                      <td>{category._id}</td>
+                     
                       <td>{category.categoryName}</td>
                       <td> {category.title}</td>
                       <td>{category.priority}</td>
