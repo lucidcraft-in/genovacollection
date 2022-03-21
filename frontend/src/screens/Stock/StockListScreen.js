@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Button, Row, Col } from 'react-bootstrap';
+import { Table, Button, Row, Col, Form } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/Message';
@@ -66,10 +66,25 @@ const StockListScreen = ({ history, match }) => {
     <>
       {' '}
       <Row className="align-items-center">
-        <Col>
+        <Col md={6}>
           <h1>Stocks</h1>
         </Col>
-        <Col className="text-right">
+        <Col md={3}>
+          <Form.Control
+            as="select"
+            // value={product}
+            // onChange={(e) => selectProduct(e.target.value)}
+            required={true}
+          >
+            <option>Select Product</option>
+            {/* {products.map((obj) => (
+              <option value={obj._id} key={obj._id}>
+                {obj.name}
+              </option>
+            ))} */}
+          </Form.Control>
+        </Col>
+        <Col className="text-right" md={3}>
           <LinkContainer to={`/admin/stock/create`}>
             <Button className="my-3">
               <i className="fas fa-plus"></i> Create Stock
@@ -102,11 +117,10 @@ const StockListScreen = ({ history, match }) => {
                 <tr key={stock._id}>
                   <td>{stock.product_[0].name}</td>
                   <td> {stock.size}</td>
-                  <td >
+                  <td>
                     <div
                       className="dot mr-1 pointer"
                       style={{ backgroundColor: stock.color }}
-                      
                     ></div>
                   </td>
                   <td>{stock.count}</td>
