@@ -67,10 +67,11 @@ const ProductScreen = ({ history, match }) => {
         : '/images/sample.jpg'
     );
  
-    if (stock.stocks != undefined) {
-      setSelectedSize(stock.stocks[0].size);
-      selectSize(stock.stocks[0].size);
-      setSelectedColor(stock.stocks[0].color);
+    if (stock.stocks != undefined && stock.stocks.length >0) {
+      
+      setSelectedSize(stock?.stocks[0].size);
+      selectSize(stock?.stocks[0].size);
+      setSelectedColor(stock?.stocks[0].color);
     }
    
 
@@ -202,67 +203,74 @@ const ProductScreen = ({ history, match }) => {
                   </Card>
                 </Col>
               </Row>
-              <Row className="m-3">
-                <Col md={12}>
+              {stock.stocks != undefined && stock.stocks.length > 0 ? (
+                <>
                   {' '}
-                  <Row>
-                    <Col md={2}>Size</Col>
-                    <Col md={10}>
+                  <Row className="m-3">
+                    <Col md={12}>
                       {' '}
-                      {product?.stock &&
-                        product.stock.length > 0 &&
-                        product.stock.map((stock, index) => {
-                          return (
-                            <div
-                              className={
-                                selectedSize === stock.size
-                                  ? 'dot stock-size mr-3 pointer underline'
-                                  : 'dot stock-size mr-3 pointer'
-                              }
-                              key={index}
-                              onClick={() => selectSize(stock.size)}
-                            >
-                              {stock.size}
-                            </div>
-                          );
-                        })}{' '}
+                      <Row>
+                        <Col md={2}>Size</Col>
+                        <Col md={10}>
+                          {' '}
+                          {product?.stock &&
+                            product.stock.length > 0 &&
+                            product.stock.map((stock, index) => {
+                              return (
+                                <div
+                                  className={
+                                    selectedSize === stock.size
+                                      ? 'dot stock-size mr-3 pointer underline'
+                                      : 'dot stock-size mr-3 pointer'
+                                  }
+                                  key={index}
+                                  onClick={() => selectSize(stock.size)}
+                                >
+                                  {stock.size}
+                                </div>
+                              );
+                            })}{' '}
+                        </Col>
+                      </Row>
                     </Col>
                   </Row>
-                </Col>
-              </Row>
-              <Row className="m-3">
-                <Col md={12}>
-                  {' '}
-                  <Row>
-                    <Col md={2}>Color</Col>
-                    <Col md={10}>
+                  <Row className="m-3">
+                    <Col md={12}>
                       {' '}
-                      {stockColors &&
-                        stockColors.length > 0 &&
+                      <Row>
+                        <Col md={2}>Color</Col>
+                        <Col md={10}>
+                          {' '}
+                          {stockColors &&
+                            stockColors.length > 0 &&
                             stockColors.map((stock, index) => {
                               if (stock.count < 1) return;
-                            
-                            return (
-                              <span
-                                className={
-                                  selectedColor === stock.color
-                                    ? 'parent-dot'
-                                    : ''
-                                }
-                              >
-                                <div
-                                  className="dot mr-2 pointer"
-                                  key={index}
-                                  style={{ backgroundColor: stock.color }}
-                                  onClick={() => selectColor(stock.color)}
-                                ></div>
-                              </span>
-                            );
-                        })}{' '}
+
+                              return (
+                                <span
+                                  className={
+                                    selectedColor === stock.color
+                                      ? 'parent-dot'
+                                      : ''
+                                  }
+                                >
+                                  <div
+                                    className="dot mr-2 pointer"
+                                    key={index}
+                                    style={{ backgroundColor: stock.color }}
+                                    onClick={() => selectColor(stock.color)}
+                                  ></div>
+                                </span>
+                              );
+                            })}{' '}
+                        </Col>
+                      </Row>
                     </Col>
-                  </Row>
-                </Col>
-              </Row>
+                  </Row>{' '}
+                </>
+              ) : (
+                <div className="m-3">Out Of Stock</div>
+              )}
             </Col>
           </Row>
           <Row>
