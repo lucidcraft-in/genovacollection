@@ -14,6 +14,9 @@ import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants';
 import SetStock from '../../components/Product/setStock';
 import SetImage from '../../components/Product/setImage';
 import { listCategories } from '../../actions/categoryActions';
+import { listSubCategories } from '../../actions/subcategoryAction';
+
+
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
 
@@ -28,7 +31,9 @@ const ProductEditScreen = ({ match, history }) => {
   const [promotionPercentage, setPromotionCodePercentage] = useState(0);
   const [imagesArray, setImagesArray] = useState([]);
   const [stockArray, setStockArray] = useState([]);
-   const [duplicateSize, setDuplicateSize] = useState(false);
+  const [duplicateSize, setDuplicateSize] = useState(false);
+   const [subCategory, setSubCategory] = useState([]);
+     const [selectedSubCategory, setSelectedSubCategory] = useState(' ');
 
   const dispatch = useDispatch();
 
@@ -45,6 +50,9 @@ const ProductEditScreen = ({ match, history }) => {
     success: successUpdate,
   } = productUpdate;
 
+     const subCategoryList = useSelector((state) => state.subCategoryList);
+     const { subCategories } = subCategoryList;
+
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
@@ -53,14 +61,16 @@ const ProductEditScreen = ({ match, history }) => {
       if (!product.name || product._id !== productId) {
         dispatch(listProductDetails(productId));
         dispatch(listCategories(''));
+          dispatch(listSubCategories(''));
       } else {
-        
+          
         setName(product.name);
         setPrice(product.price);
         setSellingPrice(product.sellingPrice);
         // setImage(product.image)
         setBrand(product.brand);
         setCategory(product.category);
+        setSelectedSubCategory(product.subcategory);
         setCountInStock(product.countInStock);
         setStockArray(product.stock);
         setDescription(product.description);
@@ -98,6 +108,7 @@ const ProductEditScreen = ({ match, history }) => {
         imagesArray,
         brand,
         category,
+        selectedSubCategory,
         description,
         countInStock,
         stockArray,
@@ -144,6 +155,19 @@ const ProductEditScreen = ({ match, history }) => {
      setStockArray([...stockArray, obj]);
    };
 
+  
+    const changeCategory = (value) => {
+      setCategory(value);
+
+     
+
+      let list = subCategories.filter((e) => e.category === value);
+
+      setSubCategory(list);
+    };
+  
+  
+ ;
   return (
     <>
       <Link to="/admin/productlist" className="btn btn-light my-3">
@@ -228,11 +252,29 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Control
                 value={category}
                 as="select"
-                onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option>Select Category</option>
+                onChange={(e) => changeCategory(e.target.value)}
+                required={true}
+              >
+                <option>Select Category</option>
                 {categories.map((obj) => (
                   <option value={obj._id}>{obj.categoryName}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="category">
+              <Form.Label>Sub Category</Form.Label>
+
+              <Form.Control
+                as="select"
+                onChange={(e) => setSelectedSubCategory(e.target.value)}
+                value={selectedSubCategory}
+              >
+                <option>Select Sub Category</option>
+                {subCategory.map((obj) => (
+                  <option value={obj._id} key={obj._id}>
+                    {obj.name}
+                  </option>
                 ))}
               </Form.Control>
             </Form.Group>
