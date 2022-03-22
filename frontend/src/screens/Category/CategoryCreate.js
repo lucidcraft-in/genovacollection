@@ -10,7 +10,7 @@ import './Category.css'
 const CategoryCreateScreen = ({ history }) => { 
     const [categoryName, setName] = useState('');
     const [title, setTitle] = useState('');
-    const [priority, setPriority] = useState('');
+    const [priority, setPriority] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -66,7 +66,7 @@ const CategoryCreateScreen = ({ history }) => {
                   placeholder="Enter priority"
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
-                  required={true}
+                    
                 ></Form.Control>
               </Form.Group>
     

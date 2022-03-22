@@ -24,7 +24,7 @@ const HomeScreen = ({ match }) => {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProductsByCAtegoryPriority());
+    dispatch(listProductsByCAtegoryPriority(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
 
   return (

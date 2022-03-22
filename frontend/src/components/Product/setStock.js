@@ -24,7 +24,7 @@ export default function SetStock({ stockIndex, setStockArray, stockArray }) {
   return (
     <div>
       <Form.Group controlId="countInStock">
-        <Form.Label>Size In Stock</Form.Label>
+        <Form.Label>Size</Form.Label>
         <Form.Control
           type="number"
           placeholder="Enter Size"

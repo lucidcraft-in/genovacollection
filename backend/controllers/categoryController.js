@@ -121,6 +121,15 @@ const getCategoryById = asyncHandler(async (req, res) => {
 })
   
 const deleteCategory = asyncHandler(async (req, res) => {
+
+  const isProductListed = await Product.find({ category: req.params.id });
+
+  if (isProductListed.length > 0) {
+     throw new Error('Product listed on this category');
+   
+    return;
+  }
+
     const category = await Category.findById(req.params.id)
   
     if (category) {

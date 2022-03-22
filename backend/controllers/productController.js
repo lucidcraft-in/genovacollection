@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 import Category from '../models/categoryModel.js'
+import Stock from '../models/stockModel.js';
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -63,6 +64,20 @@ const getProductByCategory = asyncHandler(async (req, res) => {
 })
 
 const getProductByCategoryPriority = asyncHandler(async (req, res) => {
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber) || 1;
+
+    const keyword = req.query.keyword
+      ? {
+          name: {
+            $regex: req.query.keyword,
+            $options: 'i',
+          },
+        }
+      : {};
+  
+ 
+
   
   const category = await Category.find().limit(3);
   const categoryId = [];
@@ -73,15 +88,20 @@ const getProductByCategoryPriority = asyncHandler(async (req, res) => {
    
     categoryId.push(category[i]['_id'])
    
-    const result = await Product.find({category:category[i]['_id']} );
+    const result = await Product.find(
+      {
+        $and: [{ category: category[i]['_id'] }, { ...keyword }],
+      }
+     
+    );
+    
   
-    if (result) {
+    if (result.length >0) {
       products.push({
         product: result,
         category: category[i]['categoryName'],
         title: category[i]['title'],
       });
-      
     }
     
   }
@@ -99,6 +119,9 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   if (product) {
     await product.remove()
+
+await Stock.deleteMany({ product: req.params.id });
+
     res.json({ message: 'Product removed' })
   } else {
     res.status(404)

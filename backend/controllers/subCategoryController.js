@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import SubCategory from '../models/subcategoryModel.js';
 import Category from '../models/categoryModel.js';
+import Product from '../models/productModel.js';
 
 // @desc    Fetch all subCategory
 // @route   GET /api/subCategory
@@ -56,6 +57,17 @@ const getSubCategoryById = asyncHandler(async (req, res) => {
 // @route   DELETE /api/subCategorys/:id
 // @access  Private/Admin
 const deleteSubCategory = asyncHandler(async (req, res) => {
+
+
+  const isProductListed = await Product.find({ subcategory: req.params.id });
+
+  if (isProductListed.length > 0) {
+    throw new Error('Product listed on this category');
+
+    return;
+  }
+
+
   const subCategory = await SubCategory.findById(req.params.id);
 
   if (subCategory) {

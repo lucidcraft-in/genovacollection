@@ -63,6 +63,7 @@ const ProductListScreen = ({ history, match }) => {
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
       dispatch(deleteProduct(id))
+      //  history.push(`/admin/productlist`);
     }
   }
 
@@ -97,7 +98,7 @@ const ProductListScreen = ({ history, match }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>ID</th>
+                
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
@@ -107,11 +108,11 @@ const ProductListScreen = ({ history, match }) => {
             </thead>
             <tbody>
               {products.map((product) => (
-                <LinkContainer to={`/admin/product/detail/${product._id}`}>
+                // <LinkContainer to={`/admin/product/detail/${product._id}`}>
                   <tr key={product._id}>
-                    <td>{product._id}</td>
+                    
                     <td>{product.name}</td>
-                    <td>aed {product.price}</td>
+                    <td>AED {product.price}</td>
                     <td>{product.category}</td>
                     <td>{product.brand}</td>
                     <td>
@@ -129,7 +130,7 @@ const ProductListScreen = ({ history, match }) => {
                       </Button>
                     </td>
                   </tr>
-                </LinkContainer>
+                // </LinkContainer>
               ))}
             </tbody>
           </Table>
