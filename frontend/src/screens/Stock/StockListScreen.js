@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useState } from 'react';
 import { Table, Button, Row, Col, Form } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,11 +6,14 @@ import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import Paginate from '../../components/Paginate';
 import { listStock, deleteStock, createStock } from '../../actions/stockAction';
+import {listProducts} from '../../actions/productActions';
 
  
 
 const StockListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
+
+  const [stockLists, setStockList] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -35,8 +38,12 @@ const StockListScreen = ({ history, match }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+    const productList = useSelector((state) => state.productList);
+  const { products } = productList;
+  
+
   useEffect(() => {
-    
+   
 
     if (!userInfo || !userInfo.isAdmin) {
       history.push('/login');
@@ -44,9 +51,11 @@ const StockListScreen = ({ history, match }) => {
 
     if (successCreate) {
       
-    } else {
+    } else { 
       dispatch(listStock('', pageNumber));
+      dispatch(listProducts(''));
     }
+  
   }, [
     dispatch,
     history,
@@ -57,11 +66,19 @@ const StockListScreen = ({ history, match }) => {
     pageNumber,
   ]);
 
+ 
+
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
       dispatch(deleteStock(id));
     }
   };
+
+  const changeProduct = (value) => {
+    
+    const stocks_ = stocks.filter((e) => e.product === value);
+    setStockList(stocks_);
+  }
   return (
     <>
       {' '}
@@ -73,15 +90,19 @@ const StockListScreen = ({ history, match }) => {
           <Form.Control
             as="select"
             // value={product}
-            // onChange={(e) => selectProduct(e.target.value)}
+            onClick={(e) => changeProduct(e.target.value)}
             required={true}
           >
             <option>Select Product</option>
-            {/* {products.map((obj) => (
-              <option value={obj._id} key={obj._id}>
-                {obj.name}
-              </option>
-            ))} */}
+            {products.map((obj) => {
+              if (stocks.filter((e) => e.product === obj._id).length === 0)
+                return;
+              return (
+                <option value={obj._id} key={obj._id}>
+                  {obj.name}
+                </option>
+              );
+            })}
           </Form.Control>
         </Col>
         <Col className="text-right" md={3}>
@@ -113,7 +134,7 @@ const StockListScreen = ({ history, match }) => {
               </tr>
             </thead>
             <tbody>
-              {stocks.map((stock) => (
+              {(stockLists.length > 0 ? stockLists : stocks).map((stock) => (
                 <tr key={stock._id}>
                   <td>{stock.product_[0].name}</td>
                   <td> {stock.size}</td>
