@@ -24,6 +24,7 @@ const getStocks = asyncHandler(async (req, res) => {
 
   const count = await Stock.countDocuments({  });
   const stocks = await Stock.aggregate([
+   
     {
       $lookup: {
         from: 'products',
