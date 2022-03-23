@@ -3,17 +3,23 @@ import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
-import SearchBox from './SearchBox'
-import { logout } from '../../actions/userActions'
-import {
-  listCategories,
-} from '../../actions/categoryActions';
+
+import i18next from 'i18next';
+import cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
+
+import SearchBox from './SearchBox';
+import { logout } from '../../actions/userActions';
+import { listCategories } from '../../actions/categoryActions';
 import './NavBar.css';
 
  
 
 const Header = () => {
   const dispatch = useDispatch()
+    const { t } = useTranslation();
+
+  const currentLanguageCode = cookies.get('i18next') || 'en';
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -28,10 +34,13 @@ const Header = () => {
   }, [])
   
 
+  console.log(currentLanguageCode);
   const logoutHandler = () => {
     dispatch(logout())
   }
 
+
+  const number_of_days = 5;
   return (
     <header>
       <Navbar
@@ -72,8 +81,46 @@ const Header = () => {
               <LinkContainer to="/cart">
                 <Nav.Link className="text-dark ">Contact</Nav.Link>
               </LinkContainer> */}
+
               <LinkContainer to="#">
-                <Nav.Link className="text-dark">English</Nav.Link>
+                {currentLanguageCode === 'en' ? (
+                  <Nav.Link
+                    className="text-dark navbar-text"
+                    onClick={() => {
+                      i18next.changeLanguage('ar');
+                    }}
+                  >
+                    {t('arabic')}
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link
+                    className="text-dark navbar-text"
+                    onClick={() => {
+                      i18next.changeLanguage('en');
+                    }}
+                  >
+                    {t('english')}
+                  </Nav.Link>
+                )}
+                {/* <NavDropdown title="language" id="username">
+                  {' '}
+                  <Nav.Link
+                    className="text-dark navbar-text"
+                    onClick={() => {
+                      i18next.changeLanguage('en');
+                    }}
+                  >
+                    English
+                  </Nav.Link>
+                  <Nav.Link
+                    className="text-dark navbar-text"
+                    onClick={() => {
+                      i18next.changeLanguage('ar');
+                    }}
+                  >
+                    Arabic
+                  </Nav.Link>
+                </NavDropdown> */}
               </LinkContainer>
 
               <LinkContainer to="/cart">
