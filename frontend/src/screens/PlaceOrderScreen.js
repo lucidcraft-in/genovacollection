@@ -183,12 +183,15 @@ const PlaceOrderScreen = ({ history }) => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>
+                          <Link
+                            to={`/product/${item.product}`}
+                            className="product-head-text"
+                          >
                             {item.name}
                           </Link>
                         </Col>
-                        <Col md={4}>
-                          {item.qty} x aed {item.price} = aed{' '}
+                        <Col md={4} className="product-price-text">
+                          {item.qty} x AED {item.price} = AED{' '}
                           {item.qty * item.price}
                         </Col>
                       </Row>
@@ -208,26 +211,28 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>AED{cart.itemsPrice}</Col>
+                  <Col className="product-price-text">AED{cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>AED{cart.shippingPrice}</Col>
+                  <Col className="product-price-text">
+                    AED{cart.shippingPrice}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>AED{cart.taxPrice}</Col>
+                  <Col className="product-price-text">AED{cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               {isValidPromoCode ? (
                 <ListGroup.Item>
                   <Row>
                     <Col>You saved</Col>
-                    <Col>AED {savedAmount}</Col>
+                    <Col className="product-price-text">AED {savedAmount}</Col>
                   </Row>
                 </ListGroup.Item>
               ) : (
@@ -236,7 +241,7 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>AED{totalAmount}</Col>
+                  <Col className="product-price-text">AED{totalAmount}</Col>
                 </Row>
               </ListGroup.Item>
 
