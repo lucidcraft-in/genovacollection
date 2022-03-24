@@ -49,11 +49,7 @@ import SubCategoryEdit from './screens/SubCategory/SubCategoryEdit';
 import AboutUs from './screens/AboutUs/AboutUs';
 
 const languages = [
-  {
-    code: 'fr',
-    name: 'Français',
-    country_code: 'fr',
-  },
+  
   {
     code: 'en',
     name: 'English',
@@ -88,9 +84,7 @@ const App = () => {
     );
     const { t } = useTranslation();
 
-    const releaseDate = new Date('2021-03-07');
-    const timeDifference = new Date() - releaseDate;
-    const number_of_days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+   
 
     useEffect(() => {
       
@@ -114,7 +108,7 @@ const App = () => {
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart/:id?" component={CartScreen} />
+          <Route path="/cart" component={CartScreen} />
           <Route path="/category/:id" component={CategoryScreen} />
           <Route path="/about" component={AboutUs} />
           <Route path="/admin/userlist" component={UserListScreen} />

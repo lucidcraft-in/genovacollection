@@ -24,6 +24,8 @@ const ProductScreen = ({ history, match }) => {
   const [stockColors, setStockColors] = useState([]);
   const [selectedSize, setSelectedSize] = useState();
   const [selectedColor, setSelectedColor] = useState('');
+  const [stockAvailable, setStock] = useState(0);
+
   
 
   const dispatch = useDispatch()
@@ -72,6 +74,7 @@ const ProductScreen = ({ history, match }) => {
       setSelectedSize(stock?.stocks[0].size);
       selectSize(stock?.stocks[0].size);
       setSelectedColor(stock?.stocks[0].color);
+      setStock(stock?.stocks[0].count);
     }
    
 
@@ -80,8 +83,9 @@ const ProductScreen = ({ history, match }) => {
   const addToCartHandler = () => {
   dispatch(addToCart(match.params.id, qty, selectedSize, selectedColor));
 
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
+    history.push(`/cart/`)
   }
+ 
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -98,11 +102,32 @@ const ProductScreen = ({ history, match }) => {
     let findStocks = stock.stocks.filter((e) => e.size === size);
     setStockColors(findStocks);
     setSelectedSize(size);
+
+    console.log(findStocks);
+    if (findStocks.length === 0) {
+      setStock(0)
+      setQty(0)
+    } else {
+      setQty(1);
+       setStock(findStocks[0].count);
+    }
   }
 
   const selectColor = (color) => {
     setSelectedColor(color);
   }
+
+  const changeQnt = (val) => {
+   if (val === 'plus' && stockAvailable > qty) {
+     setQty(qty + 1);
+    }  
+    
+    if (val === 'minus' && qty > 0) {
+      setQty(qty - 1);
+    }
+  }
+  
+  
 
   return (
     <>
@@ -119,15 +144,17 @@ const ProductScreen = ({ history, match }) => {
           <Row>
             <Col md={6}>
               {' '}
-              <Image src={imageUrl} alt={product.name} fluid />
+              <div class="img-hover-zoom img-hover-zoom--zoom-n-pan">
+                <Image src={imageUrl} alt={product.name} fluid />
+              </div>
             </Col>
             <Col md={6}>
               {' '}
               <Row>
-                <Col md={6}>
+                <Col>
                   {' '}
                   <ListGroup variant="flush">
-                    <ListGroup.Item>
+                    <ListGroup.Item className="product-head-text">
                       <h3>{product.name}</h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -136,15 +163,17 @@ const ProductScreen = ({ history, match }) => {
                         text={`${product.numReviews} reviews`}
                       />
                     </ListGroup.Item>
-                    <ListGroup.Item>Price: AED {product.price}</ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item className="product-price-text">
+                      {' '}
+                      {product.price} AED
+                    </ListGroup.Item>
+                    <ListGroup.Item className="product-description">
                       Description: {product.description}
                     </ListGroup.Item>
                   </ListGroup>
                 </Col>
-                <Col md={6}>
-                  {' '}
-                  <Card>
+                {/* <Col md={6}> */}{' '}
+                {/* <Card>
                     <ListGroup variant="flush">
                       <ListGroup.Item>
                         <Row>
@@ -200,8 +229,8 @@ const ProductScreen = ({ history, match }) => {
                         </Button>
                       </ListGroup.Item>
                     </ListGroup>
-                  </Card>
-                </Col>
+                  </Card> */}
+                {/* </Col> */}
               </Row>
               {stock.stocks != undefined && stock.stocks.length > 0 ? (
                 <>
@@ -253,6 +282,7 @@ const ProductScreen = ({ history, match }) => {
                                       ? 'parent-dot'
                                       : ''
                                   }
+                                  key={index}
                                 >
                                   <div
                                     className="dot mr-2 pointer"
@@ -271,6 +301,70 @@ const ProductScreen = ({ history, match }) => {
               ) : (
                 <div className="m-3">Out Of Stock</div>
               )}
+              <Row className="m-3">
+                <Col md={3} sm={12}>
+                  {/* {stock.stocks != undefined && stock.stocks.length > 0 ? (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>
+                          <Form.Control
+                            as="select"
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(stock?.stocks).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  ) : (
+                    ''
+                  )} */}
+                  <div class="quantity buttons_added">
+                    <input
+                      type="button"
+                      value="-"
+                      class="minus"
+                      onClick={(e) => changeQnt('minus')}
+                    />
+                    <input
+                      type="number"
+                      step="1"
+                      min="0"
+                      max={stockAvailable}
+                      name="quantity"
+                      title="Qty"
+                      class="input-text qty text"
+                      size="4"
+                      pattern=""
+                      inputmode=""
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    />
+                    <input
+                      type="button"
+                      value="+"
+                      class="plus"
+                      onClick={(e) => changeQnt('plus')}
+                    />
+                  </div>{' '}
+                </Col>
+                <Col md={9} sm={12}>
+                  {' '}
+                  <Button
+                    onClick={addToCartHandler}
+                    className="btn-block"
+                    type="button"
+                    disabled={stockAvailable === 0 || qty <= 0}
+                  >
+                    Add To Cart
+                  </Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
           <Row>

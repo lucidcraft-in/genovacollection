@@ -22,3 +22,123 @@
   text-decoration: line-through;
   color : rgb(187, 39, 39)
 }
+
+
+.zoom {
+  
+  transition: transform .2s;
+ 
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.2); /* IE 9 */
+  -webkit-transform: scale(1.2); /* Safari 3-8 */
+  transform: scale(1.2); 
+}
+
+/* [1] The container */
+.img-hover-zoom {
+ 
+  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+
+/* [2] Transition property for smooth transformation of images */
+.img-hover-zoom img {
+  transition: transform .5s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.img-hover-zoom:hover img {
+  transform: scale(1.5);
+}
+
+
+/* Horizontal Zoom-n-pan Container */
+.img-hover-zoom--zoom-n-pan-h img {
+  transition: transform .5s ease-in-out;
+  transform: scale(1.4);
+  transform-origin: 100% 0;
+}
+
+/* The Transformation */
+.img-hover-zoom--zoom-n-pan-h:hover img {
+  transform: scale(1.5) translateX(30%);
+}
+
+
+
+/* Product page qnty */
+ 
+
+.quantity .input-text.qty {
+ width: 35px;
+ height: 40px;
+ padding: 0 5px;
+ text-align: center;
+ background-color: transparent;
+ border: 1px solid #efefef;
+}
+
+.quantity.buttons_added {
+ text-align: left;
+ position: relative;
+ white-space: nowrap;
+ vertical-align: top; }
+
+.quantity.buttons_added input {
+ display: inline-block;
+ margin: 0;
+ vertical-align: top;
+ box-shadow: none;
+}
+
+.quantity.buttons_added .minus,
+.quantity.buttons_added .plus {
+ padding: 7px 10px 8px;
+ height: 41px;
+ background-color: #ffffff;
+ border: 1px solid #efefef;
+ cursor:pointer;}
+
+.quantity.buttons_added .minus {
+ border-right: 0; }
+
+.quantity.buttons_added .plus {
+ border-left: 0; }
+
+.quantity.buttons_added .minus:hover,
+.quantity.buttons_added .plus:hover {
+ background: #eeeeee; }
+
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ margin: 0; }
+ 
+ .quantity.buttons_added .minus:focus,
+.quantity.buttons_added .plus:focus {
+ outline: none; }
+
+
+ .decoration-none{
+   text-decoration: none;
+ }
+
+ .product-price-text {
+   font-family: inherit;
+   font-size: large;
+   font-weight: 600 ;
+ }
+
+  .product-head-text {
+   font-family: inherit;
+   font-size: medium;
+   font-weight: 500 ;
+ }
+
+ .product-description{
+   font-size: medium;
+   font-family: cursive;
+ }

@@ -22,9 +22,9 @@ const Product = ({ product }) => {
   }
    
   return (
-    <Card className="my-3 p-3 rounded">
+    <Card className="my-3 p-3 rounded bg-image  ">
       <Link to={`/product/${product._id}`}>
-        <Card.Img src={imageUrl} variant="top" />
+        <Card.Img src={imageUrl} variant="top" className="zoom" />
       </Link>
 
       <Card.Body>
@@ -42,20 +42,20 @@ const Product = ({ product }) => {
               );
             })}{' '}
         </div>
-        <Link to={`/product/${product._id}`}>
-          <Card.Title as="div">
+        <Link to={`/product/${product._id}`} className="decoration-none">
+          <Card.Title as="div" className="product-head-text">
             {' '}
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
 
-        <Card.Text as="div">
+        <Card.Text as="div" className="product-head-text">
           <Rating
             value={product.rating}
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Row>
+        <Row className="product-price-text">
           {product.price > product.sellingPrice ? (
             <Col className="text-center strike"> {product.price} AED</Col>
           ) : (

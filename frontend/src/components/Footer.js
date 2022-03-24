@@ -1,14 +1,24 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
 
 const Footer = () => {
+  const { t } = useTranslation();
+  
+  const currentLanguageCode = cookies.get('i18next') || 'en';
+
   return (
     <footer class="page-footer font-small blue-grey lighten-5">
       <div style={{ backgroundColor: '#6c7874' }} className="bg-danger">
         <div class="container">
           <div class="row py-4 d-flex align-items-center">
             <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-              <h6 class="mb-0">Get connected with us on social networks!</h6>
+              <h6 class="mb-0">
+                {currentLanguageCode === 'en'
+                  ? t('connect_with')
+                  : t('connect_with')}
+              </h6>
             </div>
 
             <div class="col-md-6 col-lg-7 text-center text-md-right">
@@ -39,7 +49,12 @@ const Footer = () => {
       <div class="container text-center text-md-left mt-5">
         <div class="row mt-3 dark-grey-text">
           <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
-            <h6 class="text-uppercase font-weight-bold">GENOVA COLLECTION</h6>
+            <h6 class="text-uppercase font-weight-bold">
+              {' '}
+              {currentLanguageCode === 'en'
+                ? t('genova_collection')
+                : t('genova_collection')}
+            </h6>
             <hr
               class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
               style={{ width: '60px;' }}
@@ -54,7 +69,10 @@ const Footer = () => {
           </div>
 
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <h6 class="text-uppercase font-weight-bold">Products</h6>
+            <h6 class="text-uppercase font-weight-bold">
+              {' '}
+              {currentLanguageCode === 'en' ? t('products') : t('products')}
+            </h6>
             <hr
               class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
               style={{ width: '60px;' }}
@@ -82,7 +100,12 @@ const Footer = () => {
           </div>
 
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-            <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+            <h6 class="text-uppercase font-weight-bold">
+              {' '}
+              {currentLanguageCode === 'en'
+                ? t('usefull_link')
+                : t('usefull_link')}
+            </h6>
             <hr
               class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
               style={{ width: '60px' }}
@@ -110,7 +133,10 @@ const Footer = () => {
           </div>
 
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <h6 class="text-uppercase font-weight-bold">Contact</h6>
+            <h6 class="text-uppercase font-weight-bold">
+              {' '}
+              {currentLanguageCode === 'en' ? t('contact') : t('contact')}
+            </h6>
             <hr
               class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
               style={{ width: '60px;' }}

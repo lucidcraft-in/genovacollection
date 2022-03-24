@@ -3,6 +3,12 @@
   "language": "Language",
   "welcome_message": "Welcome",
   "days_since_release": "it's been {{number_of_days}} days since this video was released",
-  "arabic": "عربي"
-  , "search_product_english": "Search Products..."
+  "arabic": "عربي",
+  "search_product_english": "Search Products...",
+  "connect_with": "Get Connected With Us On Social Networks!",
+  "contact": "CONTACT",
+  "usefull_link": "USEFUL LINKS",
+  "products" : "PRODUCTS",
+  "genova_collection" : "GENOVA COLLECTION"
+
 }
