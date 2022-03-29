@@ -2,6 +2,7 @@ import React, { useEffect , useState } from 'react';
 import axios from 'axios';
 import { Row, Col, Container } from 'react-bootstrap';
 import Product from '../../components/Home/Product';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 const CategoryScreen = ({ match, history }) => {
   const categoryId = match.params.id;
@@ -9,6 +10,7 @@ const CategoryScreen = ({ match, history }) => {
   const [products, setProduct] = useState([])
    const [subCategoryList, setSubCategoryList] = useState([]);
   const [subCategory, setSubCategory] = useState('');
+  const [categoryName, setCategoryName] = useState('');
   
   const getCategory = async () => {
     let obj = {
@@ -20,6 +22,7 @@ const CategoryScreen = ({ match, history }) => {
      
     setProduct(data.products);
     setSubCategoryList(data.subCategory);
+    setCategoryName(data.categoryName);
 }
 
  
@@ -32,6 +35,20 @@ const CategoryScreen = ({ match, history }) => {
 
   return (
     <>
+      <Container>
+        <Row>
+          <Col sm={8}> </Col>
+          <Col sm={4}>
+            {' '}
+            <Breadcrumb>
+              <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+
+              <Breadcrumb.Item active>{categoryName}</Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+        </Row>
+      </Container>
+
       <Container>
         <Row>
           <ul class="list-group">

@@ -65,7 +65,8 @@ const getHomeCategories = asyncHandler(async (req, res) => {
   const pageSize = 10;
   const page = Number(req.query.pageNumber) || 1;
 
-
+  const category = await Category.findById(req.body.category);
+  const categoryName = category.categoryName
   
   const list = await SubCategory.find({ category: req.body.category });
 
@@ -104,7 +105,12 @@ const getHomeCategories = asyncHandler(async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
-  res.json({ products, subCategory ,page, pages: Math.ceil(count / pageSize) });
+  res.json({
+    products,
+    subCategory,
+    categoryName, page,
+    pages: Math.ceil(count / pageSize),
+  });
 });
 
 
