@@ -14,7 +14,7 @@ const StockCreate = ({history}) => {
 
   const [product, setProduct] = useState('');
   const [size, setSize] = useState(0);
-  const [color, setColor] = useState('');
+  const [color, setColor] = useState('#000000');
   const [count, setCount] = useState(0);
   
   const [sizeList, setSizeList] = useState([]);

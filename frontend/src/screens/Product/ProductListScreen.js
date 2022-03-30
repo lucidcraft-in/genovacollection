@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button, Row, Col } from 'react-bootstrap'
+import { Table, Button, Row, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../../components/Message'
 import Loader from '../../components/Loader'
@@ -11,11 +11,23 @@ import {
   createProduct,
 } from '../../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
+import { useTranslation } from 'react-i18next';
+import cookies from 'js-cookie';
+ 
 
 const ProductListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1
 
+
+  const { t } = useTranslation();
+
+  const currentLanguageCode = cookies.get('i18next') || 'en';
+
   const dispatch = useDispatch()
+
+
+  const [productsList, setProductList] = useState([])
+  const [searchValue, setSearch] = useState('')
 
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
@@ -46,7 +58,7 @@ const ProductListScreen = ({ history, match }) => {
     }
 
     if (successCreate) {
-      history.push(`/admin/product/edit/${createdProduct._id}`);
+      // history.push(`/admin/product/edit/${createdProduct._id}`);
     } else {
       dispatch(listProducts('', pageNumber))
     }
@@ -71,13 +83,39 @@ const ProductListScreen = ({ history, match }) => {
     dispatch(createProduct())
   }
 
+  const search = (value) => {
+    setSearch(value);
+    let product_ = products.filter(
+      (e) => e.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    );
+      
+ 
+    setProductList(product_);
+  }
+
+ 
+  
+
   return (
     <>
       <Row className="align-items-center">
-        <Col>
+        <Col md={6}>
           <h1>Products</h1>
         </Col>
-        <Col className="text-right">
+        <Col md={3}>
+          <Form.Control
+            type="text"
+            name="q"
+            onChange={(e) => search(e.target.value)}
+            placeholder={
+              currentLanguageCode === 'en'
+                ? t('search_product_english')
+                : t('search_product_arabic')
+            }
+            className="mr-sm-2 ml-sm-5"
+          ></Form.Control>
+        </Col>
+        <Col className="text-right" md={3}>
           <LinkContainer to={`/admin/product/create`}>
             <Button className="my-3">
               <i className="fas fa-plus"></i> Create Product
@@ -98,22 +136,21 @@ const ProductListScreen = ({ history, match }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                
                 <th>NAME</th>
                 <th>PRICE</th>
-                <th>CATEGORY</th>
+                {/* <th>CATEGORY</th> */}
                 <th>BRAND</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
-                // <LinkContainer to={`/admin/product/detail/${product._id}`}>
+              {(searchValue.length > 0 ? productsList : products).map(
+                (product) => (
+                  // <LinkContainer to={`/admin/product/detail/${product._id}`}>
                   <tr key={product._id}>
-                    
                     <td>{product.name}</td>
                     <td>AED {product.price}</td>
-                    <td>{product.category}</td>
+                    {/* <td>{product.category}</td> */}
                     <td>{product.brand}</td>
                     <td>
                       <LinkContainer to={`/admin/product/edit/${product._id}`}>
@@ -130,8 +167,9 @@ const ProductListScreen = ({ history, match }) => {
                       </Button>
                     </td>
                   </tr>
-                // </LinkContainer>
-              ))}
+                  // </LinkContainer>
+                )
+              )}
             </tbody>
           </Table>
           <Paginate pages={pages} page={page} isAdmin={true} />

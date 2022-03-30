@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Row, Col } from 'react-bootstrap';
 import Rating from '../Rating'
+import Container from 'react-bootstrap/Container';
  
 import '../../screens/Home/Home.css'
 
@@ -23,6 +24,21 @@ const Product = ({ product }) => {
    
   return (
     <Card className="my-3 p-3 rounded bg-image  ">
+      {product.price > product.sellingPrice && product.sellingPrice != 0 ? (
+        <Container>
+          <Row>
+            <Col xs> </Col>
+            <Col xs={{ order: 12 }}>
+              {' '}
+              <span class="badge badge-danger">SALE</span>
+            </Col>
+            <Col xs={{ order: 1 }}> </Col>
+          </Row>
+        </Container>
+      ) : (
+        ''
+      )}
+
       <Link to={`/product/${product._id}`}>
         <Card.Img src={imageUrl} variant="top" className="zoom" />
       </Link>
@@ -43,7 +59,7 @@ const Product = ({ product }) => {
             })}{' '}
         </div>
         <Link to={`/product/${product._id}`} className="decoration-none">
-          <Card.Title as="div" className="product-head-text">
+          <Card.Title as="div" className="product-head-text text-center">
             {' '}
             <strong>{product.name}</strong>
           </Card.Title>
@@ -56,7 +72,7 @@ const Product = ({ product }) => {
           />
         </Card.Text>
         <Row className="product-price-text">
-          {product.price > product.sellingPrice ? (
+          {product.price > product.sellingPrice && product.sellingPrice != 0 ? (
             <Col className="text-center strike"> {product.price} AED</Col>
           ) : (
             ''

@@ -97,7 +97,7 @@ const App = () => {
   return (
     <Router>
       <Header />
-       
+
       <main className="py-3">
         <Container>
           <Route path="/order/:id" component={OrderScreen} />
@@ -132,8 +132,8 @@ const App = () => {
           <Route path="/admin/orderlist" component={OrderListScreen} />
           <Route path="/admin/promotions" component={PromotionListScreen} />
           <Route path="/admin/promotion/create" component={PromotionCreate} />
-          <Route path="/admin/promotion/:id/edit" component={PromotionEdit} />
-          <Route path="/admin/promotion/:id" component={PromotionDetails} />
+          <Route path="/admin/promotion/edit/:id" component={PromotionEdit} />
+          <Route path="/admin/promotion/details/:id" component={PromotionDetails} />
           <Route path="/admin/subcategories" component={SubCategoryList} />
           <Route
             path="/admin/subcategory/create"

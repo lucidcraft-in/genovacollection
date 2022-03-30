@@ -172,65 +172,6 @@ const ProductScreen = ({ history, match }) => {
                     </ListGroup.Item>
                   </ListGroup>
                 </Col>
-                {/* <Col md={6}> */}{' '}
-                {/* <Card>
-                    <ListGroup variant="flush">
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Price:</Col>
-                          <Col>
-                            <strong>AED {product.price}</strong>
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Status:</Col>
-                          <Col>
-                            {product.countInStock > 0
-                              ? 'In Stock'
-                              : 'Out Of Stock'}
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-
-                      {product.countInStock > 0 && (
-                        <ListGroup.Item>
-                          <Row>
-                            <Col>Qty</Col>
-                            <Col>
-                              <Form.Control
-                                as="select"
-                                value={qty}
-                                onChange={(e) => setQty(e.target.value)}
-                              >
-                                {[...Array(product.countInStock).keys()].map(
-                                  (x) => (
-                                    <option key={x + 1} value={x + 1}>
-                                      {x + 1}
-                                    </option>
-                                  )
-                                )}
-                              </Form.Control>
-                            </Col>
-                          </Row>
-                        </ListGroup.Item>
-                      )}
-
-                      <ListGroup.Item>
-                        <Button
-                          onClick={addToCartHandler}
-                          className="btn-block"
-                          type="button"
-                          disabled={product.countInStock === 0}
-                        >
-                          Add To Cart
-                        </Button>
-                      </ListGroup.Item>
-                    </ListGroup>
-                  </Card> */}
-                {/* </Col> */}
               </Row>
               {stock.stocks != undefined && stock.stocks.length > 0 ? (
                 <>
@@ -303,27 +244,6 @@ const ProductScreen = ({ history, match }) => {
               )}
               <Row className="m-3">
                 <Col md={3} sm={12}>
-                  {/* {stock.stocks != undefined && stock.stocks.length > 0 ? (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>
-                          <Form.Control
-                            as="select"
-                            value={qty}
-                            onChange={(e) => setQty(e.target.value)}
-                          >
-                            {[...Array(stock?.stocks).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ) : (
-                    ''
-                  )} */}
                   <div class="quantity buttons_added">
                     <input
                       type="button"
@@ -398,6 +318,7 @@ const ProductScreen = ({ history, match }) => {
                         <Form.Control
                           as="select"
                           value={rating}
+                          required={true}
                           onChange={(e) => setRating(e.target.value)}
                         >
                           <option value="">Select...</option>
@@ -413,6 +334,7 @@ const ProductScreen = ({ history, match }) => {
                         <Form.Control
                           as="textarea"
                           row="3"
+                          required={true}
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>

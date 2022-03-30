@@ -35,19 +35,19 @@ const PromotionEdit = ({ match, history }) => {
  
 
   useEffect(() => {
+ 
     if (successUpdate) {
       dispatch({ type: PROMOTION_UPDATE_RESET });
       history.push('/admin/promotions');
     } else {
-      if (!promotion.name || promotion._id !== promotionId) {
+         
+      if (!promotion?.promotion?.name || promotion?.promotion?._id !== promotionId) {
         dispatch(listPromotionDetails(promotionId));
       } else {
-       
-        setName(promotion.name);
-        setPhone(promotion.phone);
-        setPromoCode(promotion.code);
-        setStatus(promotion.isActive);
-       
+        setName(promotion?.promotion?.name);
+        setPhone(promotion?.promotion?.phone);
+        setPromoCode(promotion?.promotion?.code);
+        setStatus(promotion?.promotion?.isActive);
       }
     }
   }, [dispatch, history, promotionId, promotion, successUpdate]);
