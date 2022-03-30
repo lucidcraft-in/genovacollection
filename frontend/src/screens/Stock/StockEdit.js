@@ -30,7 +30,7 @@ const StockEdit = ({ match, history }) => {
   useEffect(() => {
     if (successUpdate) {
       
-      history.push('/admin/stocks');
+      // history.push('/admin/stocks');
     } else {
        
       if (!stock.product || stock.stock._id !== stockId) {
@@ -56,6 +56,8 @@ const StockEdit = ({ match, history }) => {
           
        })
      );
+
+      history.push('/admin/stocks');
    };
 
 

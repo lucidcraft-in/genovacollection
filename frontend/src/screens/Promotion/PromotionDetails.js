@@ -35,7 +35,7 @@ const PromotionDetails = ({ match }) => {
   
   }, []);
 
-  console.log(data);
+  
 
   return (
     <>

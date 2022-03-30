@@ -114,7 +114,7 @@ const PromotionListScreen = ({ history, match }) => {
             </thead>
             <tbody>
               {promotions.map((promotion) => (
-                <LinkContainer to={`/admin/promotion/${promotion._id}`}>
+                <LinkContainer to={`/admin/promotion/details/${promotion._id}`}>
                   <tr key={promotion._id}>
                     <td>{promotion.name}</td>
                     <td> {promotion.phone}</td>
@@ -122,7 +122,7 @@ const PromotionListScreen = ({ history, match }) => {
 
                     <td>
                       <LinkContainer
-                        to={`/admin/promotion/${promotion._id}/edit`}
+                        to={`/admin/promotion/edit/${promotion._id}`}
                       >
                         <Button variant="light" className="btn-sm">
                           <i className="fas fa-edit"></i>
