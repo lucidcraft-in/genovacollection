@@ -104,9 +104,9 @@ p {
 }
 abbr[title],
 abbr[data-original-title] {
-  text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
-  text-decoration: underline dotted;
+  text-decoration: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   cursor: help;
   border-bottom: 0;
   text-decoration-skip-ink: none;
@@ -165,7 +165,7 @@ a {
 }
 a:hover {
   color: black;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:not([href]):not([class]) {
   color: inherit;
@@ -4698,7 +4698,7 @@ input[type='button'].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 2.5px solid rgba(0, 0, 0, 0.125);
+  /* border: 2.5px solid rgba(0, 0, 0, 0.125); */
 }
 .card > hr {
   margin-right: 0;
@@ -4880,7 +4880,7 @@ input[type='button'].btn-block {
   content: '/';
 }
 .breadcrumb-item + .breadcrumb-item:hover::before {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: none;
@@ -9724,7 +9724,7 @@ a.text-dark:focus {
     box-shadow: none !important;
   }
   a:not(.btn) {
-    text-decoration: underline;
+    text-decoration: none;
   }
   abbr[title]::after {
     content: ' (' attr(title) ')';

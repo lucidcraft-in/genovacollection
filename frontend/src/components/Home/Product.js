@@ -65,19 +65,24 @@ const Product = ({ product }) => {
           </Card.Title>
         </Link>
 
-        <Card.Text as="div" className="product-head-text">
+        {/* <Card.Text as="div" className="product-head-text text-center">
           <Rating
             value={product.rating}
             text={`${product.numReviews} reviews`}
           />
-        </Card.Text>
+        </Card.Text> */}
         <Row className="product-price-text">
-          {product.price > product.sellingPrice && product.sellingPrice != 0 ? (
-            <Col className="text-center strike"> {product.price} AED</Col>
-          ) : (
-            ''
-          )}
-          <Col className="text-center"> {product.sellingPrice} AED</Col>
+          <Col className="text-center ">
+            {product.price > product.sellingPrice &&
+            product.sellingPrice != 0 ? (
+              <span className=" strike mr-2">{product.price} AED   </span>
+            ) : (
+              ''
+            )}
+            {product.sellingPrice} AED
+          </Col>
+
+          {/* <Col className="text-center"> {product.sellingPrice} AED</Col> */}
         </Row>
       </Card.Body>
     </Card>

@@ -59,18 +59,21 @@ const HomeScreen = ({ match }) => {
               </Row>
               <Row>
                 {product.product.slice(0, 8).map((item) => (
-                  <Col sm={3} key={item._id}>
+                  <Col sm={6} md={4} xs={6} lg={3} key={item._id}>
                     <Product product={item} />
                   </Col>
                 ))}
               </Row>
-              {product.product.length >= 8 ?
+              {product.product.length >= 8 ? (
                 <Row className="justify-content-md-center">
                   <Col md="auto">
                     {' '}
                     <h4>show more..</h4>
                   </Col>
-                </Row> : ''}
+                </Row>
+              ) : (
+                ''
+              )}
             </Container>
           ))}
         </>

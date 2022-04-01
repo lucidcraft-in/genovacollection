@@ -26,7 +26,7 @@
 
 .zoom {
   
-  transition: transform .2s;
+  transition: transform .3s;
  
   margin: 0 auto;
 }
@@ -34,7 +34,7 @@
 .zoom:hover {
   -ms-transform: scale(1.2); /* IE 9 */
   -webkit-transform: scale(1.2); /* Safari 3-8 */
-  transform: scale(1.2); 
+  transform: scale(1.1); 
 }
 
 /* [1] The container */
@@ -128,14 +128,14 @@
 
  .product-price-text {
    font-family: inherit;
-   font-size: large;
+   font-size: small;
    font-weight: 600 ;
  }
 
   .product-head-text {
    font-family: inherit;
-   font-size: medium;
-   font-weight: 500 ;
+   font-size: small;
+   font-weight: 100 ;
  }
 
  .product-description{
