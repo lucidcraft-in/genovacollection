@@ -1,0 +1,12 @@
+.whatsapp{
+     position: fixed;
+    bottom: 10px;
+    left: 20px; 
+   
+}
+
+.whatsapp .color {
+    color: #fff;
+    background-color: #25D366;
+     border-radius: 100px;
+}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -7,7 +7,12 @@ import classNames from 'classnames';
 import { Container } from 'react-bootstrap'
 import Header from './components/Navbar/Header';
 import Footer from './components/Footer'
+import WhatsApp from './components/Home/WhatsApp';
+ import PreLoader from './components/Home/PreLoader';
+
 import HomeScreen from './screens/Home/HomeScreen'
+
+
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
@@ -48,6 +53,10 @@ import SubCategoryEdit from './screens/SubCategory/SubCategoryEdit';
 
 import AboutUs from './screens/AboutUs/AboutUs';
 
+
+
+
+
 const languages = [
   
   {
@@ -85,6 +94,8 @@ const App = () => {
     const { t } = useTranslation();
 
    
+  
+  const [preLoad, setPreload] = useState(true);
 
     useEffect(() => {
       
@@ -92,81 +103,105 @@ const App = () => {
       document.title = t('app_title');
     }, [currentLanguage, t]);
 
-  
+  setTimeout(() => {
+    setPreload(false);
+  }, 4000);
   
   return (
     <Router>
-      <Header />
+      {preLoad === true ? (
+        <PreLoader />
+      ) : (
+        <>
+          <Header />
 
-      <main className="py-3">
-        <Container>
-          <Route path="/order/:id" component={OrderScreen} />
-          <Route path="/shipping" component={ShippingScreen} />
-          <Route path="/payment" component={PaymentScreen} />
-          <Route path="/placeorder" component={PlaceOrderScreen} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/register" component={RegisterScreen} />
-          <Route path="/profile" component={ProfileScreen} />
-          <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart" component={CartScreen} />
-          <Route path="/category/:id" component={CategoryScreen} />
-          <Route path="/about" component={AboutUs} />
-          <Route path="/admin/userlist" component={UserListScreen} />
-          <Route path="/admin/user/:id/edit" component={UserEditScreen} />
-          <Route
-            path="/admin/productlist"
-            component={ProductListScreen}
-            exact
-          />
-          <Route
-            path="/admin/productlist/:pageNumber"
-            component={ProductListScreen}
-            exact
-          />
-          <Route path="/admin/product/edit/:id" component={ProductEditScreen} />
-          <Route path="/admin/product/create" component={ProductCreateScreen} />
-          <Route path="/admin/stocks" component={StockListScreen} />
-          <Route path="/admin/stock/create" component={StockCreate} />
-          <Route path="/admin/stock/edit/:id" component={StockEdit} />
+          <main className="py-3">
+            <Container>
+              <Route path="/order/:id" component={OrderScreen} />
+              <Route path="/shipping" component={ShippingScreen} />
+              <Route path="/payment" component={PaymentScreen} />
+              <Route path="/placeorder" component={PlaceOrderScreen} />
+              <Route path="/login" component={LoginScreen} />
+              <Route path="/register" component={RegisterScreen} />
+              <Route path="/profile" component={ProfileScreen} />
+              <Route path="/product/:id" component={ProductScreen} />
+              <Route path="/cart" component={CartScreen} />
+              <Route path="/category/:id" component={CategoryScreen} />
+              <Route path="/about" component={AboutUs} />
+              <Route path="/admin/userlist" component={UserListScreen} />
+              <Route path="/admin/user/:id/edit" component={UserEditScreen} />
+              <Route
+                path="/admin/productlist"
+                component={ProductListScreen}
+                exact
+              />
+              <Route
+                path="/admin/productlist/:pageNumber"
+                component={ProductListScreen}
+                exact
+              />
+              <Route
+                path="/admin/product/edit/:id"
+                component={ProductEditScreen}
+              />
+              <Route
+                path="/admin/product/create"
+                component={ProductCreateScreen}
+              />
+              <Route path="/admin/stocks" component={StockListScreen} />
+              <Route path="/admin/stock/create" component={StockCreate} />
+              <Route path="/admin/stock/edit/:id" component={StockEdit} />
 
-          <Route path="/admin/orderlist" component={OrderListScreen} />
-          <Route path="/admin/promotions" component={PromotionListScreen} />
-          <Route path="/admin/promotion/create" component={PromotionCreate} />
-          <Route path="/admin/promotion/edit/:id" component={PromotionEdit} />
-          <Route path="/admin/promotion/details/:id" component={PromotionDetails} />
-          <Route path="/admin/subcategories" component={SubCategoryList} />
-          <Route
-            path="/admin/subcategory/create"
-            component={SubCategoryCreate}
-          />
-          <Route
-            path="/admin/subcategory/:id/edit"
-            component={SubCategoryEdit}
-          />
-          <Route path="/search/:keyword" component={HomeScreen} exact />
-          <Route path="/page/:pageNumber" component={HomeScreen} exact />
-          <Route
-            path="/admin/category/create"
-            component={CategoryCreateScreen}
-          />
-          <Route
-            path="/admin/categorylist"
-            component={CategoryListScreen}
-            exact
-          />
-          <Route
-            path="/admin/category/:id/edit"
-            component={CategoryEditScreen}
-          />
-          <Route
-            path="/search/:keyword/page/:pageNumber"
-            component={HomeScreen}
-            exact
-          />
-          <Route path="/" component={HomeScreen} exact />
-        </Container>
-      </main>
-      <Footer />
+              <Route path="/admin/orderlist" component={OrderListScreen} />
+              <Route path="/admin/promotions" component={PromotionListScreen} />
+              <Route
+                path="/admin/promotion/create"
+                component={PromotionCreate}
+              />
+              <Route
+                path="/admin/promotion/edit/:id"
+                component={PromotionEdit}
+              />
+              <Route
+                path="/admin/promotion/details/:id"
+                component={PromotionDetails}
+              />
+              <Route path="/admin/subcategories" component={SubCategoryList} />
+              <Route
+                path="/admin/subcategory/create"
+                component={SubCategoryCreate}
+              />
+              <Route
+                path="/admin/subcategory/:id/edit"
+                component={SubCategoryEdit}
+              />
+              <Route path="/search/:keyword" component={HomeScreen} exact />
+              <Route path="/page/:pageNumber" component={HomeScreen} exact />
+              <Route
+                path="/admin/category/create"
+                component={CategoryCreateScreen}
+              />
+              <Route
+                path="/admin/categorylist"
+                component={CategoryListScreen}
+                exact
+              />
+              <Route
+                path="/admin/category/:id/edit"
+                component={CategoryEditScreen}
+              />
+              <Route
+                path="/search/:keyword/page/:pageNumber"
+                component={HomeScreen}
+                exact
+              />
+              <Route path="/" component={HomeScreen} exact />
+            </Container>
+          </main>
+          <WhatsApp />
+          <Footer />
+        </>
+      )}
     </Router>
   );
 }

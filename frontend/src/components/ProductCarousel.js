@@ -4,36 +4,34 @@ import { Carousel, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
-import { listTopProducts } from '../actions/productActions'
-
+ 
 const ProductCarousel = () => {
-  const dispatch = useDispatch()
+ 
 
-  const productTopRated = useSelector((state) => state.productTopRated)
-  const { loading, error, products } = productTopRated
+  
 
  
 
-  useEffect(() => {
-    dispatch(listTopProducts())
-  }, [dispatch])
+ 
 
-  return loading ? (
-    <Loader />
-  ) : error ? (
-    <Message variant="danger">{error}</Message>
-  ) : (
-    <Carousel pause="hover" className="bg-danger">
-      {products.map((product) => (
-        <Carousel.Item key={product._id}>
-          <Link to={`/product/${product._id}`}>
-            <Image src={product.images[0].url} alt={product.name} fluid />
-            <Carousel.Caption className="carousel-caption">
-              <h2>
-                {product.name} (aed {product.price})
-              </h2>
-            </Carousel.Caption>
-          </Link>
+  const slide = [
+    {
+      id: 1,
+      image: `${process.env.PUBLIC_URL}/bnr-scaled.jpg`,
+      name: 'A SRTIDE ',
+    },
+    
+  ];
+
+  return (
+    <Carousel pause="hover">
+      {slide.map((slide) => (
+        <Carousel.Item key={slide._id}>
+          <Image
+            src={slide.image}
+            alt={slide.name}
+            fluid
+          />
         </Carousel.Item>
       ))}
     </Carousel>

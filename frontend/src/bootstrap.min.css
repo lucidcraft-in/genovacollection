@@ -79,6 +79,7 @@ body {
   color: #55595c;
   text-align: left;
   background-color: #fff;
+  overflow-x: hidden;
 }
 [tabindex='-1']:focus:not(:focus-visible) {
   outline: 0 !important;

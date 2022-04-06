@@ -12,6 +12,7 @@ import {
   listProducts,
   listProductsByCAtegoryPriority,
 } from '../../actions/productActions';
+ import PreLoader from '../../components/Home/PreLoader';
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
@@ -32,6 +33,7 @@ const HomeScreen = ({ match }) => {
       <Meta />
       {!keyword ? (
         <ProductCarousel />
+        // <PreLoader/>
       ) : (
         <Link to="/" className="btn btn-light">
           Go Back
@@ -59,7 +61,7 @@ const HomeScreen = ({ match }) => {
               </Row>
               <Row>
                 {product.product.slice(0, 8).map((item) => (
-                  <Col sm={6} md={4} xs={6} lg={3} key={item._id}>
+                  <Col sm={6} md={3} xs={6} lg={3} key={item._id}>
                     <Product product={item} />
                   </Col>
                 ))}
