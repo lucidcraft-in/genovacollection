@@ -52,6 +52,14 @@ const ProductScreen = ({ history, match }) => {
  
 
   useEffect(() => {
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+        /* you can also use 'auto' behaviour
+          in place of 'smooth' */
+      });
+
     if (successProductReview) {
       setRating(0);
       setComment('');
@@ -131,9 +139,21 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <>
-      {/* <Link className="btn btn-light my-3" to="/">
-        Go Back
-      </Link> */}
+      <Link className="btn btn-light my-1" to="/">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-arrow-left"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+          />
+        </svg>
+      </Link>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -141,7 +161,7 @@ const ProductScreen = ({ history, match }) => {
       ) : (
         <>
           <Meta title={product.name} />
-          <Row>
+          <Row className='p-2'>
             <Col md={6}>
               {' '}
               <div class="img-hover-zoom img-hover-zoom--zoom-n-pan">

@@ -25,6 +25,14 @@ const HomeScreen = ({ match }) => {
   const { loading, error, products } = productList;
 
   useEffect(() => {
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+    /* you can also use 'auto' behaviour
+          in place of 'smooth' */
+  });
+
     dispatch(listProductsByCAtegoryPriority(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
 
@@ -33,10 +41,22 @@ const HomeScreen = ({ match }) => {
       <Meta />
       {!keyword ? (
         <ProductCarousel />
-        // <PreLoader/>
       ) : (
+        // <PreLoader/>
         <Link to="/" className="btn btn-light">
-          Go Back
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-arrow-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+            />
+          </svg>
         </Link>
       )}
 
@@ -48,17 +68,18 @@ const HomeScreen = ({ match }) => {
         <>
           {products?.map((product) => (
             <Container key={product._id} className="mt-5">
-              <Row className="justify-content-md-center">
-                <Col md="auto">
+              <Row className="d-flex justify-content-center">
+                <Col md="auto" xs="auto">
                   {' '}
                   <h5>{product.category}</h5>
                 </Col>
               </Row>
-              <Row className="justify-content-md-center">
-                <Col md="auto">
+              <Row className="d-flex justify-content-center">
+                <Col md="auto" xs="auto">
                   <h3>{product.title}</h3>
                 </Col>
               </Row>
+
               <Row>
                 {product.product.slice(0, 8).map((item) => (
                   <Col sm={6} md={3} xs={6} lg={3} key={item._id}>
@@ -67,7 +88,7 @@ const HomeScreen = ({ match }) => {
                 ))}
               </Row>
               {product.product.length >= 8 ? (
-                <Row className="justify-content-md-center">
+                <Row className="d-flex justify-content-center">
                   <Col md="auto">
                     {' '}
                     <h4>show more..</h4>

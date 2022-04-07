@@ -27,7 +27,8 @@ const Header = () => {
      const categoryList = useSelector((state) => state.categoryList);
     const { loading, error, categories } = categoryList;
   
- 
+   const cart = useSelector((state) => state.cart);
+   const { cartItems } = cart;
 
   useEffect(() => {
    dispatch(listCategories(''));
@@ -40,24 +41,27 @@ const Header = () => {
   }
 
 
-  const number_of_days = 5;
+ 
   return (
     <header>
       <Navbar
-        style={{ backgroundColor: '#f2f4f7' }}
         expand="lg"
         collapseOnSelect
-        className="shadow-sm p-3 mb-5 bg-white rounded nav-style"
+        className="shadow-sm p-3 mb-5  nav-bg-style rounded nav-style"
       >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>
-              <img src={`${process.env.PUBLIC_URL}/logo3.png`} height="50" />
+            <Navbar.Brand className="nav-brand-style">
+              <img
+                src={`${process.env.PUBLIC_URL}/logo3.png`}
+                className="image-logo"
+              />
             </Navbar.Brand>
           </LinkContainer>
+          <Route render={({ history }) => <SearchBox history={history} />} />
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
           <Navbar.Collapse id="basic-navbar-nav">
-            <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               <LinkContainer to="/about">
                 <Nav.Link className="text-dark navbar-text ">
@@ -102,25 +106,7 @@ const Header = () => {
                     {t('english')}
                   </Nav.Link>
                 )}
-                {/* <NavDropdown title="language" id="username">
-                  {' '}
-                  <Nav.Link
-                    className="text-dark navbar-text"
-                    onClick={() => {
-                      i18next.changeLanguage('en');
-                    }}
-                  >
-                    English
-                  </Nav.Link>
-                  <Nav.Link
-                    className="text-dark navbar-text"
-                    onClick={() => {
-                      i18next.changeLanguage('ar');
-                    }}
-                  >
-                    Arabic
-                  </Nav.Link>
-                </NavDropdown> */}
+                 
               </LinkContainer>
 
               <LinkContainer to="/cart">
@@ -139,6 +125,7 @@ const Header = () => {
                     />
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
                   </svg>
+                  <a className="cart-label">{cartItems.length}</a>
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (

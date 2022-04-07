@@ -28,6 +28,14 @@ const CategoryScreen = ({ match, history }) => {
  
   
   useEffect(() => {
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+    /* you can also use 'auto' behaviour
+          in place of 'smooth' */
+  });
+
     getCategory();
   }, [categoryId, subCategory]);
 
@@ -35,7 +43,7 @@ const CategoryScreen = ({ match, history }) => {
 
   return (
     <>
-      <Container>
+      <Container className='pt-2'>
         <Row>
           <Col sm={8}> </Col>
           <Col sm={4}>
@@ -51,8 +59,8 @@ const CategoryScreen = ({ match, history }) => {
 
       <Container>
         <Row>
-          <ul class="list-group">
-            <h5> Sub Categories</h5>
+          <ul class="list-group category-border">
+            <span className="vertical-filters-header "> Sub Categories</span>
             {subCategoryList.map((sub) => (
               <li
                 class="list-group-item d-flex justify-content-between align-items-center pointer"

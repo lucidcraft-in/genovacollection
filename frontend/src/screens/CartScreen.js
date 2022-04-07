@@ -22,9 +22,17 @@ const CartScreen = ({ match, location, history }) => {
  const stockList = useSelector((state) => state.stockList);
  const {  stocks } = stockList;
 
-   console.log(stocks);
+
 
   useEffect(() => {
+
+     window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+        /* you can also use 'auto' behaviour
+          in place of 'smooth' */
+     });
+    
     // if (productId) {
     //   dispatch(addToCart(productId, qty))
     // }
@@ -64,7 +72,7 @@ const CartScreen = ({ match, location, history }) => {
 
  
   return (
-    <Row className='p-3'>
+    <Row className="p-3">
       <Col md={8}>
         <h1> </h1>
         {cartItems.length === 0 ? (
@@ -76,10 +84,10 @@ const CartScreen = ({ match, location, history }) => {
             {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
-                  <Col md={2}>
+                  <Col md={2} sm={3} xs={3} lg={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
-                  <Col md={3}>
+                  <Col md={2} sm={3} xs={3} lg={2}>
                     <Link
                       to={`/product/${item.product}`}
                       className="product-head-text"
@@ -87,11 +95,17 @@ const CartScreen = ({ match, location, history }) => {
                       {item.name}
                     </Link>
                   </Col>
-                  <Col md={2} className="product-price-text">
+                  <Col
+                    md={2}
+                    sm={3}
+                    xs={3}
+                    lg={2}
+                    className="product-price-text"
+                  >
                     {' '}
                     {item.price} AED
                   </Col>
-                  <Col md={2}>
+                  <Col md={2} sm={3} xs={3} lg={2}>
                     <div class="quantity buttons_added">
                       <input
                         type="button"
@@ -136,7 +150,7 @@ const CartScreen = ({ match, location, history }) => {
                       ))}
                     </Form.Control> */}
                   </Col>
-                  <Col md={2}>
+                  <Col md={2} sm={2} xs={2} lg={2}>
                     <Button
                       type="button"
                       variant="light"

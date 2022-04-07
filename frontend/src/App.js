@@ -10,6 +10,8 @@ import Footer from './components/Footer'
 import WhatsApp from './components/Home/WhatsApp';
  import PreLoader from './components/Home/PreLoader';
 
+ import ScrollButton from './components/ScrollButton/ScrollButton';
+
 import HomeScreen from './screens/Home/HomeScreen'
 
 
@@ -115,7 +117,8 @@ const App = () => {
         <>
           <Header />
 
-          <main className="py-3">
+          {/* <main className="py-3"> */}
+          <main  >
             <Container>
               <Route path="/order/:id" component={OrderScreen} />
               <Route path="/shipping" component={ShippingScreen} />
@@ -198,6 +201,7 @@ const App = () => {
               <Route path="/" component={HomeScreen} exact />
             </Container>
           </main>
+          <ScrollButton />
           <WhatsApp />
           <Footer />
         </>

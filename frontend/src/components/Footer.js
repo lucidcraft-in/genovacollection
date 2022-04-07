@@ -66,11 +66,9 @@ const Footer = () => {
               style={{ width: '60px;' }}
             />
             <p>
-              Ecommerce is the buying and selling of goods and services over the
-              Internet. It is conducted over computers, tablets, smartphones,
-              and other smart devices. Almost anything can be purchased through
-              ecommerce today. It can be a substitute for brick-and-mortar
-              stores, though some businesses choose to maintain both.
+              {currentLanguageCode === 'en'
+                ? t('footer_desc')
+                : t('foot_desc_ar')}
             </p>
           </div>
 

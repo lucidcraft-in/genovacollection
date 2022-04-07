@@ -141,16 +141,16 @@ const PlaceOrderScreen = ({ history }) => {
     setTotalAmount(cart.totalPrice - savedAmount);
   }
 
-   console.log(cart);
+ 
 
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
-      <Row>
-        <Col md={8}>
+      <Row className="mt-5 product-price-text">
+        <Col md={8} className="placeorder-border">
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <span className="place-order-head">Shipping</span>
               <p>
                 <strong>Address:</strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
@@ -160,13 +160,14 @@ const PlaceOrderScreen = ({ history }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <span className="place-order-head">Payment Method</span>
+              <br/>
               <strong>Method: </strong>
               {cart.paymentMethod}
             </ListGroup.Item>
 
-            <ListGroup.Item>
-              <h2>Order Items</h2>
+            <ListGroup.Item className="placeorder-border">
+              <span className="place-order-head">Order Items</span>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
@@ -174,7 +175,13 @@ const PlaceOrderScreen = ({ history }) => {
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col
+                          md={1}
+                          sm={3}
+                          xs={3}
+                          lg={1}
+                          className="product-price-text"
+                        >
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -202,30 +209,32 @@ const PlaceOrderScreen = ({ history }) => {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={4}>
+
+        <Col md={4} className="placeorder-border-2">
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <span className="place-order-head">Order Summary</span>
+                
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col className="product-price-text">AED{cart.itemsPrice}</Col>
+                  <Col className="product-price-text">AED {cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
                   <Col className="product-price-text">
-                    AED{cart.shippingPrice}
+                    AED {cart.shippingPrice}
                   </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col className="product-price-text">AED{cart.taxPrice}</Col>
+                  <Col className="product-price-text">AED {cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               {isValidPromoCode ? (
@@ -241,7 +250,7 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col className="product-price-text">AED{totalAmount}</Col>
+                  <Col className="product-price-text">AED {totalAmount}</Col>
                 </Row>
               </ListGroup.Item>
 

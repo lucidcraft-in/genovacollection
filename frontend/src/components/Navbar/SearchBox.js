@@ -22,7 +22,7 @@ const SearchBox = ({ history }) => {
 
   return (
     <Form onSubmit={submitHandler} inline>
-      <Form.Control
+      {/* <Form.Control
         type="text"
         name="q"
         onChange={(e) => setKeyword(e.target.value)}
@@ -35,7 +35,35 @@ const SearchBox = ({ history }) => {
       ></Form.Control>
       <Button type="submit" variant="outline-secondary" className="p-2">
         <i className="fas fa-search"></i>
-      </Button>
+      </Button> */}
+      <div className="d-flex bd-highlight example-parent">
+        <div className="p-2 w-100 bd-highlight col-example">
+          <Form.Control
+            type="text"
+            name="q"
+            onChange={(e) => setKeyword(e.target.value)}
+            placeholder={
+              currentLanguageCode === 'en'
+                ? t('search_product_english')
+                : t('search_product_arabic')
+            }
+            className="mr-sm-2 ml-sm-5"
+          ></Form.Control>
+        </div>
+        <div className="p-2 flex-shrink-1 bd-highlight col-example">
+          <Button
+            type="submit"
+            variant="outline-secondary"
+            className={
+              currentLanguageCode === 'en'
+                ? 'p-2 search-icon-left'
+                : 'p-2 search-icon-right'
+            }
+          >
+            <i className="fas fa-search "></i>
+          </Button>
+        </div>
+      </div>
     </Form>
   );
 }

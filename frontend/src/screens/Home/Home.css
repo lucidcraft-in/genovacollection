@@ -1,6 +1,6 @@
 .dot {
-  height: 17px;
-  width: 17px;
+  height: 14px;
+  width: 14px;
   border-radius: 50%;
   display: inline-block;
    
@@ -140,11 +140,80 @@
 
  .product-description{
    font-size: medium;
-   font-family: cursive;
+   font-family: sans-serif;
  }
 
 
  .footer-font{
    /* color: #cc9732; */
    color: #ffffff;
+ }
+
+
+ .category-border {
+  
+  border-radius: 5px;
+  padding: 15px;
+  border-right: 1px solid #edebef;
+ }
+
+ .vertical-filters-header {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 0 0 18px;
+    clear: both;
+    color: #282c3f;
+    display: block;
+}
+
+
+.checkout-head {
+  font-weight: 700;
+}
+
+
+
+.placeorder-border {
+  
+  border-radius: 5px;
+  padding: 15px;
+  border: 1px solid #edebef;
+ }
+
+ .placeorder-border-2 {
+  
+  border-radius: 5px;
+  padding: 15px;
+  border-top: 1px solid #edebef;
+ }
+
+
+ .place-order-head{
+   font-size: large;
+  font-style: unset;
+   font-weight: 700;
+  text-transform: uppercase;
+  text-justify: distribute;
+  color: #282c3f;
+ }
+
+ .payment-card {
+    border: 2px solid #edebef;
+    font-size: 16px;
+    min-height: 100px;
+    cursor: pointer;
+    
+ }
+ .payment-card :hover{
+   color: #282c3f;
+   background-color: #d8cec1;
+ }
+
+ .payment-selected{
+    background-color: #d8cec1;
+ }
+
+ .payment-card-head {
+   color: #080704;
  }
