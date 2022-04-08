@@ -107,3 +107,12 @@ h2 {
 .img-hover-zoom--quick-zoom:hover img {
   transform: scale(2);
 }
+
+
+
+@media (max-width: 576px) {
+ .position{
+margin-top: 110px;
+}
+}
+ 

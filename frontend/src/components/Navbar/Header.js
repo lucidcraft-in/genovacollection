@@ -50,7 +50,7 @@ const Header = () => {
         className="shadow-sm p-3 mb-5  nav-bg-style rounded nav-style"
       >
         <Container>
-          <LinkContainer to="/">
+          {/* <LinkContainer to="/">
             <Navbar.Brand className="nav-brand-style">
               <img
                 src={`${process.env.PUBLIC_URL}/logo3.png`}
@@ -58,8 +58,28 @@ const Header = () => {
               />
             </Navbar.Brand>
           </LinkContainer>
-          <Route render={({ history }) => <SearchBox history={history} />} />
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Route render={({ history }) => <SearchBox history={history}  />}/>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+          <div className="d-flex bd-highlight example-parent">
+            <div className="p-2 flex-fill bd-highlight col-example">
+              <LinkContainer to="/">
+                <Navbar.Brand className="nav-brand-style">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/logo3.png`}
+                    className="image-logo"
+                  />
+                </Navbar.Brand>
+              </LinkContainer>
+            </div>
+            <div className="p-2 flex-fill bd-highlight col-example">
+              <Route
+                render={({ history }) => <SearchBox history={history} />}
+              />
+            </div>
+            <div className="p-2 flex-fill bd-highlight col-example">
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            </div>
+          </div>
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
@@ -106,7 +126,6 @@ const Header = () => {
                     {t('english')}
                   </Nav.Link>
                 )}
-                 
               </LinkContainer>
 
               <LinkContainer to="/cart">

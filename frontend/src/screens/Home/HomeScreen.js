@@ -6,7 +6,7 @@ import Product from '../../components/Home/Product';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import Paginate from '../../components/Paginate';
-import ProductCarousel from '../../components/ProductCarousel';
+import ProductCarousel from '../../components/Carousel/ProductCarousel';
 import Meta from '../../components/Meta';
 import {
   listProducts,
