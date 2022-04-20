@@ -141,7 +141,7 @@ const PlaceOrderScreen = ({ history }) => {
     setTotalAmount(cart.totalPrice - savedAmount);
   }
 
- 
+ console.log(cart.shippingAddress);
 
   return (
     <>
@@ -152,21 +152,28 @@ const PlaceOrderScreen = ({ history }) => {
             <ListGroup.Item>
               <span className="place-order-head">Shipping</span>
               <p>
-                <strong>Address:</strong>
+                <strong>Address : </strong>
+                {cart.shippingAddress.fName} - {cart.shippingAddress.lName}{' '}
+                <br />
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
-                {cart.shippingAddress.postalCode},{' '}
-                {cart.shippingAddress.country}
+                {cart.shippingAddress.apartment}, {cart.shippingAddress.emirate}
+                <br />
+                {cart.shippingAddress.phone}
+              </p>
+              <p>
+                <strong>Payment Method : </strong>
+                {cart.paymentMethod}
               </p>
             </ListGroup.Item>
 
-            <ListGroup.Item>
+            {/* <ListGroup.Item>
               <span className="place-order-head">Payment Method</span>
               <br/>
               <strong>Method: </strong>
               {cart.paymentMethod}
-            </ListGroup.Item>
+            </ListGroup.Item> */}
 
-            <ListGroup.Item className="placeorder-border">
+            <ListGroup.Item className="placeorder-border-2">
               <span className="place-order-head">Order Items</span>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
@@ -215,12 +222,13 @@ const PlaceOrderScreen = ({ history }) => {
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <span className="place-order-head">Order Summary</span>
-                
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col className="product-price-text">AED {cart.itemsPrice}</Col>
+                  <Col className="product-price-text">
+                    AED {cart.itemsPrice}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

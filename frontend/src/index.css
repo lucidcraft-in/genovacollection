@@ -74,8 +74,13 @@ h2 {
   top: 0;
 }
 
-.carousel-caption h2 {
-  color: #fff;
+.carousel-caption .head {
+  margin-top: 40%;
+  margin-right: 5%;
+  color: #3b283f;
+  font-size: 2.2rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  z-index: -1;
 }
 
 .carousel img {
@@ -110,9 +115,12 @@ h2 {
 
 
 
-@media (max-width: 576px) {
+ 
  .position{
 margin-top: 110px;
 }
-}
  
+
+.admin-main{
+  margin-top: 20px;
+}

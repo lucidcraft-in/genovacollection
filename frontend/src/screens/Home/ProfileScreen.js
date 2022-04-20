@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Table, Form, Button, Row, Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import { getUserDetails, updateUserProfile } from '../actions/userActions'
-import { listMyOrders } from '../actions/orderActions'
-import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
+import Message from '../../components/Message'
+import Loader from '../../components/Loader'
+import { getUserDetails, updateUserProfile } from '../../actions/userActions'
+import { listMyOrders } from '../../actions/orderActions'
+import { USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -30,6 +30,13 @@ const ProfileScreen = ({ location, history }) => {
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
   useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+        /* you can also use 'auto' behaviour
+          in place of 'smooth' */
+      });
+    
     if (!userInfo) {
       history.push('/login')
     } else {
@@ -56,104 +63,118 @@ const ProfileScreen = ({ location, history }) => {
   return (
     <Row>
       <Col md={3}>
-        <h2>User Profile</h2>
-        {message && <Message variant='danger'>{message}</Message>}
+        <span className="place-order-head">User Profile</span>
+        {message && <Message variant="danger">{message}</Message>}
         {}
-        {success && <Message variant='success'>Profile Updated</Message>}
+        {success && <Message variant="success">Profile Updated</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
-          <Message variant='danger'>{error}</Message>
+          <Loader />
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
+            <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
-                type='name'
-                placeholder='Enter name'
+                type="name"
+                placeholder="Enter name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='email'>
+            <Form.Group controlId="email">
               <Form.Label>Email Address</Form.Label>
               <Form.Control
-                type='email'
-                placeholder='Enter email'
+                type="email"
+                placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='password'>
+            <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type='password'
-                placeholder='Enter password'
+                type="password"
+                placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='confirmPassword'>
+            <Form.Group controlId="confirmPassword">
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control
-                type='password'
-                placeholder='Confirm password'
+                type="password"
+                placeholder="Confirm password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Button type='submit' variant='primary'>
+            <Button type="submit" variant="primary">
               Update
             </Button>
           </Form>
         )}
       </Col>
       <Col md={9}>
-        <h2>My Orders</h2>
+        <span className="place-order-head">My Orders</span>
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
-          <Message variant='danger'>{errorOrders}</Message>
+          <Loader />
         ) : (
-          <Table striped bordered hover responsive className='table-sm'>
+          <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>ITEMS</th>
                 <th>DATE</th>
                 <th>TOTAL</th>
                 <th>PAID</th>
-                <th>DELIVERED</th>
+                <th>STATUS</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id}>
-                  <td>{order._id}</td>
+                  <td>
+                    {order.orderItems.map((item) => (
+                      <div className="product-head-text " key={item._id}>
+                        {item.name}{' '}
+                      </div>
+                    ))}
+                  </td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
+                  <td>AED {order.totalPrice}</td>
                   <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
+                    {order.isPaid && order.paidAt ? (
+                      <span>Paid on {order.paidAt.substring(0, 10)}</span>
                     ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                      <i className="fas fa-times" style={{ color: 'red' }}></i>
                     )}
                   </td>
                   <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
+                    {order.isShipped === false ? (
+                      <span style={{ color: 'green', fontWeight: 500 }}>
+                        ORDERED
+                      </span>
+                    ) : order.isDelivered === false ? (
+                      <span style={{ color: 'green', fontWeight: 500 }}>
+                        SHIPPED
+                      </span>
                     ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                      <span style={{ color: 'green', fontWeight: 500 }}>
+                        DELIVERED
+                      </span>
                     )}
                   </td>
                   <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
-                        Details
+                    <LinkContainer to={`/single/order/${order._id}`}>
+                      <Button className="btn-sm" variant="light">
+                        View
                       </Button>
                     </LinkContainer>
                   </td>
@@ -164,7 +185,7 @@ const ProfileScreen = ({ location, history }) => {
         )}
       </Col>
     </Row>
-  )
+  );
 }
 
 export default ProfileScreen

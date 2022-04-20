@@ -63,7 +63,15 @@ const HomeScreen = ({ match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Loader />
+      ) : products.length === 0 ? (
+        <Container>
+          <Row>
+            <Col md={{ span: 6, offset: 3 }}>
+              <span className="no-product-fount ">No Products found !</span>
+            </Col>
+          </Row>
+        </Container>
       ) : (
         <>
           {products?.map((product) => (

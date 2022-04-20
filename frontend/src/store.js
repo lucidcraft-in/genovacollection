@@ -29,7 +29,8 @@ import {
   orderDeliverReducer,
   orderListMyReducer,
   orderListReducer,
-} from './reducers/orderReducers'
+  orderShippedReducer,
+} from './reducers/orderReducers';
 import {
   promotionListReducer,
   promotionDetailsReducer,
@@ -82,6 +83,7 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
+  orderShipped: orderShippedReducer,
 
   promotionList: promotionListReducer,
   promotionDetails: promotionDetailsReducer,

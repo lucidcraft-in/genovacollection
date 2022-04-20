@@ -3,7 +3,21 @@
 
 @media (max-width: 576px) {
  .position{
-margin-top: 115px;
+  margin-top: 115px;
+  /* height: 100vh; */
+  /* background-color: red; */
+
+  }
+
 }
+ .img-style{
+  /* max-width: 100%; */
+  height: 100vh;
+  display: block;
+  object-fit: cover;
 }
- 
+
+.carousel-div {
+    height: 100vh;
+    
+}

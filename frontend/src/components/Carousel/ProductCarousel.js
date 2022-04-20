@@ -23,15 +23,20 @@ const ProductCarousel = () => {
   ];
 
   return (
-    <Carousel pause="hover" className="position">
+    <Carousel pause="hover" className="carousel-div">
       {slide.map((slide) => (
         <Carousel.Item key={slide._id}>
           <Image
             src={slide.image}
             alt={slide.name}
-            fluid
-            className="img-fluid"
+            // className="img-fluid"
+            className="img-style"
           />
+          {/* <Carousel.Caption className="carousel-caption">
+            <span className='head'>
+             name
+            </span>
+          </Carousel.Caption> */}
         </Carousel.Item>
       ))}
     </Carousel>

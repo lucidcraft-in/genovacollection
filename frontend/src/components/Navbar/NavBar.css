@@ -20,7 +20,7 @@
      /* width: 120px; */
 }
 .nav-bg-style{
-background-color: #f1ecec;
+background-color: #f1efef;
 }
 }
 @media (min-width: 992px) {
@@ -57,3 +57,29 @@ margin-left: -15px;
 .search-icon-right{
 margin-right: -200px;
 }
+
+
+.search {
+    position: relative;
+    /* box-shadow: 0 0 40px rgb(255, 255, 255) */
+}
+
+.search input {
+    height: 60px;
+    text-indent: 25px;
+   border: 2px solid rgb(255, 255, 255)
+}
+
+.search input:focus {
+    box-shadow: none;
+    border: 2px solid rgb(255, 255, 255)
+}
+
+.search .fa-search {
+    position: absolute;
+    top: 26px;
+    left: 16px;
+    
+}
+
+ 

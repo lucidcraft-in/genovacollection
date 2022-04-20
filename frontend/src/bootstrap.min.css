@@ -4719,12 +4719,24 @@ input[type='button'].btn-block {
 .card > .list-group + .card-footer {
   border-top: 0;
 }
+ 
+@media only screen and (min-width: 600px) {
 .card-body {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+}
+}
+@media only screen and (max-width: 600px) {
+.card-body {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  /* padding: 1.25rem; */
+}
 }
 .card-title {
   margin-bottom: 0.75rem;

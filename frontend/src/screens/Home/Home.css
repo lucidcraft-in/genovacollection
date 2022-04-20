@@ -128,13 +128,14 @@
 
  .product-price-text {
    font-family: inherit;
-   font-size: small;
+   font-size: 0.9rem;
    font-weight: 600 ;
+   color: #080704;
  }
 
   .product-head-text {
    font-family: inherit;
-   font-size: small;
+   font-size: 0.9rem;
    font-weight: 100 ;
  }
 
@@ -192,8 +193,8 @@
  .place-order-head{
    font-size: large;
   font-style: unset;
-   font-weight: 700;
-  text-transform: uppercase;
+   font-weight: 600;
+  /* text-transform: uppercase; */
   text-justify: distribute;
   color: #282c3f;
  }
@@ -217,3 +218,52 @@
  .payment-card-head {
    color: #080704;
  }
+
+
+
+
+ /* Order */
+
+ .order-font{
+   font-size: larger;
+  
+   font-weight: 600;
+ }
+
+ .order-color {
+ color: rgb(69, 182, 69);
+ }
+
+
+
+
+
+ @media (min-width: 576px) {
+  .product-list-padding {
+   padding: 1.2rem !important
+ }
+
+}
+  @media (max-width: 576px) {
+.product-screen-button{
+   margin-top: 15px;
+ }
+
+}
+ 
+
+
+.no-product-fount {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #080704;
+}
+
+.out-of-stock{
+  color: rgb(207, 32, 32);
+  font-weight: 500;
+  margin-left: 19px;
+}
+
+
+ 

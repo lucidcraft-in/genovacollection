@@ -135,7 +135,13 @@ const ProductScreen = ({ history, match }) => {
     }
   }
   
-  
+    function numberWithCommasDecimal(num) {
+      return num
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+    }
+
 
   return (
     <>
@@ -161,7 +167,7 @@ const ProductScreen = ({ history, match }) => {
       ) : (
         <>
           <Meta title={product.name} />
-          <Row className='p-2'>
+          <Row className="p-2">
             <Col md={6}>
               {' '}
               <div class="img-hover-zoom img-hover-zoom--zoom-n-pan">
@@ -185,7 +191,10 @@ const ProductScreen = ({ history, match }) => {
                     </ListGroup.Item>
                     <ListGroup.Item className="product-price-text">
                       {' '}
-                      {product.price} AED
+                      {product.sellingPrice && numberWithCommasDecimal(
+                        product.sellingPrice
+                      )}{' '}
+                      AED
                     </ListGroup.Item>
                     <ListGroup.Item className="product-description">
                       Description: {product.description}
@@ -260,10 +269,10 @@ const ProductScreen = ({ history, match }) => {
                   </Row>{' '}
                 </>
               ) : (
-                <div className="m-3">Out Of Stock</div>
+                <div className="out-of-stock ">Out of stock</div>
               )}
               <Row className="m-3">
-                <Col md={3} sm={12}>
+                <Col md={3} sm={12} xs={12}>
                   <div class="quantity buttons_added">
                     <input
                       type="button"
@@ -293,11 +302,12 @@ const ProductScreen = ({ history, match }) => {
                     />
                   </div>{' '}
                 </Col>
+
                 <Col md={9} sm={12}>
                   {' '}
                   <Button
                     onClick={addToCartHandler}
-                    className="btn-block"
+                    className="btn-block product-screen-button"
                     type="button"
                     disabled={stockAvailable === 0 || qty <= 0}
                   >

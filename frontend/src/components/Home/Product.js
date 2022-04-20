@@ -22,8 +22,16 @@ const Product = ({ product }) => {
     setImageUrl(image.url)
   }
    
+
+  function numberWithCommasDecimal(num) {
+    return num
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   return (
-    <Card className="my-3 p-3 rounded bg-image  ">
+    <Card className="my-3 product-list-padding rounded bg-image ">
       {product.price > product.sellingPrice && product.sellingPrice != 0 ? (
         <Container>
           <Row>
@@ -36,7 +44,13 @@ const Product = ({ product }) => {
           </Row>
         </Container>
       ) : (
-        ''
+        <Container>
+          <Row>
+            <Col xs> </Col>
+            <Col xs={{ order: 12 }}> &nbsp;</Col>
+            <Col xs={{ order: 1 }}> </Col>
+          </Row>
+        </Container>
       )}
 
       <Link to={`/product/${product._id}`}>
@@ -57,14 +71,12 @@ const Product = ({ product }) => {
                 ></div>
               );
             })}{' '}
-        </div>
+        </div>{' '}
         <Link to={`/product/${product._id}`} className="decoration-none">
-          <Card.Title as="div" className="product-head-text text-center">
-            {' '}
+          <Card.Title as="div" className="product-head-text  text-center">
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
-
         {/* <Card.Text as="div" className="product-head-text text-center">
           <Rating
             value={product.rating}
@@ -75,11 +87,13 @@ const Product = ({ product }) => {
           <Col className="text-center ">
             {product.price > product.sellingPrice &&
             product.sellingPrice != 0 ? (
-              <span className=" strike mr-2">{product.price} AED   </span>
+              <span className=" strike mr-2">
+                {numberWithCommasDecimal(product.price)} AED{' '}
+              </span>
             ) : (
               ''
             )}
-            {product.sellingPrice} AED
+            {numberWithCommasDecimal(product.sellingPrice)} AED
           </Col>
 
           {/* <Col className="text-center"> {product.sellingPrice} AED</Col> */}

@@ -4,17 +4,17 @@ import { PayPalButton } from 'react-paypal-button-v2'
 import { Link } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
+import Message from '../../components/Message'
+import Loader from '../../components/Loader'
 import {
   getOrderDetails,
   payOrder,
   deliverOrder,
-} from '../actions/orderActions'
+} from '../../actions/orderActions'
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
-} from '../constants/orderConstants'
+} from '../../constants/orderConstants'
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
@@ -91,12 +91,33 @@ const OrderScreen = ({ match, history }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <h1>Order {order._id}</h1>
+      <div className="d-flex justify-content-center">
+        <div className="p-2   text-center">
+          {' '}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            fill="currentColor"
+            className="bi bi-check-circle order-color"
+            viewBox="0 0 16 16"
+          >
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+          </svg>
+        </div>
+      </div>
+      <div className="d-flex justify-content-center">
+        <div className="p-2 order-font text-center">
+          <span className="order-font">Order Successfully placed</span>
+        </div>
+      </div>
+
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <span className="place-order-head">Shipping</span>
               <p>
                 <strong>Name: </strong> {order.user.name}
               </p>
@@ -120,7 +141,7 @@ const OrderScreen = ({ match, history }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <span className="place-order-head">Payment Method</span>
               <p>
                 <strong>Method: </strong>
                 {order.paymentMethod}
@@ -133,7 +154,7 @@ const OrderScreen = ({ match, history }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <span className="place-order-head">Order Items</span>
               {order.orderItems.length === 0 ? (
                 <Message>Order is empty</Message>
               ) : (
@@ -141,7 +162,7 @@ const OrderScreen = ({ match, history }) => {
                   {order.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={2} sm={4} xs={3} lg={2}>
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -149,13 +170,13 @@ const OrderScreen = ({ match, history }) => {
                             rounded
                           />
                         </Col>
-                        <Col>
+                        <Col md={6} sm={4} xs={4} lg={2}>
                           <Link to={`/product/${item.product}`}>
                             {item.name}
                           </Link>
                         </Col>
-                        <Col md={4}>
-                          {item.qty} x aed {item.price} = aed{' '}
+                        <Col md={4} sm={4} xs={4} lg={2}>
+                          {item.qty} x AED {item.price} = AED{' '}
                           {item.qty * item.price}
                         </Col>
                       </Row>
@@ -170,7 +191,7 @@ const OrderScreen = ({ match, history }) => {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <span className="place-order-head">Order Summary</span>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>

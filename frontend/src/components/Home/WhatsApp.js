@@ -4,7 +4,7 @@ import './whatsApp.css';
 const WhatsApp = () => {
   return (
     <div className="whatsapp">
-      <a href="whatsapp://send?text=Hello&phone=+971 55 447 2207">
+      <a href="whatsapp://send?text=Hello&phone=+971 52 462 4241">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="50"

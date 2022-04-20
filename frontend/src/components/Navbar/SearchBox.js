@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next';
 import cookies from 'js-cookie';
+ 
 
 const SearchBox = ({ history }) => {
 
@@ -12,16 +13,37 @@ const SearchBox = ({ history }) => {
   const [keyword, setKeyword] = useState('')
 
   const submitHandler = (e) => {
+    
     e.preventDefault()
-    if (keyword.trim()) {
-      history.push(`/search/${keyword}`)
+    if (e.target.value) {
+      history.push(`/search/${e.target.value}`);
     } else {
-      history.push('/')
+      history.push('/');
     }
   }
 
   return (
     <Form onSubmit={submitHandler} inline>
+      <div class="container">
+        <div class="row height d-flex justify-content-center align-items-center">
+          <div class="col-md-8">
+            <div class="search">
+              {' '}
+              <i class="fa fa-search"></i>{' '}
+              <input
+                type="text"
+                class="form-control"
+                placeholder={
+                  currentLanguageCode === 'en'
+                    ? t('search_product_english')
+                    : t('search_product_arabic')
+                }
+                onChange={(e) =>submitHandler(e)}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       {/* <Form.Control
         type="text"
         name="q"
@@ -36,7 +58,7 @@ const SearchBox = ({ history }) => {
       <Button type="submit" variant="outline-secondary" className="p-2">
         <i className="fas fa-search"></i>
       </Button> */}
-      <div className="d-flex bd-highlight example-parent">
+      {/* <div className="d-flex bd-highlight example-parent">
         <div className="p-2 w-100 bd-highlight col-example">
           <Form.Control
             type="text"
@@ -49,8 +71,8 @@ const SearchBox = ({ history }) => {
             }
             className="mr-sm-2 ml-sm-5"
           ></Form.Control>
-        </div>
-        <div className="p-2 flex-shrink-1 bd-highlight col-example">
+        </div> */}
+      {/* <div className="p-2 flex-shrink-1 bd-highlight col-example">
           <Button
             type="submit"
             variant="outline-secondary"
@@ -62,8 +84,8 @@ const SearchBox = ({ history }) => {
           >
             <i className="fas fa-search "></i>
           </Button>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </Form>
   );
 }

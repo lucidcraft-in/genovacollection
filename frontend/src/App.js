@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import i18next from 'i18next';
 import cookies from 'js-cookie';
 import classNames from 'classnames';
@@ -19,45 +20,54 @@ import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
-import ProfileScreen from './screens/ProfileScreen'
+import ProfileScreen from './screens/Home/ProfileScreen';
 import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import CategoryScreen from './screens/Home/CategoryScreen';
+import SingleOrderScreen from './screens/Home/SingleOrderScreen';
 
 
-import OrderScreen from './screens/OrderScreen'
-import UserListScreen from './screens/UserListScreen'
-import UserEditScreen from './screens/UserEditScreen'
+import OrderScreen from './screens/Home/OrderScreen'
 
-import ProductListScreen from './screens/Product/ProductListScreen'
-import ProductEditScreen from './screens/Product/ProductEditScreen'
-import ProductCreateScreen from './screens/Product/ProductCreate';
 
-import StockListScreen from './screens/Stock/StockListScreen';
-import StockCreate from './screens/Stock/StockCreate';
-import StockEdit from './screens/Stock/StockEdit';
- 
-
-import OrderListScreen from './screens/OrderListScreen'
-import CategoryCreateScreen from './screens/Category/CategoryCreate.js'
-import CategoryEditScreen from './screens/Category/CategoryEditScreen';
-import CategoryListScreen from './screens/Category/CategoryListScreen';
-
-import PromotionListScreen from './screens/Promotion/PromotionListScreen';
-import PromotionCreate from './screens/Promotion/PromotionCreate';
-import PromotionEdit from './screens/Promotion/PromotionEdit';
-import PromotionDetails from './screens/Promotion/PromotionDetails';
-
-import SubCategoryList from './screens/SubCategory/SubCategoryList';
-import SubCategoryCreate from './screens/SubCategory/SubCategoryCreate';
-import SubCategoryEdit from './screens/SubCategory/SubCategoryEdit';
 
 import AboutUs from './screens/AboutUs/AboutUs';
 
 
 
+// ADMIN
+import DashBoard from './screens/Admin/DashBoard';
 
+import UserListScreen from './screens/Admin/Users/UserListScreen';
+import UserEditScreen from './screens/Admin/Users//UserEditScreen';
+
+import ProductListScreen from './screens/Admin/Product/ProductListScreen';
+import ProductEditScreen from './screens/Admin/Product/ProductEditScreen';
+import ProductCreateScreen from './screens/Admin/Product/ProductCreate';
+
+import StockListScreen from './screens/Admin/Stock/StockListScreen';
+import StockCreate from './screens/Admin/Stock/StockCreate';
+import StockEdit from './screens/Admin/Stock/StockEdit';
+
+
+import OrderListScreen from './screens/Admin/Order/OrderListScreen';
+import ViewOrderScreen from './screens/Admin/Order/ViewOrderScreen';
+
+import PromotionListScreen from './screens/Admin/Promotion/PromotionListScreen';
+import PromotionCreate from './screens/Admin/Promotion/PromotionCreate';
+import PromotionEdit from './screens/Admin/Promotion/PromotionEdit';
+import PromotionDetails from './screens/Admin/Promotion/PromotionDetails';
+
+
+
+import CategoryCreateScreen from './screens/Admin/Category/CategoryCreate.js';
+import CategoryEditScreen from './screens/Admin/Category/CategoryEditScreen';
+import CategoryListScreen from './screens/Admin/Category/CategoryListScreen';
+
+import SubCategoryList from './screens/Admin/SubCategory/SubCategoryList';
+import SubCategoryCreate from './screens/Admin/SubCategory/SubCategoryCreate';
+import SubCategoryEdit from './screens/Admin/SubCategory/SubCategoryEdit';
 
 const languages = [
   
@@ -96,8 +106,10 @@ const App = () => {
     const { t } = useTranslation();
 
    
+   const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   
-  const [preLoad, setPreload] = useState(true);
+  const [preLoad, setPreload] = useState(false);
 
     useEffect(() => {
       
@@ -111,7 +123,64 @@ const App = () => {
   
   return (
     <Router>
-      {preLoad === true ? (
+      {userInfo && userInfo.isAdmin ? (
+        <div className="admin-main">
+          {' '}
+          <Container>
+            {' '}
+            <Route path="/" component={DashBoard} exact />{' '}
+            <Route path="/admin/userlist" component={UserListScreen} />
+            <Route path="/admin/user/:id/edit" component={UserEditScreen} />
+            <Route
+              path="/admin/productlist"
+              component={ProductListScreen}
+              exact
+            />
+            <Route
+              path="/admin/product/edit/:id"
+              component={ProductEditScreen}
+            />
+            <Route
+              path="/admin/product/create"
+              component={ProductCreateScreen}
+            />
+            <Route path="/admin/stocks" component={StockListScreen} />
+            <Route path="/admin/stock/create" component={StockCreate} />
+            <Route path="/admin/stock/edit/:id" component={StockEdit} />
+            <Route path="/admin/orderlist" component={OrderListScreen} />
+            <Route path="/admin/order/:id" component={ViewOrderScreen} />
+            <Route path="/admin/promotions" component={PromotionListScreen} />
+            <Route path="/admin/promotion/create" component={PromotionCreate} />
+            <Route path="/admin/promotion/edit/:id" component={PromotionEdit} />
+            <Route
+              path="/admin/promotion/details/:id"
+              component={PromotionDetails}
+            />{' '}
+            <Route
+              path="/admin/category/create"
+              component={CategoryCreateScreen}
+            />
+            <Route
+              path="/admin/categorylist"
+              component={CategoryListScreen}
+              exact
+            />
+            <Route
+              path="/admin/category/:id/edit"
+              component={CategoryEditScreen}
+            />
+            <Route path="/admin/subcategories" component={SubCategoryList} />
+            <Route
+              path="/admin/subcategory/create"
+              component={SubCategoryCreate}
+            />
+            <Route
+              path="/admin/subcategory/:id/edit"
+              component={SubCategoryEdit}
+            />
+          </Container>
+        </div>
+      ) : preLoad === true ? (
         <PreLoader />
       ) : (
         <>
@@ -127,72 +196,22 @@ const App = () => {
               <Route path="/login" component={LoginScreen} />
               <Route path="/register" component={RegisterScreen} />
               <Route path="/profile" component={ProfileScreen} />
+              <Route path="/single/order/:id" component={SingleOrderScreen} />
+
               <Route path="/product/:id" component={ProductScreen} />
               <Route path="/cart" component={CartScreen} />
               <Route path="/category/:id" component={CategoryScreen} />
               <Route path="/about" component={AboutUs} />
-              <Route path="/admin/userlist" component={UserListScreen} />
-              <Route path="/admin/user/:id/edit" component={UserEditScreen} />
-              <Route
-                path="/admin/productlist"
-                component={ProductListScreen}
-                exact
-              />
+
               <Route
                 path="/admin/productlist/:pageNumber"
                 component={ProductListScreen}
                 exact
               />
-              <Route
-                path="/admin/product/edit/:id"
-                component={ProductEditScreen}
-              />
-              <Route
-                path="/admin/product/create"
-                component={ProductCreateScreen}
-              />
-              <Route path="/admin/stocks" component={StockListScreen} />
-              <Route path="/admin/stock/create" component={StockCreate} />
-              <Route path="/admin/stock/edit/:id" component={StockEdit} />
 
-              <Route path="/admin/orderlist" component={OrderListScreen} />
-              <Route path="/admin/promotions" component={PromotionListScreen} />
-              <Route
-                path="/admin/promotion/create"
-                component={PromotionCreate}
-              />
-              <Route
-                path="/admin/promotion/edit/:id"
-                component={PromotionEdit}
-              />
-              <Route
-                path="/admin/promotion/details/:id"
-                component={PromotionDetails}
-              />
-              <Route path="/admin/subcategories" component={SubCategoryList} />
-              <Route
-                path="/admin/subcategory/create"
-                component={SubCategoryCreate}
-              />
-              <Route
-                path="/admin/subcategory/:id/edit"
-                component={SubCategoryEdit}
-              />
               <Route path="/search/:keyword" component={HomeScreen} exact />
               <Route path="/page/:pageNumber" component={HomeScreen} exact />
-              <Route
-                path="/admin/category/create"
-                component={CategoryCreateScreen}
-              />
-              <Route
-                path="/admin/categorylist"
-                component={CategoryListScreen}
-                exact
-              />
-              <Route
-                path="/admin/category/:id/edit"
-                component={CategoryEditScreen}
-              />
+
               <Route
                 path="/search/:keyword/page/:pageNumber"
                 component={HomeScreen}
