@@ -131,13 +131,22 @@ const OrderScreen = ({ match, history }) => {
                 {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country}
               </p>
-              {order.isDelivered ? (
-                <Message variant="success">
-                  Delivered on {order.deliveredAt}
-                </Message>
-              ) : (
-                <Message variant="danger">Not Delivered</Message>
-              )}
+              <p>
+                <strong>Status: </strong>{' '}
+                {order.isShipped === false ? (
+                  <span style={{ color: 'green', fontWeight: 500 }}>
+                    ORDERED
+                  </span>
+                ) : order.isDelivered === false ? (
+                  <span style={{ color: 'green', fontWeight: 500 }}>
+                    SHIPPED
+                  </span>
+                ) : (
+                  <span style={{ color: 'green', fontWeight: 500 }}>
+                    DELIVERED
+                  </span>
+                )}
+              </p>
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -217,34 +226,8 @@ const OrderScreen = ({ match, history }) => {
                   <Col>AED{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
-                <ListGroup.Item>
-                  {loadingPay && <Loader />}
-                  {!sdkReady ? (
-                    <Loader />
-                  ) : (
-                    <PayPalButton
-                      amount={order.totalPrice}
-                      onSuccess={successPaymentHandler}
-                    />
-                  )}
-                </ListGroup.Item>
-              )}
-              {loadingDeliver && <Loader />}
-              {userInfo &&
-                userInfo.isAdmin &&
-                order.isPaid &&
-                !order.isDelivered && (
-                  <ListGroup.Item>
-                    <Button
-                      type="button"
-                      className="btn btn-block"
-                      onClick={deliverHandler}
-                    >
-                      Mark As Delivered
-                    </Button>
-                  </ListGroup.Item>
-                )}
+           
+            
             </ListGroup>
           </Card>
         </Col>

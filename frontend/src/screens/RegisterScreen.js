@@ -103,14 +103,14 @@ const RegisterScreen = ({ location, history }) => {
       {loading ? (
         <Loader />
       ) : (
-        <div class="container">
-          <div class="wrapper">
-            <div class="title">
+        <div className="container">
+          <div className="wrapper">
+            <div className="title">
               <span>Sign Up</span>
             </div>
             <form onSubmit={submitHandler}>
-              <div class="row">
-                <i class="fas fa-user"></i>
+              <div className="row">
+                <i className="fas fa-user"></i>
                 <input
                   type="text"
                   placeholder="Enter name"
@@ -119,8 +119,8 @@ const RegisterScreen = ({ location, history }) => {
                   required
                 />
               </div>
-              <div class="row">
-                <i class="fa fa-envelope"></i>
+              <div className="row">
+                <i className="fa fa-envelope"></i>
                 <input
                   type="email"
                   placeholder="Enter email"
@@ -129,8 +129,8 @@ const RegisterScreen = ({ location, history }) => {
                   required
                 />
               </div>
-              <div class="row">
-                <i class="fas fa-lock"></i>
+              <div className="row">
+                <i className="fas fa-lock"></i>
                 <input
                   type="password"
                   placeholder="Enter password"
@@ -139,8 +139,8 @@ const RegisterScreen = ({ location, history }) => {
                   required
                 />
               </div>
-              <div class="row">
-                <i class="fas fa-lock"></i>
+              <div className="row">
+                <i className="fas fa-lock"></i>
                 <input
                   type="password"
                   placeholder="Confirm password"
@@ -149,13 +149,13 @@ const RegisterScreen = ({ location, history }) => {
                   required
                 />
               </div>
-              {/* <div class="pass">
+              {/* <div className="pass">
               <a href="#">Forgot password?</a>
             </div> */}
-              <div class="row button">
+              <div className="row button">
                 <input type="submit" value="Login" />
               </div>
-              <div class="signup-link ">
+              <div className="signup-link ">
                 Have an Account?
                 <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
                   Register

@@ -73,14 +73,14 @@ const LoginScreen = ({ location, history }) => {
     <>
       {' '}
       {loading ? <Loader /> :
-        <div class="container">
-          <div class="wrapper">
-            <div class="title">
+        <div className="container">
+          <div className="wrapper">
+            <div className="title">
               <span>Sign In</span>
             </div>
             <form onSubmit={submitHandler}>
-              <div class="row">
-                <i class="fas fa-user"></i>
+              <div className="row">
+                <i className="fas fa-user"></i>
                 <input
                   type="email"
                   placeholder="Enter email"
@@ -89,8 +89,8 @@ const LoginScreen = ({ location, history }) => {
                   required
                 />
               </div>
-              <div class="row">
-                <i class="fas fa-lock"></i>
+              <div className="row">
+                <i className="fas fa-lock"></i>
                 <input
                   type="password"
                   placeholder="Enter password"
@@ -99,13 +99,13 @@ const LoginScreen = ({ location, history }) => {
                   required
                 />
               </div>
-              {/* <div class="pass">
+              {/* <div className="pass">
               <a href="#">Forgot password?</a>
             </div> */}
-              <div class="row button">
+              <div className="row button">
                 <input type="submit" value="Login" />
               </div>
-              <div class="signup-link ">
+              <div className="signup-link ">
                 Not a member?{' '}
                 <Link
                   to={redirect ? `/register?redirect=${redirect}` : '/register'}

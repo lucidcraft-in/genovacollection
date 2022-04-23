@@ -59,24 +59,24 @@ const CategoryScreen = ({ match, history }) => {
 
       <Container>
         <Row>
-          <ul class="list-group category-border">
+          <ul className="list-group category-border">
             <span className="vertical-filters-header "> Sub Categories</span>
             {subCategoryList.map((sub) => (
               <li
-                class="list-group-item d-flex justify-content-between align-items-center pointer"
+                className="list-group-item d-flex justify-content-between align-items-center pointer"
                 key={sub._id}
                 onClick={(e) => setSubCategory(sub._id)}
               >
                 {sub.name}
-                <span class="badge badge-primary badge-pill"> {sub.count}</span>
+                <span className="badge badge-primary badge-pill"> {sub.count}</span>
               </li>
             ))}
             <li
-              class="list-group-item d-flex justify-content-between align-items-center pointer"
+              className="list-group-item d-flex justify-content-between align-items-center pointer"
               onClick={(e) => setSubCategory('')}
             >
               All
-              <span class="badge badge-primary badge-pill"> </span>
+              <span className="badge badge-primary badge-pill"> </span>
             </li>
           </ul>
           {products.map((item) => (

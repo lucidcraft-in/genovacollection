@@ -27,7 +27,7 @@ const OrderListScreen = ({ history }) => {
   return (
     <div>
       <Sidebar />
-      <div class="main">
+      <div className="main">
         <>
           <span className="header">Orders</span>
           {loading ? (

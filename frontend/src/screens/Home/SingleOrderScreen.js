@@ -98,7 +98,7 @@ const SingleOrderScreen = ({ match, history }) => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-arrow-left"
+              className="bi bi-arrow-left"
               viewBox="0 0 16 16"
             >
               <path
@@ -224,20 +224,20 @@ const SingleOrderScreen = ({ match, history }) => {
                 ))}
               </div>
 
-              {/* <div class="card-footer bg-white px-sm-3 pt-sm-4 px-0">
-                <div class="row text-center ">
-                  <div class="col my-auto border-line ">
+              {/* <div className="card-footer bg-white px-sm-3 pt-sm-4 px-0">
+                <div className="row text-center ">
+                  <div className="col my-auto border-line ">
                     <h5>Track</h5>
                   </div>
-                  <div class="col my-auto border-line ">
+                  <div className="col my-auto border-line ">
                     <h5>Cancel</h5>
                   </div>
-                  <div class="col my-auto border-line ">
+                  <div className="col my-auto border-line ">
                     <h5>Pre-pay</h5>
                   </div>
-                  <div class="col my-auto mx-0 px-0 ">
+                  <div className="col my-auto mx-0 px-0 ">
                     <img
-                      class="img-fluid cursor-pointer"
+                      className="img-fluid cursor-pointer"
                       src="https://img.icons8.com/ios/50/000000/menu-2.png"
                       width="30"
                       height="30"

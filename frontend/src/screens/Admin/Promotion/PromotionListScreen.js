@@ -81,7 +81,7 @@ const PromotionListScreen = ({ history, match }) => {
   return (
     <div>
       <Sidebar />
-      <div class="main">
+      <div className="main">
         <>
           {' '}
           <Row className="align-items-center">
