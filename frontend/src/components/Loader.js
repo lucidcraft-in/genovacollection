@@ -17,11 +17,9 @@ const Loader = () => {
     // >
     //   <span className="sr-only">Loading...</span>
     // </Spinner>
-    <div class="d-flex justify-content-center">
- 
-      <div class="loadingio-spinner-spinner-7wthsg4wcj9">
-        <div class="ldio-e73ojg3a1m">
-        <div></div>
+    <div className="d-flex justify-content-center">
+      <div className="loadingio-spinner-spinner-7wthsg4wcj9">
+        <div className="ldio-e73ojg3a1m">
           <div></div>
           <div></div>
           <div></div>
@@ -33,7 +31,7 @@ const Loader = () => {
           <div></div>
           <div></div>
           <div></div>
-       
+          <div></div>
         </div>
       </div>
     </div>

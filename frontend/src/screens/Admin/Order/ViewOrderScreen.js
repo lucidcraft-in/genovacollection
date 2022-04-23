@@ -102,7 +102,7 @@ const ViewOrderScreen = ({ match, history }) => {
   ) : (
     <div>
       <Sidebar />
-      <div class="main">
+      <div className="main">
         <>
           <Row>
             <Col md={8}>

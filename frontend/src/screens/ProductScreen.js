@@ -136,9 +136,7 @@ const ProductScreen = ({ history, match }) => {
   }
   
     function numberWithCommasDecimal(num) {
-      return num
-      
-        // .toFixed(2)
+      return num.toFixed(2)
         // .toString()
         // .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
     }
@@ -152,7 +150,7 @@ const ProductScreen = ({ history, match }) => {
           width="16"
           height="16"
           fill="currentColor"
-          class="bi bi-arrow-left"
+          className="bi bi-arrow-left"
           viewBox="0 0 16 16"
         >
           <path
@@ -171,7 +169,7 @@ const ProductScreen = ({ history, match }) => {
           <Row className="p-2">
             <Col md={6}>
               {' '}
-              <div class="img-hover-zoom img-hover-zoom--zoom-n-pan">
+              <div className="img-hover-zoom img-hover-zoom--zoom-n-pan">
                 <Image src={imageUrl} alt={product.name} fluid />
               </div>
             </Col>
@@ -274,11 +272,11 @@ const ProductScreen = ({ history, match }) => {
               )}
               <Row className="m-3">
                 <Col md={3} sm={12} xs={12}>
-                  <div class="quantity buttons_added">
+                  <div className="quantity buttons_added">
                     <input
                       type="button"
                       value="-"
-                      class="minus"
+                      className="minus"
                       onClick={(e) => changeQnt('minus')}
                     />
                     <input
@@ -288,7 +286,7 @@ const ProductScreen = ({ history, match }) => {
                       max={stockAvailable}
                       name="quantity"
                       title="Qty"
-                      class="input-text qty text"
+                      className="input-text qty text"
                       size="4"
                       pattern=""
                       inputmode=""
@@ -298,7 +296,7 @@ const ProductScreen = ({ history, match }) => {
                     <input
                       type="button"
                       value="+"
-                      class="plus"
+                      className="plus"
                       onClick={(e) => changeQnt('plus')}
                     />
                   </div>{' '}

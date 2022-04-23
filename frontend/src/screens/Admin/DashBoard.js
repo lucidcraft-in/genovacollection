@@ -7,7 +7,7 @@ const  DashBoard = () => {
   return (
     <div>
    <Sidebar/>
-      <div class="main" >
+      <div className="main" >
         <h2>Welcome To Genova Admin</h2>
         
       </div>

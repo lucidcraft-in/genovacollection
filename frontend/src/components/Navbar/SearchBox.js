@@ -24,15 +24,15 @@ const SearchBox = ({ history }) => {
 
   return (
     <Form onSubmit={submitHandler} inline>
-      <div class="container">
-        <div class="row height d-flex justify-content-center align-items-center">
-          <div class="col-md-8">
-            <div class="search">
+      <div className="container">
+        <div className="row height d-flex justify-content-center align-items-center">
+          <div className="col-md-8">
+            <div className="search">
               {' '}
-              <i class="fa fa-search"></i>{' '}
+              <i className="fa fa-search"></i>{' '}
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder={
                   currentLanguageCode === 'en'
                     ? t('search_product_english')

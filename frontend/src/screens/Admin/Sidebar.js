@@ -21,33 +21,33 @@ export default function Sidebar() {
   };
 
   return (
-    <div class="sidebar">
+    <div className="sidebar">
       <Link to="/">
-        <i class="fa fa-fw fa-home"></i> Home
+        <i className="fa fa-fw fa-home"></i> Home
       </Link>
       <Link to="/admin/userlist">
-        <i class="fa fa-fw fa-user"></i> Users
+        <i className="fa fa-fw fa-user"></i> Users
       </Link>
       <Link to="/admin/productlist">
-        <i class="fa  fa-box"></i> Products
+        <i className="fa  fa-box"></i> Products
       </Link>
       <Link to="/admin/stocks">
-        <i class="fa fa-fw fa-box"></i> Stock
+        <i className="fa fa-fw fa-box"></i> Stock
       </Link>
       <Link to="/admin/orderlist">
-        <i class="fa fa-sort"></i> Orders
+        <i className="fa fa-sort"></i> Orders
       </Link>
       <Link to="/admin/promotions">
-        <i class="fa fa-puzzle-piece"></i> Promotions
+        <i className="fa fa-puzzle-piece"></i> Promotions
       </Link>
       <Link to="/admin/categorylist">
-        <i class="fa fa-bars"></i> Category
+        <i className="fa fa-bars"></i> Category
       </Link>
       <Link to="/admin/subcategories">
-        <i class="fa fa-list"></i> Sub Category
+        <i className="fa fa-list"></i> Sub Category
       </Link>
       <Link to="#" onClick={logoutHandler}>
-        <i class="fa fa-sign-in"></i> Logout
+        <i className="fa fa-sign-in"></i> Logout
       </Link>
     </div>
   );

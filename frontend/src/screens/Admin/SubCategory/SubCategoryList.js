@@ -54,19 +54,10 @@ const SubCategoryList = ({ history, match }) => {
 
   return (
     <>
-      {' '}
-      {loadingDelete && <Loader />}
-      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
-      {/* {loadingCreate && <Loader />} */}
-      {/* {errorCreate && <Message variant="danger">{errorCreate}</Message>} */}
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
-      ) : (
+     
         <div>
           <Sidebar />
-          <div class="main">
+          <div className="main">
             <>
               <Row className="align-items-center">
                 <Col>
@@ -79,7 +70,17 @@ const SubCategoryList = ({ history, match }) => {
                     </Button>
                   </LinkContainer>
                 </Col>
-              </Row>
+            </Row>
+             {' '}
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+      {/* {loadingCreate && <Loader />} */}
+      {/* {errorCreate && <Message variant="danger">{errorCreate}</Message>} */}
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
+            ) : (
               <Table striped bordered hover responsive className="table-sm">
                 <thead>
                   <tr>
@@ -117,11 +118,12 @@ const SubCategoryList = ({ history, match }) => {
                   ))}
                 </tbody>
               </Table>
+            )}
               <Paginate pages={pages} page={page} isAdmin={true} />
             </>
           </div>
         </div>
-      )}
+      
     </>
   );
 };

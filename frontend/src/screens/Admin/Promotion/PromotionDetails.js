@@ -41,7 +41,7 @@ const PromotionDetails = ({ match }) => {
   return (
     <div>
       <Sidebar />
-      <div class="main">
+      <div className="main">
         <>
           <Link to="/admin/promotions" className="btn btn-light my-3">
             <svg
@@ -49,7 +49,7 @@ const PromotionDetails = ({ match }) => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-arrow-left"
+              className="bi bi-arrow-left"
               viewBox="0 0 16 16"
             >
               <path

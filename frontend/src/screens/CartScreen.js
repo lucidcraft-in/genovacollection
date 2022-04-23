@@ -69,9 +69,7 @@ const CartScreen = ({ match, location, history }) => {
     }
   };
    function numberWithCommasDecimal(num) {
-     return num
-     
-      //  .toFixed(2)
+     return num.toFixed(2)
       //  .toString()
       //  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
    }
@@ -113,11 +111,11 @@ const CartScreen = ({ match, location, history }) => {
                     {numberWithCommasDecimal(item.price)} AED
                   </Col>
                   <Col md={2} sm={3} xs={3} lg={2}>
-                    <div class="quantity buttons_added">
+                    <div className="quantity buttons_added">
                       <input
                         type="button"
                         value="-"
-                        class="minus"
+                        className="minus"
                         onClick={(e) => changeQnt('minus', item)}
                       />
                       <input
@@ -127,7 +125,7 @@ const CartScreen = ({ match, location, history }) => {
                         max={stockAvailable}
                         name="quantity"
                         title="Qty"
-                        class="input-text qty text"
+                        className="input-text qty text"
                         size="4"
                         pattern=""
                         inputmode=""
@@ -137,7 +135,7 @@ const CartScreen = ({ match, location, history }) => {
                       <input
                         type="button"
                         value="+"
-                        class="plus"
+                        className="plus"
                         onClick={(e) => changeQnt('plus', item)}
                       />
                     </div>

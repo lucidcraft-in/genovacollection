@@ -24,10 +24,8 @@ const Product = ({ product }) => {
    
 
   function numberWithCommasDecimal(num) {
-    return num
-    
-      // .toFixed(2)
-      // .toString()
+    return num.toFixed(2)
+      // .toLocaleString('en-IN');
       // .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
   }
 
@@ -39,7 +37,7 @@ const Product = ({ product }) => {
             <Col xs> </Col>
             <Col xs={{ order: 12 }}>
               {' '}
-              <span class="badge badge-danger">SALE</span>
+              <span className="badge badge-danger">SALE</span>
             </Col>
             <Col xs={{ order: 1 }}> </Col>
           </Row>

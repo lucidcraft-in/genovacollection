@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="container text-center text-md-left mt-5">
+      <div className="container text-left text-md-left mt-5">
         <div className="row mt-3 dark-grey-text">
           <div className="col-md-3 col-lg-4 col-xl-3 mb-4">
             <h6 className="text-uppercase font-weight-bold">
@@ -163,7 +163,11 @@ const Footer = () => {
 
       <div className="footer-copyright text-center text-black-50 py-3">
         © 2022 Powered by:
-        <a class="dark-grey-text" href="https://lucidcraft.in/" target="_blank">
+        <a
+          className="dark-grey-text"
+          href="https://lucidcraft.in/"
+          target="_blank"
+        >
           {' '}
           lucidcraft.in
         </a>

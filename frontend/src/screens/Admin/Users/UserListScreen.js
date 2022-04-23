@@ -35,7 +35,7 @@ const UserListScreen = ({ history }) => {
   return (
     <div>
       <Sidebar />
-      <div class="main">
+      <div className="main">
         <span className="header">Users</span>
         {loading ? (
           <Loader />
