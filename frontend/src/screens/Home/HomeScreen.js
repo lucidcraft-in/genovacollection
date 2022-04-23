@@ -36,6 +36,8 @@ const HomeScreen = ({ match }) => {
     dispatch(listProductsByCAtegoryPriority(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
 
+console.log(products);
+
   return (
     <>
       <Meta />
@@ -96,15 +98,21 @@ const HomeScreen = ({ match }) => {
                 ))}
               </Row>
               {product.product.length >= 8 ? (
-                <Row className="d-flex justify-content-center">
-                  <Col md="auto">
-                    {' '}
-                    <h4>show more..</h4>
-                  </Col>
-                </Row>
-              ) : (
+              <Row className="d-flex justify-content-center mb-3">
+                <Col md="auto">
+                  {' '}
+                  <Link
+                    to={`/category/${product.product[0].category}`}
+                    type="button"
+                    class="btn btn-secondary btn-sm"
+                  >
+                    View all
+                  </Link>
+                </Col>
+              </Row>
+                ) : (
                 ''
-              )}
+              )} 
             </Container>
           ))}
         </>
