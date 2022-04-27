@@ -12,13 +12,21 @@ const ProductCarousel = () => {
   const slide = [
     {
       id: 1,
-      image: `${process.env.PUBLIC_URL}/bnr-scaled.jpg`,
-      name: 'A SRTIDE ',
+      image: `${process.env.PUBLIC_URL}/images/slide1.jpeg`,
+      name: 'Latest Collections ',
+      class: 'desc-color-black head',
     },
     {
       id: 2,
-      image: `${process.env.PUBLIC_URL}/slide2.jpeg`,
+      image: `${process.env.PUBLIC_URL}/images/slide2.jpeg`,
+      name: 'Gents Fashion Sandals ',
+      class: 'desc-color-wight head',
+    },
+    {
+      id: 2,
+      image: `${process.env.PUBLIC_URL}/images/slide3.jpeg`,
       name: 'A SRTIDE ',
+      class: 'desc-color-wight head',
     },
   ];
 
@@ -30,12 +38,10 @@ const ProductCarousel = () => {
             src={slide.image}
             alt={slide.name}
             // className="img-fluid"
-            className="img-style"
+            className="img-style img easeload"
           />
           {/* <Carousel.Caption className="carousel-caption">
-            <span className='head'>
-             name
-            </span>
+            <span className={slide.class}>{slide.name}</span>
           </Carousel.Caption> */}
         </Carousel.Item>
       ))}

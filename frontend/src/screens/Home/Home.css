@@ -10,7 +10,7 @@
  
 .navbar-text {
   
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .pointer{
@@ -267,3 +267,10 @@
 
 
  
+.home-page-container{
+  background-color: #f8f8f0;
+}
+
+.footer-desc{
+  font-weight: 500;
+}

@@ -34,8 +34,8 @@ const getStocks = asyncHandler(async (req, res) => {
       },
     },
   ])
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    // .limit(pageSize)
+    // .skip(pageSize * (page - 1));
 
   res.json({ stocks, page, pages: Math.ceil(count / pageSize) });
 })

@@ -3,13 +3,19 @@
 
 @media (max-width: 576px) {
  .position{
-  margin-top: 115px;
+  margin-top: 85px;
   /* height: 100vh; */
   /* background-color: red; */
 
   }
 
 }
+ .position{
+  margin-top: 85px;
+  /* height: 100vh; */
+  /* background-color: red; */
+
+  }
  .img-style{
   /* max-width: 100%; */
   height: 100vh;
@@ -20,4 +26,22 @@
 .carousel-div {
     height: 100vh;
     
+}
+
+.desc-color-wight{
+color: aliceblue;
+margin-top: 25px;
+}
+
+.desc-color-black{
+color: #212a25;
+margin-top: 25px;
+}
+ 
+.easeload{
+    /* opacity: 0; */
+    -webkit-transition: all 2s ease; 
+    -moz-transition: all 2s ease; 
+    -ms-transition: all 2s ease; 
+    -o-transition: all 2s ease; 
 }

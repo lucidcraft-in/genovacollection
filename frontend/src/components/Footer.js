@@ -65,7 +65,7 @@ const Footer = () => {
               className="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
               style={{ width: '60px;' }}
             />
-            <p>
+            <p className="footer-desc">
               {currentLanguageCode === 'en'
                 ? t('footer_desc')
                 : t('foot_desc_ar')}
@@ -82,22 +82,22 @@ const Footer = () => {
               style={{ width: '60px;' }}
             />
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 SANDALS
               </a>
             </p>
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 CHAPPELS
               </a>
             </p>
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 SHOES
               </a>
             </p>
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 BABY
               </a>
             </p>
@@ -115,22 +115,22 @@ const Footer = () => {
               style={{ width: '60px' }}
             />
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 Your Account
               </a>
             </p>
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 Become an Affiliate
               </a>
             </p>
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 Shipping Rates
               </a>
             </p>
             <p>
-              <a className="dark-grey-text" href="#!">
+              <a className="dark-grey-text footer-desc" href="#!">
                 Help
               </a>
             </p>
@@ -145,17 +145,18 @@ const Footer = () => {
               className="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
               style={{ width: '60px;' }}
             />
-            <p>
+            <p className="footer-desc">
               <i className="fas fa-home mr-3"></i> Dubai
             </p>
-            <p>
-              <i className="fas fa-envelope mr-3"></i> genova@gmail.com
+            <p className="footer-desc">
+              <i className="fas fa-envelope mr-3"></i>{' '}
+              genovacollection.ae@gmail.com
             </p>
-            <p>
-              <i className="fas fa-phone mr-3"></i> + 56852268
+            <p className="footer-desc">
+              <i className="fas fa-phone mr-3"></i> +971 52 462 4241
             </p>
-            <p>
-              <i className="fas fa-print mr-3"></i> + 01 586225
+            <p className="footer-desc">
+              <i className="fas fa-print mr-3"></i> +971 55 447 2207
             </p>
           </div>
         </div>
