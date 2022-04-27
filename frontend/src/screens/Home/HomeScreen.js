@@ -79,14 +79,7 @@ console.log(products);
       ) : (
         <>
           {products?.map((product, index) => (
-            <Container
-              key={product._id}
-              className={
-                index/2 == 0
-                  ? 'mt-5 home-page-container'
-                  : 'mt-5 home-page-container home-page-container'
-              }
-            >
+            <Container key={product._id} className="home-page-container">
               <Row className="d-flex justify-content-center">
                 <Col md="auto" xs="auto">
                   {' '}
