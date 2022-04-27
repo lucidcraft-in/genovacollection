@@ -61,7 +61,7 @@ const Header = () => {
           <Route render={({ history }) => <SearchBox history={history}  />}/>
           <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
           <div className="d-flex bd-highlight example-parent">
-            <div className="p-2 flex-fill bd-highlight col-example">
+            <div className="  flex-fill bd-highlight col-example">
               <LinkContainer to="/">
                 <Navbar.Brand className="nav-brand-style">
                   <img
@@ -71,12 +71,12 @@ const Header = () => {
                 </Navbar.Brand>
               </LinkContainer>
             </div>
-            <div className="p-2 flex-fill bd-highlight col-example">
+            <div className=" flex-fill bd-highlight col-example">
               <Route
                 render={({ history }) => <SearchBox history={history} />}
               />
             </div>
-            <div className="p-2 flex-fill bd-highlight col-example">
+            <div className="p-2 flex-fill bd-highlight col-example navbar-toggle-style"  >
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
             </div>
           </div>
@@ -128,7 +128,7 @@ const Header = () => {
                 )}
               </LinkContainer>
 
-              <LinkContainer to="/cart">
+              {/* <LinkContainer to="/cart">
                 <Nav.Link>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +146,7 @@ const Header = () => {
                   </svg>
                   <a className="cart-label">{cartItems.length}</a>
                 </Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
               {userInfo ? (
                 <NavDropdown
                   title={

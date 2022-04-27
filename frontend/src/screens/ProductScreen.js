@@ -88,10 +88,16 @@ const ProductScreen = ({ history, match }) => {
 
   }, [dispatch, match, successProductReview, product, stock]);
 
-  const addToCartHandler = () => {
-  dispatch(addToCart(match.params.id, qty, selectedSize, selectedColor));
+  const addToCartHandler = (e) => {
+   
+    if (userInfo === null) {
+      e.preventDefault();
+      history.push(`/login/`);
+      return
+    }
+  // dispatch(addToCart(match.params.id, qty, selectedSize, selectedColor));
 
-    history.push(`/cart/`)
+  //   history.push(`/cart/`)
   }
  
 
@@ -190,9 +196,8 @@ const ProductScreen = ({ history, match }) => {
                     </ListGroup.Item>
                     <ListGroup.Item className="product-price-text">
                       {' '}
-                      {product.sellingPrice && numberWithCommasDecimal(
-                        product.sellingPrice
-                      )}{' '}
+                      {product.sellingPrice &&
+                        numberWithCommasDecimal(product.sellingPrice)}{' '}
                       AED
                     </ListGroup.Item>
                     <ListGroup.Item className="product-description">
@@ -218,8 +223,8 @@ const ProductScreen = ({ history, match }) => {
                                 <div
                                   className={
                                     selectedSize === stock.size
-                                      ? 'dot stock-size mr-3 pointer underline'
-                                      : 'dot stock-size mr-3 pointer'
+                                      ? 'dot stock-size mr-3 pointer size-border size-border-active'
+                                      : 'dot stock-size mr-3 pointer size-border'
                                   }
                                   key={index}
                                   onClick={() => selectSize(stock.size)}
@@ -304,14 +309,22 @@ const ProductScreen = ({ history, match }) => {
 
                 <Col md={9} sm={12}>
                   {' '}
-                  <Button
-                    onClick={addToCartHandler}
-                    className="btn-block product-screen-button"
-                    type="button"
-                    disabled={stockAvailable === 0 || qty <= 0}
+                  <a
+                    href={`whatsapp://send?text=Hello Genova Collections, I am ${
+                      userInfo&&userInfo.name
+                    } , I like to purchase your product  : ${
+                      product.name ? product.name : ''
+                    } [ size: ${selectedSize} , color: ${selectedColor} ]&phone=+971 52 462 4241`}
                   >
-                    Add To Cart
-                  </Button>
+                    <Button
+                      onClick={(e)=>addToCartHandler(e)}
+                      className="btn-block product-screen-button"
+                      type="button"
+                      disabled={stockAvailable === 0 || qty <= 0}
+                    >
+                      Add To Cart
+                    </Button>
+                  </a>
                 </Col>
               </Row>
             </Col>

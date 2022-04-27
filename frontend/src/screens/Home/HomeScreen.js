@@ -24,6 +24,8 @@ const HomeScreen = ({ match }) => {
   const productList = useSelector((state) => state.productHomeList);
   const { loading, error, products } = productList;
 
+ 
+
   useEffect(() => {
 
   window.scrollTo({
@@ -76,8 +78,15 @@ console.log(products);
         </Container>
       ) : (
         <>
-          {products?.map((product) => (
-            <Container key={product._id} className="mt-5">
+          {products?.map((product, index) => (
+            <Container
+              key={product._id}
+              className={
+                index/2 == 0
+                  ? 'mt-5 home-page-container'
+                  : 'mt-5 home-page-container home-page-container'
+              }
+            >
               <Row className="d-flex justify-content-center">
                 <Col md="auto" xs="auto">
                   {' '}
@@ -98,21 +107,21 @@ console.log(products);
                 ))}
               </Row>
               {product.product.length >= 8 ? (
-              <Row className="d-flex justify-content-center mb-3">
-                <Col md="auto">
-                  {' '}
-                  <Link
-                    to={`/category/${product.product[0].category}`}
-                    type="button"
-                    className="btn btn-secondary btn-sm"
-                  >
-                    View all
-                  </Link>
-                </Col>
-              </Row>
-                ) : (
+                <Row className="d-flex justify-content-center mb-3">
+                  <Col md="auto">
+                    {' '}
+                    <Link
+                      to={`/category/${product.product[0].category}`}
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                    >
+                      View all
+                    </Link>
+                  </Col>
+                </Row>
+              ) : (
                 ''
-              )} 
+              )}
             </Container>
           ))}
         </>
