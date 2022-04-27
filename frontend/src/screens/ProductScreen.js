@@ -311,7 +311,7 @@ const ProductScreen = ({ history, match }) => {
                   {' '}
                   <a
                     href={`whatsapp://send?text=Hello Genova Collections, I am ${
-                      userInfo&&userInfo.name
+                      userInfo ?userInfo.name:''
                     } , I like to purchase your product  : ${
                       product.name ? product.name : ''
                     } [ size: ${selectedSize} , color: ${selectedColor} ]&phone=+971 52 462 4241`}
