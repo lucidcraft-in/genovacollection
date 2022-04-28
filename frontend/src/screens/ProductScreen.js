@@ -309,15 +309,12 @@ const ProductScreen = ({ history, match }) => {
 
                 <Col md={9} sm={12}>
                   {' '}
+                  &nbsp;
                   <a
-                    href={`whatsapp://send?text=Hello Genova Collections, I am ${
-                      userInfo ?userInfo.name:''
-                    } , I like to purchase your product  : ${
-                      product.name ? product.name : ''
-                    } [ size: ${selectedSize} , color: ${selectedColor} ]&phone=+971 52 462 4241`}
+                    href={`whatsapp://send?text=Hello%20Genova%20Collections,%20I%20am%20test,%20I%20like%20to%20purchase%20your%20product%20%20:%20[%20size:%207,%20color:%20red]&phone=+971 52 462 4241`}
                   >
                     <Button
-                      onClick={(e)=>addToCartHandler(e)}
+                      onClick={(e) => addToCartHandler(e)}
                       className="btn-block product-screen-button"
                       type="button"
                       disabled={stockAvailable === 0 || qty <= 0}
