@@ -51,6 +51,7 @@ const ProductScreen = ({ history, match }) => {
 
  
 
+  console.log(product.name?.replaceAll(' ', '%20'));
   useEffect(() => {
 
       window.scrollTo({
@@ -311,7 +312,13 @@ const ProductScreen = ({ history, match }) => {
                   {' '}
                   &nbsp;
                   <a
-                    href={`whatsapp://send?text=Hello%20Genova%20Collections,%20I%20am%20test,%20I%20like%20to%20purchase%20your%20product%20%20:%20[%20size:%207,%20color:%20red]&phone=+971 52 462 4241`}
+                    href={`whatsapp://send?text=Hello%20Genova%20Collections,%20I%20am%20${userInfo.name?.replaceAll(
+                      ' ',
+                      '%20'
+                    )},%20I%20like%20to%20purchase%20your%20product%20%20${product.name?.replaceAll(
+                      ' ',
+                      '%20'
+                    )}:%20[%20size:%20${selectedSize},%20color:%20${selectedColor}]&phone=+971 52 462 4241`}
                   >
                     <Button
                       onClick={(e) => addToCartHandler(e)}
