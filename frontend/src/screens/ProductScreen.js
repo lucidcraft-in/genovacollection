@@ -312,7 +312,7 @@ const ProductScreen = ({ history, match }) => {
                   {' '}
                   &nbsp;
                   <a
-                    href={`whatsapp://send/text=Hello%20Genova%20Collections,%20I%20am%20as,%20I%20like%20to%20purchase%20your%20product%20%20Sandals%20OSTR%201701%20G:%20[%20size:%207,%20color:%20#000000]&phone=+971%2052%20462%204241`}
+                    href={`whatsapp://send?text=Hello%20Genova%20Collections,%20I%20am%20salman,%20I%20like%20to%20purchase%20your%20product%20%20Test:%20[%20size:%208,%20color:%20red]&phone=+971 52 462 4241`}
                   >
                     <Button
                       onClick={(e) => addToCartHandler(e)}
