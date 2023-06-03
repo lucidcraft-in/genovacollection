@@ -5,7 +5,7 @@ import MongoClient from 'mongodb';
 
 import Promotion from '../models/promotionModel.js';
 
-const MONGO_URL = 'mongodb://localhost:27017/genova';
+const MONGO_URL = 'mongodb://genova:123@localhost:27017/genova';
 
 // Backup route
 router.get('/', async (req, res) => {
