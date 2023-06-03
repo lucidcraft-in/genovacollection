@@ -69,8 +69,9 @@ import SubCategoryList from './screens/Admin/SubCategory/SubCategoryList';
 import SubCategoryCreate from './screens/Admin/SubCategory/SubCategoryCreate';
 import SubCategoryEdit from './screens/Admin/SubCategory/SubCategoryEdit';
 
+import Backup from './screens/Admin/Backup/Backup';
+
 const languages = [
-  
   {
     code: 'en',
     name: 'English',
@@ -98,30 +99,24 @@ const GlobeIcon = ({ width = 24, height = 24 }) => (
 );
 
 const App = () => {
+  const currentLanguageCode = cookies.get('i18next') || 'en';
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const { t } = useTranslation();
 
-    const currentLanguageCode = cookies.get('i18next') || 'en';
-    const currentLanguage = languages.find(
-      (l) => l.code === currentLanguageCode
-    );
-    const { t } = useTranslation();
-
-   
-   const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  
-  
+
   const [preLoad, setPreload] = useState(true);
 
-    useEffect(() => {
-      
-      document.body.dir = currentLanguage.dir || 'ltr';
-      document.title = t('app_title');
-    }, [currentLanguage, t]);
+  useEffect(() => {
+    document.body.dir = currentLanguage.dir || 'ltr';
+    document.title = t('app_title');
+  }, [currentLanguage, t]);
 
   setTimeout(() => {
     setPreload(false);
   }, 4000);
-  
+
   return (
     <Router>
       {userInfo && userInfo.isAdmin ? (
@@ -179,6 +174,7 @@ const App = () => {
               path="/admin/subcategory/:id/edit"
               component={SubCategoryEdit}
             />
+            <Route path="/admin/backup" component={Backup} />
           </Container>
         </div>
       ) : preLoad === true ? (
@@ -228,6 +224,6 @@ const App = () => {
       )}
     </Router>
   );
-}
+};
 
 export default App
