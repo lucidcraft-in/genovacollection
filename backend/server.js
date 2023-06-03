@@ -14,27 +14,29 @@ import promotionRoutes from './routes/promotionRoutes.js';
 import subCategoryRoutes from './routes/subCategoryRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js'
 import stockRoutes from './routes/stockRoutes.js';
+import backupRouter from './routes/backup.js';
 
+dotenv.config();
+connectDB();
 
-dotenv.config()
-connectDB()
-
-const app = express()
+const app = express();
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'))
+  app.use(morgan('dev'));
 }
 
-app.use(express.json())
+app.use(express.json());
 
-app.use('/api/products', productRoutes)
-app.use('/api/users', userRoutes)
-app.use('/api/orders', orderRoutes)
-app.use('/api/upload', uploadRoutes)
+app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoutes);
 app.use('/api/promotion', promotionRoutes);
 app.use('/api/subcategory', subCategoryRoutes);
-app.use('/api/categories', categoryRoutes)
+app.use('/api/categories', categoryRoutes);
 app.use('/api/stock', stockRoutes);
+app.use('/api/backup', backupRouter);
+
 
 
 app.get('/api/config/paypal', (req, res) =>
