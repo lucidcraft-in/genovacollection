@@ -27,13 +27,13 @@ const orderSchema = mongoose.Schema(
     ],
     promotion: {},
     shippingAddress: {
-      fName: { type: String, required: true },
+      fName: { type: String },
       lName: { type: String },
-      address: { type: String, required: true },
+      address: { type: String },
       apartment: { type: String },
-      city: { type: String, required: true },
-      emirate: { type: String, required: true },
-      phone: { type: String, required: true },
+      city: { type: String },
+      emirate: { type: String },
+      phone: { type: String },
     },
     paymentMethod: {
       type: String,
