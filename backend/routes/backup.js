@@ -13,7 +13,7 @@ import SubCategory from '../models/subcategoryModel.js';
 import Promotion from '../models/promotionModel.js';
 import Stock from '../models/stockModel.js';
 
-const MONGO_URL = 'mongodb://genova:123@localhost:27017/genova';
+const MONGO_URL = 'mongodb://admin:admin@localhost:27017/genova';
 
 // Backup route
 router.get('/', async (req, res) => {
@@ -64,8 +64,8 @@ router.post('/import', async (req, res) => {
     const createdProduct = await Product.insertMany(obj.products);
     const createdUser = await User.insertMany(obj.users);
     const createdStock = await Stock.insertMany(obj.stocks);
-
-    res.status(200).send('Successfully imported');
+    console.log(createdCategory);
+    res.status(200).send(createdCategory);
   } catch (error) {
     console.error('Error importing JSON data:', error);
     res.status(500).send('Error importing JSON data');
